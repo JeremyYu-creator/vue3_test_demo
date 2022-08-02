@@ -11,7 +11,6 @@
 
 <script lang="ts" setup>
 import { ref, useAttrs, toRefs, reactive, } from 'vue'
-// onMounted
 import { storeToRefs } from 'pinia'
 import useStore from "@/store";
 defineProps<{
