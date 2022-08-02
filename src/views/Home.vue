@@ -14,9 +14,6 @@
 import Son from '@/components/first/son.vue'
 import { ref, provide,} from 'vue'
 import mittEvent from '@/mitt/grandFather'
-// component: {
-//   Son
-// }
 // mittEvent.on('mittEvent', e => console.log('mittEvent', e)) // 注册
 const provideData = ref('provide的方法')
 const message = ref('第一层传值')
