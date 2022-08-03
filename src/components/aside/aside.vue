@@ -40,7 +40,7 @@
         </a-layout-sider>
         <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
           <!--todo: 路由跳转-->
-          Content
+          <router-view/>
         </a-layout-content>
       </a-layout>
     </a-layout-content>
@@ -51,13 +51,6 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined } from '@ant-design/icons-vue';
 import Header from '@/components/header/header.vue'
 import Footer from '@/components/footer/footer.vue'
 import SubMenu from '@/components/aside/subMenu.vue'

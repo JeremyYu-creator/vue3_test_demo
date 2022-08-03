@@ -4,6 +4,7 @@ import * as path from 'path'
 import { resolve } from 'path'
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,6 +13,9 @@ export default defineConfig({
     Components({
       resolvers: [AntDesignVueResolver()],
     }),
+    resolveExternalsPlugin({
+      AMap: 'AMap'
+    })
   ],
   resolve: {
     //设置别名

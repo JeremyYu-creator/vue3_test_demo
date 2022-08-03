@@ -9,6 +9,16 @@ const contantArray = [
         },
         component: () => import('@/views/Home.vue'),
         // component:Home
+        children: [
+            {
+                path: "map",
+                name: "map",
+                meta: {
+                    title: "地图",
+                },
+                component: () => import ('@/views/map/chart.vue'),
+            },
+        ]
     },
     {
         path: "/helloworld",
