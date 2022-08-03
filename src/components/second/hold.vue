@@ -22,7 +22,7 @@ const person = reactive({
   age: 18
 })
 const { user } = useStore()
-console.log(user.$patch, 'patch的内容')
+// console.log(user.$patch, 'patch的内容')
 const {token, userInfo,} = storeToRefs(user) // 创建store实例，注意这里是响应式的值、但是在取的时候要使用.value形式编写
 console.log(token.value, '------初次获取------')
 const countNum = ref('1')

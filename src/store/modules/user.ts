@@ -27,7 +27,7 @@ export const GlobalStore = defineStore({
         }
     },
     // 持久化
-    persist: { // 实际上也是通过storage方式进行存储
+    persist: { // 实际上是通过storage方式进行存储, 注意默认是sessionStorage
         enabled: true,
         strategies: [
             {

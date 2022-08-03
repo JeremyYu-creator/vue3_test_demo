@@ -33,7 +33,7 @@ import mittEvent from "@/mitt/grandFather";
       grandSon.value?.count()
     }
   }
-  mittEvent.on('mittEvent', e => {
+  mittEvent.on('mittEvent', (e: any) => {
     console.log('儿子组件的mitt', e)
     sonText.value = e
   })
