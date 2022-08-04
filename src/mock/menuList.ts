@@ -68,7 +68,7 @@ const menuList = [
         children: [
             {
                 key: '3-1',
-                title: 'navigator3',
+                title: '数据展示',
                 // <align-left-outlined />
                 icon: 'AlignLeftOutlined',
                 meta: 'line',

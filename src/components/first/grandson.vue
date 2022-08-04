@@ -13,6 +13,10 @@
 <script lang="ts" setup>
 import { inject , ref } from 'vue'
 import mittEvent from "@/mitt/grandFather";
+export interface API {
+  name: String,
+  count: Function
+}
 const props = defineProps({
   message: String,
 })
@@ -24,10 +28,6 @@ const handle = () => {
 }
 const deepData = inject('provide_way')
 const name = ref("孙组件的暴露属性")
-export interface API {
-  name: String,
-  count: Function
-}
 const handleCallBack = (e: string) => {
     mit.value = e
     console.log('孙子组件的mitt', e)

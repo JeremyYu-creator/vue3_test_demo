@@ -18,6 +18,14 @@ const contantArray = [
                 },
                 component: () => import ('@/views/map/chart.vue'),
             },
+            {
+                path: "data",
+                name: "line",
+                meta: {
+                    title: "数据",
+                },
+                component: () => import ('@/views/baseData/baseData.vue'),
+            },
         ]
     },
     {

@@ -30,7 +30,8 @@
 <script lang="ts" setup>
 import {useRouter} from 'vue-router'
 import MenuList from "@/typing/menu";
-defineProps<{menuInfo: Object}>()
+// 这个地方如果使用Object会导致上方没有此属性报错
+defineProps<{menuInfo: any}>()
 const router = useRouter()
 /**
  * 由于可能是不止二级路由，也可能是三级路由，因此方法的触发位置上需要是在两个地方都要有，故跳转路由的方法要写在两个地方上
@@ -41,9 +42,9 @@ const checkTo = (e: MenuList) => {
     router.push(
         {
           name: e.meta,
-          query: {
-            id: 123
-          }
+          // query: {
+          //   id: 123
+          // }
         }
     )
     console.log(e)

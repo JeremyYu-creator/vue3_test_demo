@@ -3,7 +3,17 @@
     <div class="set-weather-style">
       <a-button @click="citySetVisible = true" primary>设置地图详情</a-button>
     </div>
-    <div id="container"></div>
+    <a-card class="map-style" :loading="mapLoading">
+      <div id="container"></div>
+    </a-card>
+    <a-card hoverable class="card-style" :loading="weatherLoading">
+      <template #cover>
+        <img alt="example" src="@/assets/weather/default.gif" class="img-style"/>
+      </template>
+      <a-card-meta :title="weatherTitle" class="card-title">
+        <template #description class="card-text">{{description}}</template>
+      </a-card-meta>
+    </a-card>
     <div>
       <a-drawer
       v-model:visible="citySetVisible"
@@ -15,6 +25,7 @@
               placeholder="请输入城市"
               enter-button
               @search="searchCity"
+              addon-before="查询城市"
           />
         </div>
       </a-drawer>
@@ -32,6 +43,10 @@ const load:any = ref(null) // 加载load的值
 const cityName = ref('北京市') // 跳转搜索城市的名字
 const citySetVisible = ref(false)
 const drawerTitle = ref('地图城市设置详情')
+const weatherTitle = ref('')
+const description = ref('')
+const mapLoading = ref(false)
+const weatherLoading = ref(true)
 const setGeolocation = () => { // 设置浏览器相关定位
   const geolocation = new load.value.Geolocation({
     enableHighAccuracy: true,
@@ -47,10 +62,9 @@ const setGeolocation = () => { // 设置浏览器相关定位
    *  详情可见：https://lbs.amap.com/faq/js-api/map-js-api/position-related/43361
       这个目前如果拿不到的话自动定位到北京天安门附近，但如果使用其他的浏览器还是可以拿到的，例如windows的edge
    * **/
-  // console.log(map.value.getCity(), '----地图获取城市---')
   map.value.addControl(geolocation);
   geolocation.getCurrentPosition((status: string, result: any) => {
-    if (status == "complete") {
+    if (status === "complete") {
       console.log(result, 'success');
       console.log(result.position.lng, result.position.lat); // 可以拿到坐标
     } else {
@@ -64,6 +78,10 @@ const getWeather = (cityName: string) => {
     // 默认是北京市，可以后续考虑根据当前定位在哪儿显示当前城市的地图和天气
     // 获取该城市的当前天气情况
     console.log(err, data);
+    const {city, province, reportTime, temperature, weather, windDirection, windPower} = data
+    weatherTitle.value = `${city}/${province}`
+    description.value = `当前温度为${temperature}，当前天气为${weather}, 风力${windPower}，风向${windDirection}`
+    weatherLoading.value = false
   });
   weather.getForecast(cityName, function (err: any, data: any) {
     // 获取该城市未来的天气状况
@@ -107,6 +125,7 @@ const initMap = async() => { // 初始化加载地图、生成地图实例、后
         version: "2.0", // Loca 版本，缺省 1.3.2
       },
     })
+    mapLoading.value = true
     map.value = new load.value.Map('container', { // 创建地图实例
       viewMode:"2D",    //是否为3D地图模式
       zoom: 15,           //初始化地图级别
@@ -118,9 +137,11 @@ const initMap = async() => { // 初始化加载地图、生成地图实例、后
     getTraffic()
     setGeolocation() // 理想状态下应该是通过拿到当前定位的信息然后把定位城市作为动态设置、再去拿当前城市的天气
     getWeather('北京市')
+    mapLoading.value = false
   }
   catch(e:any) { // 初步方法错误收集
     console.log(e)
+    mapLoading.value = false
   }
 }
 const searchCity = () => {
@@ -146,16 +167,37 @@ onUnmounted(() => {
 </script>
 
 <style lang="less" scoped>
+::v-deep(.map-style) {
+  .ant-card-body {
+    padding: 0;
+  }
+}
+</style>
+<style lang="less" scoped>
 // todo: 地图需要设置成响应式，注意下
   #container{
     padding:0px;
     margin: 0px;
-    width: 76vw;
+    // width: 76vw;
     height: 70vh;
     // min-height: 450px;
   }
   .set-weather-style{
     margin-bottom: 15px;
   }
-
+  .img-style {
+    width: 240px;
+    height: 180px;
+    object-fit: cover;
+  }
+  .card-style {
+    width: 240px;
+    position: absolute;
+    right: 3%;
+    top: 12%;
+    // background-color: black;
+  }
+  .map-style {
+    padding: 0
+  }
 </style>
