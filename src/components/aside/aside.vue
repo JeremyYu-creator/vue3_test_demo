@@ -55,7 +55,10 @@ import Header from '@/components/header/header.vue'
 import Footer from '@/components/footer/footer.vue'
 import SubMenu from '@/components/aside/subMenu.vue'
 import menuList from '@/mock/menuList'
-import { ref, } from 'vue'
+import { ref, getCurrentInstance } from 'vue'
+
+const proxy = getCurrentInstance()?.proxy
+const $antIcons = proxy?.$antIcons
 const collapsed = ref(false)
 const selectedKeys = ref<string[]>([''])
 const openKeys = ref<string[]>([''])

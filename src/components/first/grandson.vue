@@ -33,7 +33,7 @@ const handleCallBack = (e: string) => {
     console.log('孙子组件的mitt', e)
 }
 mittEvent.on('mittEvent',
-    e =>
+    (e: any) =>
     handleCallBack(e)
 )
 const sum = ref(0)

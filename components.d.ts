@@ -13,7 +13,6 @@ declare module '@vue/runtime-core' {
     ACard: typeof import('ant-design-vue/es')['Card']
     ACardMeta: typeof import('ant-design-vue/es')['CardMeta']
     ADrawer: typeof import('ant-design-vue/es')['Drawer']
-    AInput: typeof import('ant-design-vue/es')['Input']
     AInputSearch: typeof import('ant-design-vue/es')['InputSearch']
     ALayout: typeof import('ant-design-vue/es')['Layout']
     ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
