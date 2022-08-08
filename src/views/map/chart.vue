@@ -54,6 +54,21 @@
             </a-form-item>
           </a-form>
         </div>
+        <div>
+          <a-input-search 
+              v-model:value="wantCity" 
+              placeholder="请输入想去的地点" 
+              @search="tour" 
+              addon-before="搜查周围"
+              id="aimPlace"/>
+        </div>
+        <div>
+          <a-input-search 
+            v-model:value="fromTo"
+            placeholder="从当前地前往目的地"
+            @search="want"
+            addon-before="从当前地点去往"/>
+        </div>
       </a-drawer>
     </div>
     <!--展示路线的卡片，这里的内容完全来自高德地图-->
@@ -64,9 +79,7 @@
 <script lang="ts" setup>
 import AMapLoader from '@amap/amap-jsapi-loader'
 import {onMounted, ref, onUnmounted, reactive} from 'vue'
-// import AMap from 'AMap'
 import {cityInfo} from '@/typing/city'
-
 
 const map:any = ref(null) // 图层的值
 const load:any = ref(null) // 加载load的值
@@ -82,10 +95,16 @@ const openWeather = ref('')
 const weatherVisible = ref(true)
 const routeDraw: any = ref(null)
 const showDetail = ref(true)
+const wantCity = ref('')
+const fromTo = ref('')
 const formState = reactive({
   routeType: '1',
   aimStartPlace: '',
   aimEndPlace: '',
+})
+const currentPosition = ref({
+  lng: 0,
+  lat: 0
 })
 // const typeLoader = { // 用不了
 //   '1': 'Transfer',
@@ -124,13 +143,17 @@ const setGeolocation = () => { // 设置浏览器相关定位
   /**
    *  逆大天，谷歌浏览器无法进行定位，明明21年我用的时候还好使的，报的错误是"time out"
    *  详情可见：https://lbs.amap.com/faq/js-api/map-js-api/position-related/43361
-      这个目前如果拿不到的话自动定位到北京天安门附近，但如果使用其他的浏览器还是可以拿到的，例如windows的edge
+      这个目前如果拿不到的话自动定位到北京天安门附近，但如果使用其他的浏览器还是可以拿到的，例如windows的edge、火狐firefox
+      22.08.08：谷歌又可以了：因为得开代理，目前国内谷歌不支持；
    * **/
   map.value.addControl(geolocation);
   geolocation.getCurrentPosition((status: string, result: any) => {
     if (status === "complete") {
       console.log(result, 'success');
-      console.log(result.position.lng, result.position.lat); // 可以拿到坐标
+      // console.log(result.position.lng, result.position.lat); // 可以拿到坐标
+      currentPosition.value.lat = result.position.lat
+      currentPosition.value.lng = result.position.lng
+       console.log(currentPosition.value)
     } else {
       console.log(result, 'error');
     }
@@ -180,7 +203,7 @@ const initMap = async() => { // 初始化加载地图、生成地图实例、后
         "AMap.Geocoder",
         "AMap.Transfer",
         "AMap.Riding",
-        "AMap.citySearch"
+        "AMap.citySearch",
         // "AMap.IndoorMap",
       ], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
       AMapUI: {
@@ -222,15 +245,17 @@ const searchCity = async() => {
   citySetVisible.value = false
 }
 const publicRouteSet = (type: string) => { // 跳转指定路线
-  routeDraw.value = null
-  const transOptions = reactive({
+  if (routeDraw.value) { // 清除上一次的路线绘画，这里是在网上找到的：地图加载的实例里有一个属性是render，然后使用clear方法清除掉
+     routeDraw.value.render.clear()
+  }
+  const transOptions = reactive({ // 公共路线设置
     map: map.value,
     city: cityName.value ? '北京' : cityName.value,
     // city: '北京市',
     panel: "panel",
     policy: load.value.TransferPolicy.LEAST_TIME,
   })
-  const commonOptions = reactive({
+  const commonOptions = reactive({ // 骑车及自驾路线设置
     map: map.value,
     city: cityName.value ? '北京' : cityName.value,
     panel: "panel",
@@ -252,7 +277,7 @@ const publicRouteSet = (type: string) => { // 跳转指定路线
       city: cityName.value,
     }
   ],
-    function(status: any, result: any) {
+    (status: any, result: any) => {
       if (status === "complete") {
         console.log(result);
         console.log("绘制交通路线完成！");
@@ -262,6 +287,42 @@ const publicRouteSet = (type: string) => { // 跳转指定路线
     }
   )
   citySetVisible.value = false
+}
+const tour = () => {
+  const autoOptions = {
+    city: "全国",
+    input: 'aimPlace'
+  }
+  const placeSearch = new load.value.PlaceSearch({
+    pageSize: 5, // 单页显示结果条数
+    pageIndex: 1, // 页码
+    city: "010", // 兴趣点城市
+    citylimit: true,  //是否强制限制在设置的城市内搜索
+    map: map.value, // 展现结果的地图实例
+    panel: "panel", // 结果列表将在此容器中进行展示。
+    autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
+  })
+  placeSearch.search(wantCity.value, (status: any, result: any) => {
+    console.log(status, result)
+  })
+}
+const want = () => {
+  const drving = new load.value.Driving({
+    map: map.value,
+    panel: "panel"
+  })
+  // (116.379028, 39.865042)
+  const {lng, lat} = currentPosition.value
+  drving.search(new load.value.LngLat(lng, lat), new load.value.LngLat(116.427281, 39.903719), 
+    (status: any, result: any) =>  {
+        // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+        if (status === 'complete') {
+            console.log('绘制驾车路线完成')
+        } else {
+            console.log('获取驾车数据失败：' + result)
+        }
+      }
+    )
 }
 onMounted(async() =>
   {
