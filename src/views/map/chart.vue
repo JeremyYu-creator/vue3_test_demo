@@ -1,12 +1,16 @@
 <template>
   <div>
     <div class="set-weather-style">
-      <a-button @click="citySetVisible = true" primary>设置地图详情</a-button>
+      <a-button @click="citySetVisible = true" primary class="common_btn_style">设置地图详情</a-button>
+      <a-button @click="openWeatherCard" class="common_btn_style">{{openWeather}}</a-button>
     </div>
-    <a-card class="map-style" :loading="mapLoading">
+    <a-card class="map-style">
       <div id="container"></div>
+      <a-spin tip="Loading..." class="loading-style" v-if="mapLoading">
+      </a-spin>
     </a-card>
-    <a-card hoverable class="card-style" :loading="weatherLoading">
+    <!--todo：增加关闭按钮-->
+    <a-card hoverable class="card-style" :loading="weatherLoading" v-if="weatherVisible">
       <template #cover>
         <img alt="example" src="@/assets/weather/default.gif" class="img-style"/>
       </template>
@@ -14,6 +18,8 @@
         <template #description class="card-text">{{description}}</template>
       </a-card-meta>
     </a-card>
+    <div class="loading-style">
+    </div>
     <div>
       <a-drawer
       v-model:visible="citySetVisible"
@@ -28,6 +34,10 @@
               addon-before="查询城市"
           />
         </div>
+        <!--表单搜索地点路线规划-->
+        <div>
+
+        </div>
       </a-drawer>
     </div>
   </div>
@@ -36,8 +46,7 @@
 <!--设置初始画布-->
 <script lang="ts" setup>
 import AMapLoader from '@amap/amap-jsapi-loader'
-import { onBeforeMount, onMounted, ref, onUnmounted} from 'vue'
-
+import { onMounted, ref, onUnmounted} from 'vue'
 const map:any = ref(null) // 图层的值
 const load:any = ref(null) // 加载load的值
 const cityName = ref('北京市') // 跳转搜索城市的名字
@@ -45,8 +54,11 @@ const citySetVisible = ref(false)
 const drawerTitle = ref('地图城市设置详情')
 const weatherTitle = ref('')
 const description = ref('')
-const mapLoading = ref(false)
+const mapLoading = ref(true)
 const weatherLoading = ref(true)
+const isShow = ref(true)
+const openWeather = ref('')
+const weatherVisible = ref(true)
 const setGeolocation = () => { // 设置浏览器相关定位
   const geolocation = new load.value.Geolocation({
     enableHighAccuracy: true,
@@ -122,32 +134,36 @@ const initMap = async() => { // 初始化加载地图、生成地图实例、后
       },
       Loca: {
         // 是否加载 Loca， 缺省不加载
-        version: "2.0", // Loca 版本，缺省 1.3.2
+        version: "2.0", // Loca 版本，缺省为2.0版本
       },
     })
-    mapLoading.value = true
     map.value = new load.value.Map('container', { // 创建地图实例
       viewMode:"2D",    //是否为3D地图模式
       zoom: 15,           //初始化地图级别
       // center:[116.397428, 39.90923], //初始化地图中心点位置, 不写默认展示天安门的坐标
     })
-    map.value.getCity((info: any) => {
-      console.log(info, '----获取的城市信息----')
-    })
-    getTraffic()
-    setGeolocation() // 理想状态下应该是通过拿到当前定位的信息然后把定位城市作为动态设置、再去拿当前城市的天气
-    getWeather('北京市')
+    // map.value.getCity((info: any) => {
+    //   console.log(info, '----获取的城市信息----')
+    // })
+    console.log('地图初始化执行顺序')
     mapLoading.value = false
+    isShow.value = false
+    openWeather.value = (weatherVisible.value ? '关闭' : '打开') + '天气卡片'
   }
   catch(e:any) { // 初步方法错误收集
     console.log(e)
     mapLoading.value = false
   }
 }
-const searchCity = () => {
+const openWeatherCard = () => {
+  weatherVisible.value = !weatherVisible.value
+  openWeather.value = (weatherVisible.value ? '关闭' : '打开') + '天气卡片'
+}
+const searchCity = async() => {
+  await initMap()
   getWeather(cityName.value)
   map.value.setCity(cityName.value)
-  map.value.getCity((info: any) => {
+  await map.value.getCity((info: any) => {
     console.log(info, '----获取的城市信息----')
   })
   citySetVisible.value = false
@@ -155,11 +171,11 @@ const searchCity = () => {
 const getMap = () => {
 
 }
-onBeforeMount(() => {
-  // setMap()
-})
-onMounted(() => {
-    initMap()
+onMounted(async() => {
+    await initMap()
+    getTraffic()
+    setGeolocation() // 理想状态下应该是通过拿到当前定位的信息然后把定位城市作为动态设置、再去拿当前城市的天气
+    getWeather('北京市')
 })
 onUnmounted(() => {
   console.log('被销毁了')
@@ -178,9 +194,9 @@ onUnmounted(() => {
   #container{
     padding:0px;
     margin: 0px;
-    // width: 76vw;
+    width: auto;
     height: 70vh;
-    // min-height: 450px;
+    max-height: 800px;
   }
   .set-weather-style{
     margin-bottom: 15px;
@@ -198,6 +214,15 @@ onUnmounted(() => {
     // background-color: black;
   }
   .map-style {
-    padding: 0
+    padding: 0;
+    text-align: center;
+  }
+  .loading-style{
+    position: absolute;
+    top: 50%;
+  }
+  .common_btn_style {
+    width: @common_button_width;
+    margin-right: 20px;
   }
 </style>

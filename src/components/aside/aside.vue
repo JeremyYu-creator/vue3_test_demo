@@ -38,7 +38,7 @@
             </template>
           </a-menu>
         </a-layout-sider>
-        <a-layout-content :style="{ padding: '0 24px', minHeight: '280px', width:'100%' }">
+        <a-layout-content :style="{ padding: '0 24px', height:'100%', width:'100%' }">
           <!--todo: 路由跳转-->
           <router-view/>
         </a-layout-content>

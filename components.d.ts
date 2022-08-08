@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     Aside: typeof import('./src/components/aside/aside.vue')['default']
+    ASpin: typeof import('ant-design-vue/es')['Spin']
     AStep: typeof import('ant-design-vue/es')['Step']
     ASteps: typeof import('ant-design-vue/es')['Steps']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
