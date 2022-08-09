@@ -55,15 +55,15 @@
           </a-form>
         </div>
         <div>
-          <a-input-search 
-              v-model:value="wantCity" 
-              placeholder="请输入想去的地点" 
-              @search="tour" 
+          <a-input-search
+              v-model:value="wantCity"
+              placeholder="请输入想去的地点"
+              @search="tour"
               addon-before="搜查周围"
               id="aimPlace"/>
         </div>
         <div>
-          <a-input-search 
+          <a-input-search
             v-model:value="fromTo"
             placeholder="从当前地前往目的地"
             @search="want"
@@ -71,7 +71,8 @@
         </div>
       </a-drawer>
     </div>
-    <!--展示路线的卡片，这里的内容完全来自高德地图-->
+    <!--展示路线的卡片，这里的内容完全来自高德地图
+        目前全部的信息卡片全部都加载在这个id上，只会有一个出现-->
     <div id="panel" v-if="showDetail"></div>
   </div>
 </template>
@@ -97,6 +98,8 @@ const routeDraw: any = ref(null)
 const showDetail = ref(true)
 const wantCity = ref('')
 const fromTo = ref('')
+const placeSearch: any = ref(null)
+const aimPosition: any = ref({})
 const formState = reactive({
   routeType: '1',
   aimStartPlace: '',
@@ -150,10 +153,9 @@ const setGeolocation = () => { // 设置浏览器相关定位
   geolocation.getCurrentPosition((status: string, result: any) => {
     if (status === "complete") {
       console.log(result, 'success');
-      // console.log(result.position.lng, result.position.lat); // 可以拿到坐标
       currentPosition.value.lat = result.position.lat
       currentPosition.value.lng = result.position.lng
-       console.log(currentPosition.value)
+      // console.log(currentPosition.value)
     } else {
       console.log(result, 'error');
     }
@@ -221,7 +223,6 @@ const initMap = async() => { // 初始化加载地图、生成地图实例、后
       zoom: 15,           //初始化地图级别
       // center:[116.397428, 39.90923], //初始化地图中心点位置, 不写默认展示天安门的坐标
     })
-    console.log('地图初始化执行顺序')
     mapLoading.value = false
     isShow.value = false
     openWeather.value = (weatherVisible.value ? '关闭' : '打开') + '天气卡片'
@@ -244,14 +245,13 @@ const searchCity = async() => {
   })
   citySetVisible.value = false
 }
-const publicRouteSet = (type: string) => { // 跳转指定路线
-  if (routeDraw.value) { // 清除上一次的路线绘画，这里是在网上找到的：地图加载的实例里有一个属性是render，然后使用clear方法清除掉
-     routeDraw.value.render.clear()
+const publicRoute = (type: string) => { // 根据当前位置到达指定位置及两个搜索位置的路线规划方法统一抽离
+  if (routeDraw.value) { // 清除上一次的路线绘画：地图加载的实例里有一个属性是render，然后使用clear方法清除掉
+    routeDraw.value.render.clear()
   }
   const transOptions = reactive({ // 公共路线设置
     map: map.value,
     city: cityName.value ? '北京' : cityName.value,
-    // city: '北京市',
     panel: "panel",
     policy: load.value.TransferPolicy.LEAST_TIME,
   })
@@ -267,6 +267,9 @@ const publicRouteSet = (type: string) => { // 跳转指定路线
   } else {
     routeDraw.value = new load.value.Driving(commonOptions)
   }
+}
+const publicRouteSet = (type: string) => { // 跳转指定路线
+  publicRoute(type)
   routeDraw.value.search([
     {
       keyword: formState.aimStartPlace,
@@ -277,7 +280,7 @@ const publicRouteSet = (type: string) => { // 跳转指定路线
       city: cityName.value,
     }
   ],
-    (status: any, result: any) => {
+    (status: string, result: any) => {
       if (status === "complete") {
         console.log(result);
         console.log("绘制交通路线完成！");
@@ -293,36 +296,41 @@ const tour = () => {
     city: "全国",
     input: 'aimPlace'
   }
-  const placeSearch = new load.value.PlaceSearch({
+  if(placeSearch.value) { // 清除上一次的相关搜索结果
+    placeSearch.value.clear()
+  }
+  // 里面结果是存在模糊匹配的
+  placeSearch.value = new load.value.PlaceSearch({
     pageSize: 5, // 单页显示结果条数
     pageIndex: 1, // 页码
-    city: "010", // 兴趣点城市
+    city: cityName.value, // 兴趣点城市
     citylimit: true,  //是否强制限制在设置的城市内搜索
     map: map.value, // 展现结果的地图实例
     panel: "panel", // 结果列表将在此容器中进行展示。
     autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
   })
-  placeSearch.search(wantCity.value, (status: any, result: any) => {
+  placeSearch.value.search(wantCity.value, (status: any, result: any) => {
     console.log(status, result)
   })
+  citySetVisible.value = false
 }
-const want = () => {
-  const drving = new load.value.Driving({
-    map: map.value,
-    panel: "panel"
+const want = async() => {
+  const searchPlace = new load.value.PlaceSearch({
+    pageSize: 5, // 单页显示结果条数
+    pageIndex: 1, // 页码
+    city: cityName.value, // 兴趣点城市
+    map: map.value, // 展现结果的地图实例
+    autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
   })
-  // (116.379028, 39.865042)
   const {lng, lat} = currentPosition.value
-  drving.search(new load.value.LngLat(lng, lat), new load.value.LngLat(116.427281, 39.903719), 
-    (status: any, result: any) =>  {
-        // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
-        if (status === 'complete') {
-            console.log('绘制驾车路线完成')
-        } else {
-            console.log('获取驾车数据失败：' + result)
-        }
-      }
-    )
+  await searchPlace.search(fromTo.value, (status: any, result: any) => {
+    // console.log(status,result)
+    // console.log('-----------', result, result.poiList.pois[0].location)
+    aimPosition.value = result.poiList.pois[0].location
+    publicRoute(formState.routeType)
+    routeDraw.value.search(new load.value.LngLat(lng, lat), new load.value.LngLat(aimPosition.value.lng, aimPosition.value.lat),)
+  })
+  citySetVisible.value = false
 }
 onMounted(async() =>
   {
