@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
     AStep: typeof import('ant-design-vue/es')['Step']
     ASteps: typeof import('ant-design-vue/es')['Steps']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
+    ATable: typeof import('ant-design-vue/es')['Table']
     Footer: typeof import('./src/components/footer/footer.vue')['default']
     Grandson: typeof import('./src/components/first/grandson.vue')['default']
     Header: typeof import('./src/components/header/header.vue')['default']

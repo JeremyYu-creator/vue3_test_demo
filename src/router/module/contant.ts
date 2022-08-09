@@ -26,6 +26,14 @@ const contantArray = [
                 },
                 component: () => import ('@/views/baseData/baseData.vue'),
             },
+            {
+                path: "commonTable",
+                name: "common_table",
+                meta: {
+                    title: "普通表格",
+                },
+                component: () => import ('@/views/table/commonTable.vue'),
+            },
         ]
     },
     {

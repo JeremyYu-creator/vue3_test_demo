@@ -8,17 +8,17 @@ const menuList = [
         children:[
             {
                 key: '1-1',
-                title: 'navigation1',
+                title: '低级表格',
                 // <pic-left-outlined />
                 icon: 'PicLeftOutlined',
-                meta: 'table-index',
+                meta: 'common_table',
                 children: [
                     {
                         key: '1-1-1',
                         title: 'formTable',
                         // <radius-upleft-outlined />
                         icon: 'RadiusUpleftOutlined',
-                        meta: '',
+                        meta: 'common_table',
                         children: null // 这个地方是[]好还是null好？
                     }
                 ]
