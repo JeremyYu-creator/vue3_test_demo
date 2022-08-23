@@ -3,7 +3,7 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 import '@vue/runtime-core'
 
-export { }
+export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
@@ -33,8 +33,6 @@ declare module '@vue/runtime-core' {
     ASteps: typeof import('ant-design-vue/es')['Steps']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     ATable: typeof import('ant-design-vue/es')['Table']
-    ATabPane: typeof import('ant-design-vue/es')['TabPane']
-    ATabs: typeof import('ant-design-vue/es')['Tabs']
     Footer: typeof import('./src/components/footer/footer.vue')['default']
     Grandson: typeof import('./src/components/first/grandson.vue')['default']
     Header: typeof import('./src/components/header/header.vue')['default']

@@ -17,6 +17,7 @@ export default defineConfig({
       AMap: 'AMap'
     })
   ],
+  base: process.env.NODE_ENV === 'production' ? './' : '/',
   resolve: {
     //设置别名
     alias: {
@@ -35,7 +36,7 @@ export default defineConfig({
   server: {
     port: 8888,
     open: false, //自动打开 
-    base: "./ ", //生产环境路径
+    // base: "./ ", //生产环境路径
     proxy: { //配置接口的请求地址
       '/api': {
         // 以 “/api” 开头的 代理到 下边的 target 属性 的值 中
