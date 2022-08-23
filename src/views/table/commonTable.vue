@@ -1,12 +1,25 @@
 <script lang="ts" setup>
 import {people, column, mockDataColumn} from '@/mock/tableData'
 import axios from 'axios'
-import type { TableProps } from 'ant-design-vue';
+// import type { TableProps } from 'ant-design-vue';
 import { usePagination } from 'vue-request';
 import { computed } from 'vue';
 import { APIParams, APIResult } from '@/typing/tableRequest'
+import { getTableData } from '@/api/table'
+import { onMounted } from 'vue';
 
+onMounted(() => {
+  getData()
+})
+const getData = async() => {
+  const apikey = '0df993c66c0c636e29ecbb5344252a4a'
+  const params = {apikey}
+  const res = getTableData(params)
+  console.log(res)
+}
 const queryData = (params: APIParams) => {
+  // console.log(axios.get<APIResult>('https://randomuser.me/api?noinfo', { params }))
+  // return getTableData(params)
   return axios.get<APIResult>('https://randomuser.me/api?noinfo', { params });
 }
 const {
@@ -32,7 +45,7 @@ const pagination = computed(() => ({
   pageSize: pageSize.value,
 }));
 
-const handleTableChange: TableProps['onChange'] = (
+const handleTableChange: any['onChange'] = (
     pag: { pageSize: number; current: number },
     filters: any,
     sorter: any,
@@ -56,7 +69,7 @@ const handleTableChange: TableProps['onChange'] = (
   <div>
     <a-table
         :columns="mockDataColumn"
-        :row-key="record => record.login.uuid"
+        :row-key="(record: any) => record.login.uuid"
         :data-source="dataSource"
         :pagination="pagination"
         :loading="loading"

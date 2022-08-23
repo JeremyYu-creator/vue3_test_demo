@@ -4,6 +4,7 @@ export interface APIParams {
     sortField?: string;
     sortOrder?: number;
     [key: string]: any;
+    noinfo?: string;
 }
 
 export interface APIResult {
