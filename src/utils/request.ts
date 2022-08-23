@@ -13,22 +13,24 @@ instance.interceptors.request.use(
 );
 export const send = async <T>(
   config: AxiosRequestConfig,
-  code = 0,
+  code = 200,
   preventFilter = false
 ) => {
   const res = (await instance(config)) as unknown as httpResponse<T>;
-  // && res.retcode !== code
-  if (!preventFilter) {
+  /**
+   * 这个地方可以进行返回数据的判断
+   */
+  if (!preventFilter && res.status !== code) {
     return Promise.reject(res);
   } else if (preventFilter) {
     return res as unknown as T;
   }
-  return res.object;
+  return res.data;
 };
 export const get = async <T>(
   url: string,
   config?: AxiosRequestConfig,
-  code = 0,
+  code = 200,
   preventFilter = false
 ): Promise<T> => {
   return send(

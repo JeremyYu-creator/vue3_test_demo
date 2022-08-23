@@ -14,8 +14,8 @@ onMounted(() => {
 const getData = async() => {
   const apikey = '0df993c66c0c636e29ecbb5344252a4a'
   const params = {apikey}
-  const res = getTableData(params)
-  console.log(res)
+  const res = await getTableData(params)
+  console.log(res, '-----请求回来的数据-------')
 }
 const queryData = (params: APIParams) => {
   // console.log(axios.get<APIResult>('https://randomuser.me/api?noinfo', { params }))
