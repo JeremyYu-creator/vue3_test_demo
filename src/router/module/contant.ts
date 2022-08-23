@@ -34,6 +34,14 @@ const contantArray = [
                 },
                 component: () => import ('@/views/table/commonTable.vue'),
             },
+            {
+                path: "tencent",
+                name: "qq",
+                meta: {
+                    title: "腾讯页面",
+                },
+                component: () => import ('@/views/community/index.vue'),
+            },
         ]
     },
     {

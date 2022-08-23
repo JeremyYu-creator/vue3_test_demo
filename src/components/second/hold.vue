@@ -45,7 +45,9 @@ const count = () => {
   emit('count')
 }
 const city = ref('')
-const cityList: any = {
+const cityList: {
+   [key: string]: string
+} = {
   "1":"北京",
   "2":"上海",
   "3":"苏州",

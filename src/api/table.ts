@@ -17,4 +17,4 @@ export const getTableMockData = (params: APIParams) => {
         {params},
     )
 }
-export default getTableData
+export default {getTableData, getTableMockData}
