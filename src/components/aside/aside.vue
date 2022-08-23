@@ -3,7 +3,7 @@
     <a-layout-header class="header">
       <!--todo: 头部组件-->
       <div class="logo" />
-      <Header/>
+      <Header />
     </a-layout-header>
     <!--todo: 面包屑待做，通过面包屑进行页面的跳转-->
     <a-layout-content style="padding: 0 50px">
@@ -17,36 +17,31 @@
           <!--通过递归子组件方式进行渲染
               注意里面的数据结构一定要是一样的，
               否则无法进行递归-->
-          <a-menu
-              v-model:selectedKeys="selectedKeys"
-              v-model:openKeys="openKeys"
-              mode="inline"
-              style="height: 100%"
-          >
+          <a-menu v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys" mode="inline" style="height: 100%">
             <template v-for="item in menuList" :key="item.key">
-                <template v-if="!item.children">
-                  <a-menu-item :key="item.key">
-                    <template #icon>
-                      <component :is="$antIcons[item.icon]"/>
-                    </template>
-                    {{ item.title }}
-                  </a-menu-item>
-                </template>
+              <template v-if="!item.children">
+                <a-menu-item :key="item.key">
+                  <template #icon>
+                    <component :is="$antIcons[item.icon]" />
+                  </template>
+                  {{ item.title }}
+                </a-menu-item>
+              </template>
               <template v-else>
                 <sub-menu :key="item.key" :menu-info="item" />
               </template>
             </template>
           </a-menu>
         </a-layout-sider>
-        <a-layout-content :style="{ padding: '0 24px', height:'100%', width:'100%' }">
+        <a-layout-content :style="{ padding: '0 24px', height: '100%', width: '100%' }">
           <!--todo: 路由跳转-->
-          <router-view/>
+          <router-view />
         </a-layout-content>
       </a-layout>
     </a-layout-content>
-      <!--todo：footer组件-->
+    <!--todo：footer组件-->
     <a-layout-footer style="text-align: center">
-      <Footer/>
+      <Footer />
     </a-layout-footer>
   </a-layout>
 </template>

@@ -2,7 +2,7 @@
   <div>
     <div class="set-weather-style">
       <a-button @click="citySetVisible = true" primary class="common_btn_style">设置地图详情</a-button>
-      <a-button @click="openWeatherCard" class="common_btn_style">{{openWeather}}</a-button>
+      <a-button @click="openWeatherCard" class="common_btn_style">{{ openWeather }}</a-button>
     </div>
     <a-card class="map-style">
       <div id="container"></div>
@@ -12,35 +12,28 @@
     <!--todo：增加关闭按钮-->
     <a-card hoverable class="card-style" :loading="weatherLoading" v-if="weatherVisible">
       <template #cover>
-        <img alt="example" src="@/assets/weather/default.gif" class="img-style"/>
+        <img alt="example" src="@/assets/weather/default.gif" class="img-style" />
       </template>
       <a-card-meta :title="weatherTitle" class="card-title">
-        <template #description class="card-text">{{description}}</template>
+        <template #description class="card-text">{{ description }}</template>
       </a-card-meta>
     </a-card>
     <div class="loading-style">
     </div>
     <div>
-      <a-drawer
-      v-model:visible="citySetVisible"
-      :title="drawerTitle"
-      placement="right">
+      <a-drawer v-model:visible="citySetVisible" :title="drawerTitle" placement="right">
         <div>
-          <a-input-search
-              v-model:value="cityName"
-              placeholder="请输入城市"
-              enter-button
-              @search="searchCity"
-              addon-before="查询城市"
-          />
+          <a-input-search v-model:value="cityName" placeholder="请输入城市" enter-button @search="searchCity"
+            addon-before="查询城市" />
         </div>
         <!--表单搜索地点路线规划-->
         <div style="margin-top: 30px">
           <a-form>
             <a-form-item label="路线类型">
               <a-radio-group v-model:value="formState.routeType" button-style="solid">
-                <a-radio-button :value="item.value" v-for="item in routeTypeMap" :key="item.value" style="font-size: 12px">
-                  {{item.label}}</a-radio-button>
+                <a-radio-button :value="item.value" v-for="item in routeTypeMap" :key="item.value"
+                  style="font-size: 12px">
+                  {{ item.label }}</a-radio-button>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="起点">
@@ -55,19 +48,11 @@
           </a-form>
         </div>
         <div>
-          <a-input-search
-              v-model:value="wantCity"
-              placeholder="请输入想去的地点"
-              @search="tour"
-              addon-before="搜查周围"
-              id="aimPlace"/>
+          <a-input-search v-model:value="wantCity" placeholder="请输入想去的地点" @search="tour" addon-before="搜查周围"
+            id="aimPlace" />
         </div>
         <div>
-          <a-input-search
-            v-model:value="fromTo"
-            placeholder="从当前地前往目的地"
-            @search="want"
-            addon-before="从当前地点去往"/>
+          <a-input-search v-model:value="fromTo" placeholder="从当前地前往目的地" @search="want" addon-before="从当前地点去往" />
         </div>
       </a-drawer>
     </div>
@@ -79,11 +64,11 @@
 
 <script lang="ts" setup>
 import AMapLoader from '@amap/amap-jsapi-loader'
-import {onMounted, ref, onUnmounted, reactive} from 'vue'
-import {cityInfo} from '@/typing/city'
+import { onMounted, ref, onUnmounted, reactive } from 'vue'
+import { cityInfo } from '@/typing/city'
 
-const map:any = ref(null) // 图层的值
-const load:any = ref(null) // 加载load的值
+const map: any = ref(null) // 图层的值
+const load: any = ref(null) // 加载load的值
 const cityName = ref('北京市') // 跳转搜索城市的名字
 const citySetVisible = ref(false)
 const drawerTitle = ref('地图城市设置详情')
@@ -139,7 +124,7 @@ const setGeolocation = () => { // 设置浏览器相关定位
   })
   map.value.getCity((info: cityInfo) => { // 高德地图的命名不是驼峰
     console.log(info, '----获取的城市信息----')
-    const { city, province }  = info
+    const { city, province } = info
     cityName.value = city ? city : province
   })
   // todo:目前定位有问题，需要再看看
@@ -168,7 +153,7 @@ const getWeather = (cityName: string) => {
     // 默认是北京市，可以后续考虑根据当前定位在哪儿显示当前城市的地图和天气
     // 获取该城市的当前天气情况
     console.log(err, data);
-    const {city, province, reportTime, temperature, weather, windDirection, windPower} = data
+    const { city, province, reportTime, temperature, weather, windDirection, windPower } = data
     weatherTitle.value = `${city}/${province}`
     description.value = `温度：${temperature}，天气：${weather},
     风力：${windPower}，风向：${windDirection}，天气更新时间：${reportTime}`
@@ -187,9 +172,9 @@ const getTraffic = () => {
   map.value.add(trafficLayer);
 }
 // 设置初始画布
-const initMap = async() => { // 初始化加载地图、生成地图实例、后续只需对实例进行操作即可
+const initMap = async () => { // 初始化加载地图、生成地图实例、后续只需对实例进行操作即可
   try {
-    load.value =  await AMapLoader.load({
+    load.value = await AMapLoader.load({
       key: '07a87fdfe672069746851ffcc8792560', // 申请的apikey
       version: '2.0',
       plugins: [
@@ -219,7 +204,7 @@ const initMap = async() => { // 初始化加载地图、生成地图实例、后
       },
     })
     map.value = new load.value.Map('container', { // 创建地图实例
-      viewMode:"2D",    //是否为3D地图模式
+      viewMode: "2D",    //是否为3D地图模式
       zoom: 15,           //初始化地图级别
       // center:[116.397428, 39.90923], //初始化地图中心点位置, 不写默认展示天安门的坐标
     })
@@ -227,7 +212,7 @@ const initMap = async() => { // 初始化加载地图、生成地图实例、后
     isShow.value = false
     openWeather.value = (weatherVisible.value ? '关闭' : '打开') + '天气卡片'
   }
-  catch(e:any) { // 初步方法错误收集
+  catch (e: any) { // 初步方法错误收集
     console.log(e)
     mapLoading.value = false
   }
@@ -236,7 +221,7 @@ const openWeatherCard = () => {
   weatherVisible.value = !weatherVisible.value
   openWeather.value = (weatherVisible.value ? '关闭' : '打开') + '天气卡片'
 }
-const searchCity = async() => {
+const searchCity = async () => {
   await initMap()
   getWeather(cityName.value)
   map.value.setCity(cityName.value)
@@ -261,8 +246,8 @@ const publicRoute = (type: string) => { // 根据当前位置到达指定位置�
     panel: "panel",
   })
   if (type === '1') {
-    routeDraw.value =  new load.value.Transfer(transOptions)
-  } else if (type === '2'){
+    routeDraw.value = new load.value.Transfer(transOptions)
+  } else if (type === '2') {
     routeDraw.value = new load.value.Riding(commonOptions)
   } else {
     routeDraw.value = new load.value.Driving(commonOptions)
@@ -296,7 +281,7 @@ const tour = () => {
     city: "全国",
     input: 'aimPlace'
   }
-  if(placeSearch.value) { // 清除上一次的相关搜索结果
+  if (placeSearch.value) { // 清除上一次的相关搜索结果
     placeSearch.value.clear()
   }
   // 里面结果是存在模糊匹配的
@@ -314,7 +299,7 @@ const tour = () => {
   })
   citySetVisible.value = false
 }
-const want = async() => {
+const want = async () => {
   const searchPlace = new load.value.PlaceSearch({
     pageSize: 5, // 单页显示结果条数
     pageIndex: 1, // 页码
@@ -322,7 +307,7 @@ const want = async() => {
     map: map.value, // 展现结果的地图实例
     autoFitView: true // 是否自动调整地图视野使绘制的 Marker点都处于视口的可见范围
   })
-  const {lng, lat} = currentPosition.value
+  const { lng, lat } = currentPosition.value
   await searchPlace.search(fromTo.value, (status: any, result: any) => {
     // console.log(status,result)
     // console.log('-----------', result, result.poiList.pois[0].location)
@@ -332,17 +317,16 @@ const want = async() => {
   })
   citySetVisible.value = false
 }
-onMounted(async() =>
-  {
-    try {
-      await initMap()
-      await getTraffic()
-      await setGeolocation() // 理想状态下应该是通过拿到当前定位的信息然后把定位城市作为动态设置、再去拿当前城市的天气
-      await getWeather(cityName.value)
-    } catch(err:any) {
-      console.log(err)
-    }
+onMounted(async () => {
+  try {
+    await initMap()
+    await getTraffic()
+    await setGeolocation() // 理想状态下应该是通过拿到当前定位的信息然后把定位城市作为动态设置、再去拿当前城市的天气
+    await getWeather(cityName.value)
+  } catch (err: any) {
+    console.log(err)
   }
+}
 )
 onUnmounted(() => {
   console.log('被销毁了')
@@ -359,57 +343,66 @@ onUnmounted(() => {
 </style>
 <style lang="less" scoped>
 // todo: 地图需要设置成响应式，注意下
-  #container{
-    padding:0px;
-    margin: 0px;
-    width: auto;
-    height: 70vh;
-    max-height: 800px;
-    position: relative;
-  }
-  .set-weather-style{
-    margin-bottom: 15px;
-  }
-  .img-style {
-    width: 240px;
-    height: 180px;
-    object-fit: cover;
-  }
-  .card-style {
-    width: 240px;
-    position: absolute;
-    //left: 13.5vw;
-    top: 25%; // 后续需要进行适配
-  }
-  .map-style {
-    padding: 0;
-    text-align: center;
-  }
-  .loading-style{
-    position: absolute;
-    top: 50%;
-  }
-  .common_btn_style {
-    width: @common_button_width;
-    margin-right: 20px;
-  }
-  #panel {
-    position: fixed;
-    background-color: white;
-    max-height: 90%;
-    overflow-y: auto;
-    top: 64px;
-    right: 10px;
-    width: 280px;
-  }
-  #panel .amap-call {
-    background-color: #009cf9;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-  }
-  #panel .amap-lib-driving {
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    overflow: hidden;
-  }
+#container {
+  padding: 0px;
+  margin: 0px;
+  width: auto;
+  height: 70vh;
+  max-height: 800px;
+  position: relative;
+}
+
+.set-weather-style {
+  margin-bottom: 15px;
+}
+
+.img-style {
+  width: 240px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-style {
+  width: 240px;
+  position: absolute;
+  //left: 13.5vw;
+  top: 25%; // 后续需要进行适配
+}
+
+.map-style {
+  padding: 0;
+  text-align: center;
+}
+
+.loading-style {
+  position: absolute;
+  top: 50%;
+}
+
+.common_btn_style {
+  width: @common_button_width;
+  margin-right: 20px;
+}
+
+#panel {
+  position: fixed;
+  background-color: white;
+  max-height: 90%;
+  overflow-y: auto;
+  top: 64px;
+  right: 10px;
+  width: 280px;
+}
+
+#panel .amap-call {
+  background-color: #009cf9;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+#panel .amap-lib-driving {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  overflow: hidden;
+}
 </style>

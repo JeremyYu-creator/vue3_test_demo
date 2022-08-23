@@ -16,7 +16,7 @@ const contantArray = [
                 meta: {
                     title: "地图",
                 },
-                component: () => import ('@/views/map/chart.vue'),
+                component: () => import('@/views/map/chart.vue'),
             },
             {
                 path: "data",
@@ -24,7 +24,7 @@ const contantArray = [
                 meta: {
                     title: "数据",
                 },
-                component: () => import ('@/views/baseData/baseData.vue'),
+                component: () => import('@/views/baseData/baseData.vue'),
             },
             {
                 path: "commonTable",
@@ -32,7 +32,7 @@ const contantArray = [
                 meta: {
                     title: "普通表格",
                 },
-                component: () => import ('@/views/table/commonTable.vue'),
+                component: () => import('@/views/table/commonTable.vue'),
             },
             {
                 path: "tencent",
@@ -40,7 +40,7 @@ const contantArray = [
                 meta: {
                     title: "腾讯页面",
                 },
-                component: () => import ('@/views/community/index.vue'),
+                component: () => import('@/views/community/index.vue'),
             },
         ]
     },

@@ -4,7 +4,7 @@ import { getAllNews } from '@/api/news'
 onMounted(() => {
     getData()
 })
-const getData = async() => {
+const getData = async () => {
     const params = {
         page: 10,
     }

@@ -1,17 +1,17 @@
 <template>
   <div>
     grandson
-    {{message}}
-    {{deepData}}
+    {{ message }}
+    {{ deepData }}
     <button @click="handle">
-        点击孙组件
+      点击孙组件
     </button>
-    {{sum}}
-    {{mit}}
+    {{ sum }}
+    {{ mit }}
   </div>
 </template>
 <script lang="ts" setup>
-import { inject , ref } from 'vue'
+import { inject, ref } from 'vue'
 import mittEvent from "@/mitt/grandFather";
 export interface API {
   name: String,
@@ -29,11 +29,11 @@ const handle = () => {
 const deepData = inject('provide_way')
 const name = ref("孙组件的暴露属性")
 const handleCallBack = (e: string) => {
-    mit.value = e
-    console.log('孙子组件的mitt', e)
+  mit.value = e
+  console.log('孙子组件的mitt', e)
 }
 mittEvent.on('mittEvent',
-    (e: any) =>
+  (e: any) =>
     handleCallBack(e)
 )
 const sum = ref(0)

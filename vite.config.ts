@@ -27,12 +27,12 @@ export default defineConfig({
     // css预处理器
     preprocessorOptions: {
       less: {
-        additionalData:  `@import "${resolve(__dirname, 'src/assets/style/global.less')}";`,
+        additionalData: `@import "${resolve(__dirname, 'src/assets/style/global.less')}";`,
         javascriptEnabled: true,
       }
     }
   },
-  server:{
+  server: {
     port: 8888,
     open: false, //自动打开 
     base: "./ ", //生产环境路径
@@ -42,19 +42,19 @@ export default defineConfig({
         target: 'https://randomuser.me',
         changeOrigin: true, // 是否改变域名：在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
         ws: true, // 是否启用websockets
-        rewrite: (path) => path.replace(/^\/api/, ""), 
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
-      '/v2' :{
+      '/v2': {
         target: 'http://api.douban.com',
         changeOrigin: true,
         ws: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), 
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
-      '/dfz' :{
+      '/dfz': {
         target: 'https://interface.sina.cn',
         changeOrigin: true,
         ws: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), 
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     }
   }

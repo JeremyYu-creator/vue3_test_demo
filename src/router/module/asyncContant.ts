@@ -5,7 +5,7 @@ const asyncContantArray = [
         meta: {
             title: "额外展示",
         },
-        component: () => import ('@/views/extra.vue'),
+        component: () => import('@/views/extra.vue'),
     },
     {
         path: "/test",
@@ -13,7 +13,7 @@ const asyncContantArray = [
         meta: {
             title: "测试组件引用",
         },
-        component: () => import ('@/views/test.vue'),
+        component: () => import('@/views/test.vue'),
     },
 ]
 export default asyncContantArray

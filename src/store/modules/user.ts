@@ -1,5 +1,5 @@
 // src/store/index.ts
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 
 interface GlobalState { // 这种文件都可以单独拿出来
     token: string,

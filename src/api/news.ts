@@ -8,18 +8,20 @@ import { get } from "@/utils/request";
 export const getAllNews = (params: { page: number, col?: number }) => { // 获取全部新闻信息
     return get(
         '/dfz/outside/wap/news/list.d.html',
-        {params},
+        { params },
         0,
         true,
     )
 }
 
 // ch:"ent"娱乐/"sports"运动/"tech"科技 渠道码不同途径
-export const getChannelNews = (params: {page: number,  show_num: number,
-    ch: string;}) => {
+export const getChannelNews = (params: {
+    page: number, show_num: number,
+    ch: string;
+}) => {
     return get(
         '/ent/feed.d.json',
-        {params},
+        { params },
         0,
         true,
     )

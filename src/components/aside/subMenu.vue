@@ -2,7 +2,7 @@
   <div>
     <a-sub-menu :key="menuInfo.key">
       <template #icon>
-        <component :is="$antIcons[menuInfo.icon]"/>
+        <component :is="$antIcons[menuInfo.icon]" />
       </template>
       <template #title>
         <span @click="checkTo(menuInfo)">
@@ -13,10 +13,10 @@
         <template v-if="!item.children">
           <a-menu-item :key="item.key">
             <template #icon>
-              <component :is="$antIcons[item.icon]"/>
+              <component :is="$antIcons[item.icon]" />
             </template>
             <span @click="checkTo(item)">
-                {{ item.title }}
+              {{ item.title }}
             </span>
           </a-menu-item>
         </template>
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 import MenuList from "@/typing/menu";
 // 这个地方如果使用Object会导致上方没有此属性报错
 defineProps<{
@@ -42,12 +42,12 @@ const router = useRouter()
 const checkTo = (e: MenuList) => {
   if (!e.children) {
     router.push(
-        {
-          name: e.meta,
-          // query: {
-          //   id: 123
-          // }
-        }
+      {
+        name: e.meta,
+        // query: {
+        //   id: 123
+        // }
+      }
     )
     console.log(e)
   }
@@ -56,5 +56,4 @@ const checkTo = (e: MenuList) => {
 </script>
 
 <style lang="less">
-
 </style>

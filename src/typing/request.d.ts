@@ -1,7 +1,7 @@
 export interface httpResponse<T> {
-     /**
-     * 状态码，通常0表示成功
-     */
+    /**
+    * 状态码，通常0表示成功
+    */
     // retcode: number,
     status: number,
     /**

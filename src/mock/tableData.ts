@@ -52,4 +52,4 @@ const mockDataColumn = [
         dataIndex: 'email',
     },
 ]
-export {people, column, mockDataColumn}
+export { people, column, mockDataColumn }

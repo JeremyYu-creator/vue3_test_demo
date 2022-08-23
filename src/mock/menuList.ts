@@ -5,7 +5,7 @@ const menuList = [
         // <border-horizontal-outlined />
         icon: 'BorderHorizontalOutlined',
         meta: 'table',
-        children:[
+        children: [
             {
                 key: '1-1',
                 title: '低级表格',
@@ -31,7 +31,7 @@ const menuList = [
         // <twitter-outlined />
         icon: 'TwitterOutlined',
         meta: 'chat',
-        children:[
+        children: [
             {
                 key: '2-1',
                 title: 'navigation2',
@@ -87,7 +87,7 @@ const menuList = [
                 key: '4-1',
                 title: '高德地图',
                 // <area-chart-outlined />
-                icon:'AreaChartOutlined',
+                icon: 'AreaChartOutlined',
                 meta: 'map',
                 children: null // 这个地方是[]好还是null好？
             }

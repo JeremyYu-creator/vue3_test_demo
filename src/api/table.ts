@@ -1,20 +1,20 @@
 import { get } from "@/utils/request";
 import { APIParams, APIResult } from '@/typing/tableRequest'
 
-export const getTableData = (params: {apikey: string}) => {
+export const getTableData = (params: { apikey: string }) => {
     // return get<APIResult>(
     //     '/api',
     //     {params},
     // )
     return get(
         '/v2/movie/new_movies',
-        {params}
+        { params }
     )
 }
 export const getTableMockData = (params: APIParams) => {
     return get<APIResult>(
         '/api',
-        {params},
+        { params },
     )
 }
-export default {getTableData, getTableMockData}
+export default { getTableData, getTableMockData }
