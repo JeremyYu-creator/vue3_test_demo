@@ -5,7 +5,7 @@
       <a-button @click="openWeatherCard" class="common_btn_style">{{ openWeather }}</a-button>
     </div>
     <a-card class="map-style">
-      <div id="container"></div>
+      <div id="container" :style="{ height: fitHeight }"></div>
       <a-spin tip="Loading..." class="loading-style" v-if="mapLoading">
       </a-spin>
     </a-card>
@@ -66,6 +66,7 @@
 import AMapLoader from '@amap/amap-jsapi-loader'
 import { onMounted, ref, onUnmounted, reactive } from 'vue'
 import { cityInfo } from '@/typing/city'
+import { isMaxHeight } from '@/utils/browser';
 
 const map: any = ref(null) // 图层的值
 const load: any = ref(null) // 加载load的值
@@ -90,6 +91,7 @@ const formState = reactive({
   aimStartPlace: '',
   aimEndPlace: '',
 })
+const fitHeight = ref('')
 const currentPosition = ref({
   lng: 0,
   lat: 0
@@ -113,6 +115,9 @@ const routeTypeMap = [
     label: '骑车出行',
   },
 ]
+const setMapY = () => { // 设置不同适配下的高度
+  isMaxHeight() ? fitHeight.value = '700px' : fitHeight.value = '450px'
+}
 const setGeolocation = () => { // 设置浏览器相关定位
   const geolocation = new load.value.Geolocation({
     enableHighAccuracy: true,
@@ -319,6 +324,7 @@ const want = async () => {
 }
 onMounted(async () => {
   try {
+    setMapY()
     await initMap()
     await getTraffic()
     await setGeolocation() // 理想状态下应该是通过拿到当前定位的信息然后把定位城市作为动态设置、再去拿当前城市的天气
@@ -347,8 +353,8 @@ onUnmounted(() => {
   padding: 0px;
   margin: 0px;
   width: auto;
-  height: 70vh;
-  max-height: 800px;
+  // height: 70vh;
+  // max-height: 800px;
   position: relative;
 }
 

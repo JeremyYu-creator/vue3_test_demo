@@ -10,11 +10,7 @@ onMounted(() => {
 })
 const tableScrollY = ref(0)
 const setScrollY = () => {
-    if (isMaxHeight()) {
-        tableScrollY.value = 580
-    } else {
-        tableScrollY.value = 320
-    }
+    isMaxHeight() ? tableScrollY.value = 570 : tableScrollY.value = 320
 }
 const newsArr: any = ref([])
 const loading = ref(true)
