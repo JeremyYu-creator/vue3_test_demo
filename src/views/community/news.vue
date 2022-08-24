@@ -9,8 +9,10 @@ onMounted(() => {
     getData()
 })
 const tableScrollY = ref(0)
+const imgWidth = ref(0)
 const setScrollY = () => {
-    isMaxHeight() ? tableScrollY.value = 570 : tableScrollY.value = 320
+    isMaxHeight() ? tableScrollY.value = 570 : tableScrollY.value = 350
+    isMaxHeight() ? imgWidth.value = 200 : imgWidth.value = 120
 }
 const newsArr: any = ref([])
 const loading = ref(true)
@@ -41,6 +43,11 @@ const onChange = (page: number) => {
                         查看
                     </span>
                 </template>
+                <template v-else-if="column.key === 'allPics'">
+                    <!-- <img :src="record.allPics.pics[0]?.imgurl"  style="width: 120px; height: 90px;" alt="暂无图片"> -->
+                    <a-image :src="record.allPics.pics[0]?.imgurl" alt="暂无图片" :width="imgWidth"></a-image>
+                    <!-- <span>{{record.allPics.pics[0]?.imgurl}}</span> -->
+                </template>
             </template>
         </a-table>
         <div class="pagination-style">
@@ -60,4 +67,6 @@ const onChange = (page: number) => {
     justify-content: flex-end;
     margin-top: 20px;
 }
+
+
 </style>

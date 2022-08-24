@@ -58,7 +58,7 @@ const newColumn = [
         title: '标题',
         dataIndex: 'title',
         key: 'title',
-        width: '30%',
+        width: '15%',
     },
     {
         title: '更新时间',
@@ -77,6 +77,12 @@ const newColumn = [
         dataIndex: 'summary',
         key: 'summary',
         width: '30%',
+    },
+    {
+        title: '图片',
+        dataIndex: 'allPics',
+        key: 'allPics',
+        width: '15%',
     },
     {
         title: '评论',
