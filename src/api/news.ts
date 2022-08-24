@@ -1,4 +1,5 @@
 import { get } from "@/utils/request";
+import { newsType } from "@/typing/new";
 
 // col表示新闻类别
 // 国内：56261
@@ -6,7 +7,7 @@ import { get } from "@/utils/request";
 // 社会：56264
 // 历史：97223
 export const getAllNews = (params: { page: number, col?: number }) => { // 获取全部新闻信息
-    return get(
+    return get<newsType>(
         '/dfz/outside/wap/news/list.d.html',
         { params },
         0,

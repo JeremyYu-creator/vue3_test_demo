@@ -8,22 +8,25 @@ const tabPaneData = [
     {
         name: 'Tab 1',
         key: '1',
-        content: 'Content of Tab Pane 1',
+        // content: 'Content of Tab Pane 1',
         icon: 'AppleOutlined',
     },
     {
         name: 'Tab 2',
         key: '2',
-        content: 'Content of Tab Pane 2',
+        // content: 'Content of Tab Pane 2',
         icon: 'AndroidOutlined',
     },
     {
         name: 'Tab 3',
         key: '3',
-        content: 'Content of Tab Pane 3',
+        // content: 'Content of Tab Pane 3',
         icon: 'AndroidOutlined',
     },
 ]
+// const tabChange = () => {
+//     console.log(activeKey.value)
+// }
 </script>
 <template>
     <a-tabs v-model:activeKey='activeKey' size="large">

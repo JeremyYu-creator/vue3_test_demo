@@ -34,7 +34,7 @@ const menuList = [
         children: [
             {
                 key: '2-1',
-                title: 'navigation2',
+                title: 'news',
                 // <chrome-outlined />
                 icon: 'ChromeOutlined',
                 meta: 'tencent',

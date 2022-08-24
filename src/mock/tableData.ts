@@ -52,4 +52,43 @@ const mockDataColumn = [
         dataIndex: 'email',
     },
 ]
-export { people, column, mockDataColumn }
+
+const newColumn = [
+    {
+        title: '标题',
+        dataIndex: 'title',
+        key: 'title',
+        width: '30%',
+    },
+    {
+        title: '更新时间',
+        dataIndex: 'cTime',
+        key: 'cTime',
+        width: '10%',
+    },
+    {
+        title: '渠道',
+        dataIndex: 'source',
+        key: 'source',
+        width: '10%',
+    },
+    {
+        title: '详情',
+        dataIndex: 'summary',
+        key: 'summary',
+        width: '30%',
+    },
+    {
+        title: '评论',
+        dataIndex: 'comment',
+        key: 'comment',
+        width: '10%',
+    },
+    {
+        title: 'URL',
+        dataIndex: 'URL',
+        key: 'URL',
+        width: '10%',
+    },
+]
+export { people, column, mockDataColumn, newColumn }
