@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 // import './style.css'
+import '@/permisson.ts'
 import App from './App.vue'
 // import store from '@/store/index'
 import "@/assets/style/global.less"

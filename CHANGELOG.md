@@ -8,6 +8,7 @@
  - | 修改代码格式风格 | [45b9f87](https://github.com/JeremyYu-creator/vue3_test_demo/commit/45b9f87)
  - | 修改界面适配+readme | [3fa5bf8](https://github.com/JeremyYu-creator/vue3_test_demo/commit/3fa5bf8)
  - | 修改windows格式 | [fcf9784](https://github.com/JeremyYu-creator/vue3_test_demo/commit/fcf9784)
+ - | 隐藏打包后线上的console | [6bf4476](https://github.com/JeremyYu-creator/vue3_test_demo/commit/6bf4476)
  - | 增加表格数据渲染 | [1492558](https://github.com/JeremyYu-creator/vue3_test_demo/commit/1492558)
  - | 增加提交规范 | [cdccd48](https://github.com/JeremyYu-creator/vue3_test_demo/commit/cdccd48)
 
