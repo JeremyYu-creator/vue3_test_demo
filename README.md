@@ -1,4 +1,4 @@
-# Vue 3 + TypeScript + pinia + Vite
+# Vue 3 + TypeScript + Pinia + Vite
 
 # 安装依赖
 npm i
@@ -11,3 +11,6 @@ npm run dev
 
 # 提交
     使用npm run cz，进行规范提交
+
+# 本地查看代码打包情况
+    使用"npm i -g serve" "serve -s dist",即可本地查看打包情况

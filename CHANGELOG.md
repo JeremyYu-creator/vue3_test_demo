@@ -1,4 +1,4 @@
-# 0.0.0 (2022-08-25)
+# 0.0.0 (2022-08-26)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -11,6 +11,7 @@
  - | 隐藏打包后线上的console | [6bf4476](https://github.com/JeremyYu-creator/vue3_test_demo/commit/6bf4476)
  - | 增加表格数据渲染 | [1492558](https://github.com/JeremyYu-creator/vue3_test_demo/commit/1492558)
  - | 增加提交规范 | [cdccd48](https://github.com/JeremyYu-creator/vue3_test_demo/commit/cdccd48)
+ - | 增加nprogress页面加载 | [d334ef6](https://github.com/JeremyYu-creator/vue3_test_demo/commit/d334ef6)
 
 
 ### 🐛 Bug 修复

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { getAllNews } from '@/api/news'
-import { newColumn } from '@/mock/tableData'
+import { newsColumn } from '@/mock/tableData'
 import { isMaxHeight } from '@/utils/browser'
 onMounted(() => {
     setScrollY()
@@ -19,6 +19,7 @@ const loading = ref(true)
 const getData = async () => {
     const params = {
         page: currentNum.value,
+        col: 56261
     }
     const res = await getAllNews(params)
     loading.value = false
@@ -35,7 +36,7 @@ const onChange = (page: number) => {
 </script>
 <template>
     <div>
-        <a-table :dataSource="newsArr" :columns="newColumn" :loading="loading" bordered :pagination="false" sticky
+        <a-table :dataSource="newsArr" :columns="newsColumn" :loading="loading" bordered :pagination="false" sticky
             :scroll="{ y: tableScrollY }">
             <template #bodyCell="{ column, record }">
                 <template v-if="column.title === 'URL'">
@@ -67,6 +68,4 @@ const onChange = (page: number) => {
     justify-content: flex-end;
     margin-top: 20px;
 }
-
-
 </style>

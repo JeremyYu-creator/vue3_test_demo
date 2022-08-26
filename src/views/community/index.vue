@@ -1,32 +1,29 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import News from '@/views/community/news.vue'
-import EntNews from '@/views/community/entNews.vue'
-import SportNews from '@/views/community/sportNews.vue'
+import ChannelNews from '@/views/community/channelNews.vue'
+// import SportNews from '@/views/community/sportNews.vue'
 const activeKey = ref('1')
 const tabPaneData = [
     {
-        name: 'Tab 1',
+        name: '国内新闻',
         key: '1',
         // content: 'Content of Tab Pane 1',
         icon: 'AppleOutlined',
     },
     {
-        name: 'Tab 2',
+        name: '娱乐新闻',
         key: '2',
         // content: 'Content of Tab Pane 2',
         icon: 'AndroidOutlined',
     },
     {
-        name: 'Tab 3',
+        name: '体育新闻',
         key: '3',
         // content: 'Content of Tab Pane 3',
-        icon: 'AndroidOutlined',
+        icon: 'WindowsOutlined',
     },
 ]
-// const tabChange = () => {
-//     console.log(activeKey.value)
-// }
 </script>
 <template>
     <a-tabs v-model:activeKey='activeKey' size="large">
@@ -39,8 +36,8 @@ const tabPaneData = [
             </template>
             <!-- {{item.content}} -->
             <News v-if="item.key === '1'" />
-            <EntNews v-else-if="item.key === '2'" />
-            <SportNews v-else-if="item.key === '3'" />
+            <ChannelNews v-else-if="item.key === '2' || item.key === '3'" :type="item.key" />
+            <!-- <SportNews v-else-if="item.key === '3'" /> -->
         </a-tab-pane>
     </a-tabs>
 </template>

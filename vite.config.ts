@@ -67,6 +67,12 @@ export default defineConfig({
         ws: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
+      '/ent': {
+        target: 'https://interface.sina.cn',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
     }
   }
 })

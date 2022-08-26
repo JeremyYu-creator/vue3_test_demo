@@ -53,12 +53,12 @@ const mockDataColumn = [
     },
 ]
 
-const newColumn = [
+const newsColumn = [
     {
         title: '标题',
         dataIndex: 'title',
         key: 'title',
-        width: '15%',
+        width: '40%',
     },
     {
         title: '更新时间',
@@ -72,12 +72,12 @@ const newColumn = [
         key: 'source',
         width: '10%',
     },
-    {
-        title: '详情',
-        dataIndex: 'summary',
-        key: 'summary',
-        width: '30%',
-    },
+    // {
+    //     title: '详情',
+    //     dataIndex: 'summary',
+    //     key: 'summary',
+    //     width: '30%',
+    // },
     {
         title: '图片',
         dataIndex: 'allPics',
@@ -97,4 +97,49 @@ const newColumn = [
         width: '10%',
     },
 ]
-export { people, column, mockDataColumn, newColumn }
+
+const channelColumn = [
+    {
+        title: '详情',
+        dataIndex: 'intro',
+        key: 'intro',
+        width: '30%',
+    },
+    {
+        title: '发布时间',
+        dataIndex: 'news_date',
+        key: 'news_date',
+        width: '13%',
+    },
+    {
+        title: '距离当前时间',
+        dataIndex: 'date',
+        key: 'date',
+        width: '12%',
+    },
+    {
+        title: '渠道',
+        dataIndex: 'source',
+        key: 'source',
+        width: '10%',
+    },
+    {
+        title: '图片',
+        dataIndex: 'img',
+        key: 'img',
+        width: '15%',
+    },
+    {
+        title: '评论',
+        dataIndex: 'comment',
+        key: 'comment',
+        width: '10%',
+    },
+    {
+        title: '链接',
+        dataIndex: 'link',
+        key: 'link',
+        width: '10%',
+    },
+]
+export { people, column, mockDataColumn, newsColumn, channelColumn }
