@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { getChannelNews } from '@/api/news'
 import { channelColumn } from '@/mock/tableData'
+import { channelList } from '@/typing/news'
 const props = defineProps({
     type: String
 })
@@ -9,7 +10,7 @@ const channelLoading = ref(true)
 onMounted(() => {
     getData()
 })
-const entData: any = ref([])
+const entData = ref([] as channelList)
 const seeDetail = (url: string) => {
     window.open(url, '__blank')
 }
@@ -29,7 +30,8 @@ const getData = async () => {
         <a-table :dataSource="entData" :columns="channelColumn" bordered :pagination="false" :loading="channelLoading">
             <template #bodyCell="{ column, record }">
                 <template v-if="column.key === 'img'">
-                    <a-image :src="record.img" style="width:120px; height: 80px;"></a-image>
+                    <a-image :src="record.img" class="record-style"></a-image>
+                    <!--style="width:120px; height: 80px;"-->
                 </template>
                 <template v-if="column.key === 'link'">
                     <span class="link-style" @click="seeDetail(record.link)">
@@ -42,4 +44,8 @@ const getData = async () => {
     <a-back-top />
 </template>
 <style lang="less">
+.record-style {
+    width: 120px;
+    height: 80px;
+}
 </style>

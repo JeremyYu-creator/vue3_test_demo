@@ -8,21 +8,29 @@ const menuList = [
         children: [
             {
                 key: '1-1',
-                title: '低级表格',
+                title: '数据表格',
                 // <pic-left-outlined />
                 icon: 'PicLeftOutlined',
                 meta: 'common_table',
                 children: [
                     {
                         key: '1-1-1',
-                        title: 'formTable',
+                        title: '普通表格',
                         // <radius-upleft-outlined />
                         icon: 'RadiusUpleftOutlined',
                         meta: 'common_table',
                         children: null // 这个地方是[]好还是null好？
-                    }
+                    },
+                    {
+                        key: '1-1-2',
+                        title: '豆瓣电影',
+                        // <radius-upleft-outlined />
+                        icon: 'RedditOutlined',
+                        meta: 'douban_table',
+                        children: null // 这个地方是[]好还是null好？
+                    },
                 ]
-            }
+            },
         ]
     },
     {
@@ -34,14 +42,14 @@ const menuList = [
         children: [
             {
                 key: '2-1',
-                title: 'news',
+                title: '新闻',
                 // <chrome-outlined />
                 icon: 'ChromeOutlined',
                 meta: 'tencent',
                 children: [
                     {
                         key: '2-1-1',
-                        title: 'option2.1',
+                        title: '新浪新闻',
                         // <qq-outlined />
                         icon: 'QqOutlined',
                         meta: 'qq',

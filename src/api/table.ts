@@ -1,12 +1,13 @@
 import { get } from "@/utils/request";
 import { APIParams, APIResult } from '@/typing/tableRequest'
+import { movieData } from '@/typing/movie'
 
 export const getTableData = (params: { apikey: string }) => {
     // return get<APIResult>(
     //     '/api',
     //     {params},
     // )
-    return get(
+    return get<movieData>(
         '/v2/movie/new_movies',
         { params }
     )

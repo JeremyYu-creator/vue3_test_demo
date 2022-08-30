@@ -1,5 +1,5 @@
 import { get } from "@/utils/request";
-import { newsType, channelNewsType } from "@/typing/new";
+import { newsType, channelNewsType } from "@/typing/news";
 
 // col表示新闻类别
 // 国内：56261

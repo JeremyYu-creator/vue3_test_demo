@@ -1,4 +1,4 @@
-export interface listType {
+export type listType = {
     URL: string,
     cTime: string,
     comment: string,
@@ -16,9 +16,9 @@ export interface listType {
             note: string,
         }[]
     }
-}
+}[]
 
-export interface channelList {
+export type channelList = {
     comment: string,
     comment_id: string,
     date: string,
@@ -31,7 +31,7 @@ export interface channelList {
     wap_title: string,
     type: string,
     mediaTypes: string,
-}
+}[]
 
 // export interface childDataType {
 //     total: number,
@@ -46,7 +46,7 @@ export interface childDataType extends childDataCommon {
     list: listType
 }
 
-export interface resultType {
+export type resultType = {
     data: childDataType,
     status: {
         code: number,
@@ -54,11 +54,11 @@ export interface resultType {
     }
 }
 
-export interface dataType {
+export type dataType = {
     result: resultType,
 }
 
-export interface headersType {
+export type headersType = {
     date: string,
     server: string,
     vary: string,

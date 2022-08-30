@@ -4,7 +4,6 @@ import router from '@/router'
 
 router.beforeEach((to, from, next) => {
     nProgress.start()
-    console.log('asdsdsa')
     next()
 })
 

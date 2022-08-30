@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { getAllNews } from '@/api/news'
 import { newsColumn } from '@/mock/tableData'
 import { isMaxHeight } from '@/utils/browser'
+import { listType } from '@/typing/news'
 onMounted(() => {
     setScrollY()
     console.log(isMaxHeight())
@@ -14,7 +15,7 @@ const setScrollY = () => {
     isMaxHeight() ? tableScrollY.value = 570 : tableScrollY.value = 350
     isMaxHeight() ? imgWidth.value = 200 : imgWidth.value = 120
 }
-const newsArr: any = ref([])
+const newsArr = ref([] as listType)
 const loading = ref(true)
 const getData = async () => {
     const params = {
