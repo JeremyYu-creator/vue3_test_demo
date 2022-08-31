@@ -3,7 +3,26 @@ import { defineStore } from 'pinia';
 
 interface GlobalState { // 这种文件都可以单独拿出来
     token: string,
-    userInfo: any
+    userInfo: {
+        userName: string,
+        password: string,
+    },
+}
+interface TokenRequest {
+    desc: string,
+    token: string
+}
+const getData = () => {
+    return new Promise<TokenRequest>((resolve, reject) => {
+        resolve({
+            desc: 'success',
+            token: '#asdsa123',
+        })
+    }).then((res) => {
+        return res
+    }).catch((err) => {
+        console.log(err)
+    })
 }
 // defineStore 调用后返回一个函数，调用该函数获得 Store 实体
 export const GlobalStore = defineStore({
@@ -12,8 +31,8 @@ export const GlobalStore = defineStore({
     state: (): GlobalState => ({
         token: '',
         userInfo: {
-            name: '',
-            age: '',
+            userName: '',
+            password: '',
         }
     }),
     getters: {},
@@ -24,6 +43,9 @@ export const GlobalStore = defineStore({
         },
         setUserInfo(userInfo: any) {
             this.userInfo = userInfo;
+        },
+        async sendUserInfo(userInfo: any) {
+            return await getData()
         }
     },
     // 持久化
@@ -32,8 +54,8 @@ export const GlobalStore = defineStore({
         strategies: [
             {
                 key: 'GlobalState',
-                storage: localStorage,
-                // storage: sessionStorage,
+                // storage: localStorage,
+                storage: sessionStorage,
             }
         ]
     }

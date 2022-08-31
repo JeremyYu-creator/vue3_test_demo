@@ -73,6 +73,8 @@ export default defineConfig({
         ws: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
+      // https://api.wmdb.tv/api/v1/top?type=Imdb&skip=0&limit=50&lang=Cn  top50
+      // https://api.wmdb.tv/movie/api?id=35240235  根据id查询电影详情
     }
   }
 })

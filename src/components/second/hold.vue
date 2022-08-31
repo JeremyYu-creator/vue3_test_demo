@@ -1,11 +1,11 @@
 <template>
   <div>
-    <span>{{ alia }}</span>
-    <span>{{ sum }}</span>
+    <span>{{  alia  }}</span>
+    <span>{{  sum  }}</span>
     <button @click="emitHold">点击</button>
     <button @click="count">点击加一</button>
-    <span>{{ countNum }} 12312</span>
-    <div>{{ token }} 999</div>
+    <span>{{  countNum  }} 12312</span>
+    <div>{{  token  }} 999</div>
   </div>
 </template>
 
@@ -33,14 +33,14 @@ const emitHold = () => {
 }
 const count = () => {
   user.setToken(String(Number(token.value) + 1))  // 确实实现了数据的存储化，切记如果不需要存储的话记得删除：使用clear或者remove指定的key名
-  user.$patch(
-    (state) => {
-      state.userInfo = {
-        name: '李四',
-        age: '20'
-      }
-    }
-  )
+  // user.$patch(
+  //   (state) => {
+  //     state.userInfo = {
+  //       name: '李四',
+  //       age: '20'
+  //     }
+  //   }
+  // )
   console.log(token.value, userInfo.value)
   emit('count')
 }

@@ -101,5 +101,23 @@ const menuList = [
             }
         ],
     },
+    {
+        key: '5',
+        title: '3D渲染',
+        //<bar-chart-outlined />
+        icon: 'AntCloudOutlined',
+        meta: '',
+        children: [
+            {
+                key: '5-1',
+                title: '3D尝试',
+                // <area-chart-outlined />
+                icon: 'InstagramOutlined',
+                meta: '3d',
+                children: null // 这个地方是[]好还是null好？
+            }
+        ],
+    },
+    // <ant-cloud-outlined />< />
 ]
 export default menuList
