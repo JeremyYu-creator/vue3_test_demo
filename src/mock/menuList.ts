@@ -115,7 +115,15 @@ const menuList = [
                 icon: 'InstagramOutlined',
                 meta: '3d',
                 children: null // 这个地方是[]好还是null好？
-            }
+            },
+            {
+                key: '5-2',
+                title: '图形环表',
+                // <area-chart-outlined />
+                icon: 'RadarChartOutlined',
+                meta: 'chart',
+                children: null // 这个地方是[]好还是null好？
+            },
         ],
     },
     // <ant-cloud-outlined />< />

@@ -1,4 +1,4 @@
-# 0.0.0 (2022-08-31)
+# 0.0.0 (2022-09-02)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -6,6 +6,7 @@
  - | 打包成功且线上可成功请求 | [c58b36a](https://github.com/JeremyYu-creator/vue3_test_demo/commit/c58b36a)
  - | 添加表格内的图片及样式修改 | [2fe8146](https://github.com/JeremyYu-creator/vue3_test_demo/commit/2fe8146)
  - | 新闻开发完成&&精简代码 | [a3ef31c](https://github.com/JeremyYu-creator/vue3_test_demo/commit/a3ef31c)
+ - | 新增登录页面及three.js的相关初步引入 | [28e54ca](https://github.com/JeremyYu-creator/vue3_test_demo/commit/28e54ca)
  - | 新增豆瓣电影功能,完善ts类型设置 | [ad0d275](https://github.com/JeremyYu-creator/vue3_test_demo/commit/ad0d275)
  - | 修改代码格式风格 | [45b9f87](https://github.com/JeremyYu-creator/vue3_test_demo/commit/45b9f87)
  - | 修改界面适配+readme | [3fa5bf8](https://github.com/JeremyYu-creator/vue3_test_demo/commit/3fa5bf8)

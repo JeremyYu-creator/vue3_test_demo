@@ -30,7 +30,7 @@ const asyncContantArray = [
                 meta: {
                     title: "地图",
                 },
-                component: () => import('@/views/map/chart.vue'),
+                component: () => import('@/views/map/map.vue'),
             },
             {
                 path: "data",
@@ -71,6 +71,14 @@ const asyncContantArray = [
                     title: "3d页面",
                 },
                 component: () => import('@/views/canvas/three.vue'),
+            },
+            {
+                path: "chart",
+                name: "chart",
+                meta: {
+                    title: "图表",
+                },
+                component: () => import('@/views/canvas/index.vue'),
             },
         ]
     },

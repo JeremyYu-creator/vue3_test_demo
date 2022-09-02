@@ -229,6 +229,7 @@ const openWeatherCard = () => {
 const searchCity = async () => {
   await initMap()
   getWeather(cityName.value)
+  getTraffic()
   map.value.setCity(cityName.value)
   await map.value.getCity((info: any) => {
     console.log(info, '----获取的城市信息----')
@@ -241,13 +242,13 @@ const publicRoute = (type: string) => { // 根据当前位置到达指定位置�
   }
   const transOptions = reactive({ // 公共路线设置
     map: map.value,
-    city: cityName.value ? '北京' : cityName.value,
+    city: cityName.value ? cityName.value : '北京',
     panel: "panel",
     policy: load.value.TransferPolicy.LEAST_TIME,
   })
   const commonOptions = reactive({ // 骑车及自驾路线设置
     map: map.value,
-    city: cityName.value ? '北京' : cityName.value,
+    city: cityName.value ? cityName.value : '北京',
     panel: "panel",
   })
   if (type === '1') {

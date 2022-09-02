@@ -3,3 +3,4 @@ declare module 'qs'
 declare module 'js-cookie'
 declare module 'nprogress'
 declare module 'three'
+declare module "@types/three"
