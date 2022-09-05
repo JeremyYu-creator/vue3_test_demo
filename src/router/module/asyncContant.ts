@@ -80,6 +80,14 @@ const asyncContantArray = [
                 },
                 component: () => import('@/views/canvas/index.vue'),
             },
+            {
+                path: "canvas",
+                name: "canvas",
+                meta: {
+                    title: "canvas&svg",
+                },
+                component: () => import('@/views/canvas/canvas.vue'),
+            },
         ]
     },
 ]

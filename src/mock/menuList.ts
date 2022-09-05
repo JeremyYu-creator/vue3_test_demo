@@ -124,8 +124,16 @@ const menuList = [
                 meta: 'chart',
                 children: null // 这个地方是[]好还是null好？
             },
+            {
+                key: '5-3',
+                title: 'canvas',
+                // <area-chart-outlined />
+                icon: 'CodeSandboxOutlined',
+                meta: 'canvas',
+                children: null // 这个地方是[]好还是null好？
+            },
         ],
     },
-    // <ant-cloud-outlined />< />
+
 ]
 export default menuList

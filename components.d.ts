@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    404: typeof import('./src/components/404/404.vue')['default']
     ABackTop: typeof import('ant-design-vue/es')['BackTop']
     ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
     ABreadcrumbItem: typeof import('ant-design-vue/es')['BreadcrumbItem']
@@ -53,6 +54,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Son: typeof import('./src/components/first/son.vue')['default']
     SubMenu: typeof import('./src/components/aside/subMenu.vue')['default']
+    SvgIcon: typeof import('./src/components/svgComponent/svgIcon.vue')['default']
     WeatherContent: typeof import('./src/components/weather/weatherContent.vue')['default']
   }
 }

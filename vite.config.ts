@@ -5,6 +5,7 @@ import { resolve } from 'path'
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
+import { svgBuilder } from './src/utils/svgBuilder';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,7 +16,8 @@ export default defineConfig({
     }),
     resolveExternalsPlugin({
       AMap: 'AMap'
-    })
+    }),
+    svgBuilder('./src/assets/svg/')
   ],
   build: {
     minify: 'terser',
