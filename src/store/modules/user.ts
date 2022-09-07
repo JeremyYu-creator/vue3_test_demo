@@ -1,17 +1,9 @@
 // src/store/index.ts
 import { defineStore } from 'pinia';
+import { TokenRequest, GlobalState } from '@/typing/store'
+import { FormState } from '@/typing/user'
 
-interface GlobalState { // 这种文件都可以单独拿出来
-    token: string,
-    userInfo: {
-        userName: string,
-        password: string,
-    },
-}
-interface TokenRequest {
-    desc: string,
-    token: string
-}
+// 模拟拿到数据
 const getData = () => {
     return new Promise<TokenRequest>((resolve, reject) => {
         resolve({
@@ -41,10 +33,10 @@ export const GlobalStore = defineStore({
         setToken(token: string) {
             this.token = token;
         },
-        setUserInfo(userInfo: any) {
+        setUserInfo(userInfo: FormState) {
             this.userInfo = userInfo;
         },
-        async sendUserInfo(userInfo: any) {
+        async sendUserInfo(userInfo: FormState) {
             return await getData()
         }
     },

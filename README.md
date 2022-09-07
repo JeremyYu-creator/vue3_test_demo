@@ -14,3 +14,5 @@ npm run dev
 
 # 本地查看代码打包情况
     使用"npm i -g serve" "serve -s dist",即可本地查看打包情况
+
+// 目前有ts的报错、打包之后本地无法运行的问题&&clear清理session问题

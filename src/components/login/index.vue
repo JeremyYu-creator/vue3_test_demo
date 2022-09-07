@@ -1,32 +1,35 @@
 <script lang="ts" setup>
-import { getBgcSet } from '@/utils/radomBackground'
+import { getBgcSet, bgcArr } from '@/utils/radomBackground'
 import { ref, onMounted, reactive } from 'vue'
 import useStore from '@/store/index'
 import { useRouter } from 'vue-router'
-interface FormState {
-    username: string;
-    password: string;
-}
+import { FormState } from '@/typing/user'
+
 onMounted(() => {// 动态设置随机背景图
-    backgroundSet.value = getBgcSet()
+    backgroundSet.value = getBgcSet(bgcArr)
 })
 const router = useRouter()
 const backgroundSet = ref('')
 const formState = reactive<FormState>({
-    username: '',
+    userName: '',
     password: '',
 });
 // remember: false,
 const remember = ref(false)
 const { user } = useStore()
-const onFinish = async (values: any) => { // 成功的回调函数
+const onFinish = async () => { // 成功的回调函数
     // 提交信息通过接口返回判断相关逻辑
     try {
         const res = await user.sendUserInfo(formState)
-        console.log(res, '-----')
+        /**
+         * 要考虑保存下当前页面，可以让用户在重新登陆后再次到之前的页面
+         * **/
         if (res?.desc === 'success') {
             user.setToken(res?.token)
+            user.setUserInfo(formState)
             router.push('/')
+        } else {
+            console.log('error')
         }
     } catch (err) {
         console.log(err)
@@ -43,8 +46,8 @@ const onFinishFailed = (errorInfo: any) => { // 失败的回调函数
         <a-card class="login-card-style">
             <a-form :model="formState" name="basic" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }"
                 autocomplete="off" @finish="onFinish" @finishFailed="onFinishFailed">
-                <a-form-item label="账号" name="username" :rules="[{ required: true, message: '请输入账号!' }]">
-                    <a-input v-model:value="formState.username" />
+                <a-form-item label="账号" name="userName" :rules="[{ required: true, message: '请输入账号!' }]">
+                    <a-input v-model:value="formState.userName" />
                 </a-form-item>
 
                 <a-form-item label="密码" name="password" :rules="[{ required: true, message: '请输入密码!' }]">

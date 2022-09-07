@@ -1,4 +1,5 @@
-const bgcArr = [
+// 登录背景图片模拟
+export const bgcArr = [
     'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg9.51tietu.net%2Fpic%2F2019-091323%2Fheylamt3itgheylamt3itg.jpg&refer=http%3A%2F%2Fimg9.51tietu.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664503787&t=61d3bf4363d956df842bd8a2823f8d2e',
     'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg9.51tietu.net%2Fpic%2F2019-091109%2Fust10ifihrcust10ifihrc.jpg&refer=http%3A%2F%2Fimg9.51tietu.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664503787&t=eb51ce633f0ac6feac1c0789c41af139',
     'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcn.best-wallpaper.net%2Fwallpaper%2F1920x1080%2F1709%2FMountains-valley-river-nature-landscape_1920x1080.jpg&refer=http%3A%2F%2Fcn.best-wallpaper.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664503787&t=31828a27083059bf7b54964898559d92',
@@ -10,8 +11,17 @@ const bgcArr = [
     'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg9.51tietu.net%2Fpic%2F2019-090907%2Fb1v1c2rbnabb1v1c2rbnab.jpg&refer=http%3A%2F%2Fimg9.51tietu.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664503787&t=aa621f9b72f83bd384bd2d2c1e2ffd8b'
 ]
 
-export const getBgcSet = () => {
-    return bgcArr[Math.floor(Math.random() * bgcArr.length)]
+export const getBgcSet = (arr: string[]) => {
+    return arr[Math.floor(Math.random() * arr.length)]
 }
 
-export default { getBgcSet }
+// 左上角图标模拟
+export const getIcon = [
+    'dance',
+    'message',
+    'music',
+    'pay',
+    'play',
+    'work',
+]
+export default { getBgcSet, bgcArr, getIcon }

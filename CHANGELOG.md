@@ -1,4 +1,4 @@
-# 0.0.0 (2022-09-05)
+# 0.0.0 (2022-09-07)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -15,6 +15,7 @@
  - | 增加表格数据渲染 | [1492558](https://github.com/JeremyYu-creator/vue3_test_demo/commit/1492558)
  - | 增加提交规范 | [cdccd48](https://github.com/JeremyYu-creator/vue3_test_demo/commit/cdccd48)
  - | 增加nprogress页面加载 | [d334ef6](https://github.com/JeremyYu-creator/vue3_test_demo/commit/d334ef6)
+ - | 增加svg文件引入 | [f8cf465](https://github.com/JeremyYu-creator/vue3_test_demo/commit/f8cf465)
  - | 增添图表功能,3D填充待续 | [7850d35](https://github.com/JeremyYu-creator/vue3_test_demo/commit/7850d35)
 
 

@@ -27,6 +27,7 @@ const asyncContantArray = [
             {
                 path: "map",
                 name: "map",
+                alias: '4-1',
                 meta: {
                     title: "地图",
                 },
@@ -35,6 +36,7 @@ const asyncContantArray = [
             {
                 path: "data",
                 name: "line",
+                alias: '3-1',
                 meta: {
                     title: "数据",
                 },
@@ -43,6 +45,7 @@ const asyncContantArray = [
             {
                 path: "commonTable",
                 name: "common_table",
+                alias: '1-1-1',
                 meta: {
                     title: "普通表格",
                 },
@@ -51,6 +54,7 @@ const asyncContantArray = [
             {
                 path: "douban",
                 name: "douban_table",
+                alias: '1-1-2',
                 meta: {
                     title: "豆瓣表格",
                 },
@@ -59,6 +63,7 @@ const asyncContantArray = [
             {
                 path: "tencent",
                 name: "qq",
+                alias: '2-1',
                 meta: {
                     title: "腾讯页面",
                 },
@@ -67,6 +72,7 @@ const asyncContantArray = [
             {
                 path: "3d",
                 name: "3d",
+                alias: '5-1',
                 meta: {
                     title: "3d页面",
                 },
@@ -75,6 +81,7 @@ const asyncContantArray = [
             {
                 path: "chart",
                 name: "chart",
+                alias: '5-2',
                 meta: {
                     title: "图表",
                 },
@@ -83,6 +90,7 @@ const asyncContantArray = [
             {
                 path: "canvas",
                 name: "canvas",
+                alias: '5-3',
                 meta: {
                     title: "canvas&svg",
                 },
