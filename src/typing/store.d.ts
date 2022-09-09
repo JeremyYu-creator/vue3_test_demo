@@ -12,7 +12,8 @@ export interface TokenRequest {
 
 export interface MenuState {
     openKeys: string[],
-    selectedKeys: string[]
+    selectedKeys: string[],
+    path: string
 }
 
 export default { GlobalState, TokenRequest, MenuState }

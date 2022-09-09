@@ -53,6 +53,7 @@ import SubMenu from '@/components/aside/subMenu.vue'
 import menuList from '@/mock/menuList'
 import { ref, getCurrentInstance, onMounted, onBeforeUnmount } from 'vue'
 import useStore from '@/store/index'
+import { useRouter } from 'vue-router'
 
 const proxy = getCurrentInstance()?.proxy
 const $antIcons = proxy?.$antIcons
@@ -61,12 +62,14 @@ const selectedKeys = ref<string[]>(['']) // 父tab的key
 const openKeys = ref<string[]>(['']) // 子tab下的展开
 const { menu } = useStore()
 const childComponent: any = ref(null)
+const router = useRouter()
 onMounted(() => {
   selectedKeys.value = menu.selectedKeys
   openKeys.value = menu.openKeys
 })
 const getData = () => {
   menu.setOpenKeys(openKeys.value)
+  menu.setRouterPath(router.currentRoute.value.path)
 }
 const setData = () => {
   menu.setSelectKeys(selectedKeys.value)

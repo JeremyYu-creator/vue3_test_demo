@@ -6,7 +6,8 @@ export const MenuSetting = defineStore({
     state: (): MenuState => (
         {
             openKeys: [''],
-            selectedKeys: ['']
+            selectedKeys: [''],
+            path: ''
         }
     ),
     actions: {
@@ -15,6 +16,9 @@ export const MenuSetting = defineStore({
         },
         setSelectKeys(selectedKeys: string[]) {
             this.selectedKeys = selectedKeys
+        },
+        setRouterPath(path: string) {
+            this.path = path
         }
     },
     persist: { // 实际上是通过storage方式进行存储, 注意默认是sessionStorage

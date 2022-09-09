@@ -17,9 +17,6 @@
       </a-dropdown>
     </div>
   </div>
-  <a-modal v-model:visible="visible" @ok="handleOk">
-    <span>确认退出登录吗？</span>
-  </a-modal>
 </template>
 <script lang="ts" setup>
 import { getBgcSet, getIcon } from '@/utils/radomBackground'
@@ -52,12 +49,7 @@ const headerSvg = {
   'height': '10vh',
 }
 const setDialog = (value: string) => {
-  console.log(value)
   value === '3' && confirm()
-}
-const visible = ref(false)
-const handleOk = () => {
-  visible.value = false
 }
 const confirm = () => {
   Modal.confirm({

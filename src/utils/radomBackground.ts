@@ -11,10 +11,6 @@ export const bgcArr = [
     'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg9.51tietu.net%2Fpic%2F2019-090907%2Fb1v1c2rbnabb1v1c2rbnab.jpg&refer=http%3A%2F%2Fimg9.51tietu.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1664503787&t=aa621f9b72f83bd384bd2d2c1e2ffd8b'
 ]
 
-export const getBgcSet = (arr: string[]) => {
-    return arr[Math.floor(Math.random() * arr.length)]
-}
-
 // 左上角图标模拟
 export const getIcon = [
     'dance',
@@ -24,4 +20,8 @@ export const getIcon = [
     'play',
     'work',
 ]
+
+export const getBgcSet = (arr: string[]) => { // 随机生成函数
+    return arr[Math.floor(Math.random() * arr.length)]
+}
 export default { getBgcSet, bgcArr, getIcon }
