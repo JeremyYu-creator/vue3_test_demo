@@ -9,6 +9,7 @@ export const getTableData = (params: { apikey: string }) => {
     // )
     return get<movieData>(
         '/v2/movie/new_movies',
+        //'/wmdb/movie/new_movies',
         { params }
     )
 }

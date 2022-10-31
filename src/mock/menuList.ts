@@ -52,7 +52,7 @@ const menuList = [
                         title: '新浪新闻',
                         // <qq-outlined />
                         icon: 'QqOutlined',
-                        meta: 'qq',
+                        meta: 'tencent',
                         children: null // 这个地方是[]好还是null好？
                     },
                     {

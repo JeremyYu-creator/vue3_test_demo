@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
+import _ from 'lodash'
+const arr = [1, 2, 3, 4, 5]
 const init = () => {
     const canvas: any = document.getElementById('canvas')
     const ctx = canvas.getContext('2d')
@@ -94,8 +96,22 @@ const init = () => {
         ctx.restore()
     }, 1000)
 }
+const getNumber = () => {
+    console.log(_.sum(arr))
+}
+// function test<T>(arg: T): T {
+//     return arg
+// }
+// interface extra {
+//     length: number
+// } 
+// const test = <T,extra>(arg: T) => {
+//     return arg
+// }
+// console.log(test('asd'), test(123), test(true))
 onMounted(() => {
     init()
+    getNumber()
 })
 
 </script>
@@ -103,4 +119,5 @@ onMounted(() => {
     <canvas id="canvas" width="300" height="300"></canvas>
 </template>
 <style lang="less">
+
 </style>

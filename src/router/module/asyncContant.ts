@@ -70,6 +70,15 @@ const asyncContantArray = [
                 component: () => import('@/views/community/index.vue'),
             },
             {
+                path: "wechat",
+                name: "wechat",
+                alias: '2-2',
+                meta: {
+                    title: "微信页面",
+                },
+                component: () => import('@/views/table/newDoubanTable.vue'),
+            },
+            {
                 path: "3d",
                 name: "3d",
                 alias: '5-1',
