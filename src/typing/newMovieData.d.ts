@@ -19,7 +19,7 @@ export type wmdbSubData = {
     lang: string,
     shareImage: string,
     movie: string,
-}
+}[]
 
 export type wmdbResponse = {
     data: wmdbSubData,
@@ -40,6 +40,6 @@ export type wmdbResponse = {
     doubanVotes: number,
     duration: number,
     dateReleased: string
-}
+}[]
 
 export default { wmdbSubData, wmdbResponse }

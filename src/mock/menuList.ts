@@ -57,7 +57,7 @@ const menuList = [
                     },
                     {
                         key: '2-1-2',
-                        title: 'option2.2',
+                        title: '豆瓣详细电影',
                         // <wechat-outlined />
                         icon: 'WechatOutlined',
                         meta: 'wechat',

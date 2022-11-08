@@ -62,7 +62,7 @@ const asyncContantArray = [
             },
             {
                 path: "tencent",
-                name: "qq",
+                name: "tencent",
                 alias: '2-1',
                 meta: {
                     title: "腾讯页面",
