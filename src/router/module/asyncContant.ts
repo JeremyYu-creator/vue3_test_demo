@@ -107,5 +107,13 @@ const asyncContantArray = [
             },
         ]
     },
+    {
+        path: "/detailMovie",
+        name: "detailMovie",
+        meta: {
+            title: "豆瓣电影详情",
+        },
+        component: () => import('@/views/table/doubanDetailMovie.vue'),
+    },
 ]
 export default asyncContantArray

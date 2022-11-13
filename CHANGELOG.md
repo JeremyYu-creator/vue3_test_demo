@@ -1,9 +1,10 @@
-# 0.0.0 (2022-11-08)
+# 0.0.0 (2022-11-13)
 
 ### 🌟 新功能
 范围|描述|commitId
 --|--|--
  - | 打包成功且线上可成功请求 | [c58b36a](https://github.com/JeremyYu-creator/vue3_test_demo/commit/c58b36a)
+ 豆瓣电影 | 新增豆瓣电影页面 | [8bc5f9e](https://github.com/JeremyYu-creator/vue3_test_demo/commit/8bc5f9e)
  豆瓣电影 | 新增豆瓣电影api | [1af4552](https://github.com/JeremyYu-creator/vue3_test_demo/commit/1af4552)
  - | 添加表格内的图片及样式修改 | [2fe8146](https://github.com/JeremyYu-creator/vue3_test_demo/commit/2fe8146)
  - | 新闻开发完成&&精简代码 | [a3ef31c](https://github.com/JeremyYu-creator/vue3_test_demo/commit/a3ef31c)

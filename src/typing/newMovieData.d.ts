@@ -1,3 +1,11 @@
+export interface errorText {
+    code: string,
+    message: string,
+    response: {
+        data: string
+    }
+}
+
 export interface topRequestParams {
     type: string,
     skip: number,
@@ -5,6 +13,64 @@ export interface topRequestParams {
     lang: string
 }
 
+export interface detailMovieRequest {
+    id: string
+}
+
+export type movieDataType = {
+    createdAt: number,
+    updatedAt: number,
+    id: string,
+    poster: string,
+    name: string,
+    genre: string,
+    description: string,
+    language: string,
+    country: string,
+    lang: string,
+    shareImage?: string,
+    movie: string,
+}[]
+
+export type writerData = {
+    createdAt: number,
+    updatedAt: number,
+    id: string,
+    name: string,
+    lang: string,
+    person: string
+}[]
+
+export type detailMovieMessage = {
+    data: movieDataType,
+    writer: writerData,
+    actor: writerData,
+    director: writerData,
+    createdAt: number,
+    updatedAt: number,
+    id: string,
+    originalName: string,
+    imdbVotes: number,
+    imdbRating: string,
+    rottenVotes: number,
+    year: string,
+    imdbId: string,
+    alias: string,
+    doubanId: string,
+    type: string,
+    doubanVotes: number,
+    doubanRating: string,
+    duration: number,
+    episodes: number,
+    totalSeasons: number,
+    dateReleased: string,
+    artRatings: number,
+    actorRatings: number,
+    soundRatings: number,
+    storyRatings: number,
+    enjoymentRatings: number,
+    totalVotes: number,
+}
 
 export type wmdbSubData = {
     createAt: string,
@@ -42,4 +108,4 @@ export type wmdbResponse = {
     dateReleased: string
 }[]
 
-export default { wmdbSubData, wmdbResponse }
+export default { wmdbSubData, wmdbResponse, topRequestParams, detailMovieRequest, detailMovieMessage }

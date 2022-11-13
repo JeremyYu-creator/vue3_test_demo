@@ -116,7 +116,7 @@ const routeTypeMap = [
   },
 ]
 const setMapY = () => { // 设置不同适配下的高度
-  isMaxHeight() ? fitHeight.value = '700px' : fitHeight.value = '450px'
+  isMaxHeight() ? fitHeight.value = '700px' : fitHeight.value = '480px'
 }
 const setGeolocation = () => { // 设置浏览器相关定位
   const geolocation = new load.value.Geolocation({
