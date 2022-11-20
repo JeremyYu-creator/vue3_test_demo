@@ -180,7 +180,8 @@ const getTraffic = () => {
 const initMap = async () => { // 初始化加载地图、生成地图实例、后续只需对实例进行操作即可
   try {
     load.value = await AMapLoader.load({
-      key: '07a87fdfe672069746851ffcc8792560', // 申请的apikey
+      // key: '07a87fdfe672069746851ffcc8792560', // 申请的apikey
+      key: "2517462bd36744fbde1b075f45cd7f5a",
       version: '2.0',
       plugins: [
         // 一次性在最开始全部加载

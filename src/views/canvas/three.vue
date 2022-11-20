@@ -74,7 +74,7 @@ onMounted(() => {
     </div>
 </template>
 <style lang="less">
-#container {
+#scene {
     height: 400px;
 }
 </style>

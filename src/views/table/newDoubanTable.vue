@@ -103,6 +103,7 @@ onMounted(async () => {
             </div>
         </div>
     </a-spin>
+    <a-back-top />
 </template>
 <style lang="less">
 .main-block {
@@ -119,7 +120,7 @@ onMounted(async () => {
 }
 
 .movie-block-style {
-    height: 500px;
+    height: 100%;
     display: flex;
     // justify-content: space-around;
     justify-content: flex-start;

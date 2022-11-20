@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { getDoubanDetail } from '@/api/douban'
 import { useRouter, useRoute } from 'vue-router';
 import { message } from 'ant-design-vue';
-import { detailMovieMessage, movieDataType, writerData } from '@/typing/newMovieData'
+import { detailMovieMessage, movieDataType, commonType } from '@/typing/newMovieData'
 
 const router = useRouter()
 const route = useRoute()
@@ -11,16 +11,18 @@ const doubanId = ref('')
 const spanningLogo = ref(false)
 const detailMovieIfnfo = ref({} as detailMovieMessage)
 const movieDataArr = ref([] as movieDataType)
-const actoDatarArr = ref([] as writerData)
-const directorDataArr = ref([] as writerData)
+const actorDataArr = ref([] as commonType)
+const directorDataArr = ref([] as commonType)
+const writerDataArr = ref([] as commonType)
 const getDetailMovieMessage = async (id: string) => {
     spanningLogo.value = true
     try {
         const res = await getDoubanDetail({ id: id })
         detailMovieIfnfo.value = res
         movieDataArr.value = detailMovieIfnfo.value.data
-        actoDatarArr.value = detailMovieIfnfo.value.actor
+        actorDataArr.value = detailMovieIfnfo.value.actor
         directorDataArr.value = detailMovieIfnfo.value.director
+        writerDataArr.value = detailMovieIfnfo.value.writer
         spanningLogo.value = false
         console.log(res)
     } catch (err: any) {
@@ -53,6 +55,7 @@ onMounted(async () => {
     <div>
         <a-spin :spinning="spanningLogo">
             <a-card class="movie-detail-style">
+                <h3>电影详情</h3>
                 <div class="movie-introduce-style" v-for="item, index in movieDataArr" :key="item.id">
                     <a-image :src="item.poster" class="movie-poster-style"></a-image>
                     <div class="movie-introduce-text-style">
@@ -64,7 +67,8 @@ onMounted(async () => {
                         <span class="common-text-style">语言：{{ item.lang }}</span>
                         <span class="common-text-style">详情简介：{{ item.description }}</span>
                         <div class="movie-introduce-special-style" v-if="index === 0">
-                            <span class="common-text-style">电影别名：{{ detailMovieIfnfo.alias }}</span>
+                            <span class="common-text-style">
+                                <b>电影别名：</b>{{ detailMovieIfnfo.alias }}</span>
                             <span class="common-text-style">上映日期：{{ detailMovieIfnfo.dateReleased }}</span>
                             <span class="common-text-style">IMB评分：{{ detailMovieIfnfo.imdbRating }}</span>
                             <span class="common-text-style">IMB评论：{{ detailMovieIfnfo.imdbVotes }}</span>
@@ -76,11 +80,31 @@ onMounted(async () => {
                         <a-image :src="item.shareImage" class="movie-share-style" v-if="item.shareImage"></a-image>
                     </div>
                 </div>
-                <div class="actor-introduce-style">
-
-                </div>
-                <div class="director-introduce-style">
-
+                <div class="person-introduce-style">
+                    <div class="common-introduce-style">
+                        <h3>演员表</h3>
+                        <div class="common-row-style" v-for="item in actorDataArr" :key="item.id">
+                            <div v-for="iitem in item.data" :key="iitem.id" class="common-single-style">
+                                <span>{{ iitem.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="common-introduce-style">
+                        <h3>导演表</h3>
+                        <div class="common-row-style" v-for="item in directorDataArr" :key="item.id">
+                            <div class="common-single-style" v-for="iitem in item.data" :key="iitem.id">
+                                <span>{{ iitem.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="common-introduce-style">
+                        <h3>编剧表</h3>
+                        <div class="common-row-style" v-for="item in writerDataArr" :key="item.id">
+                            <div class="common-single-style" v-for="iitem in item.data" :key="iitem.id">
+                                <span>{{ iitem.name }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <a-back-top />
             </a-card>
@@ -115,18 +139,19 @@ onMounted(async () => {
 
 .common-text-style {
     font-size: 16px;
+    font-family: PingFangSC-Regular;
 }
 
 .movie-poster-style {
-    width: 200px;
-    height: 260px;
+    width: 250px;
+    height: 380px;
     border-radius: 8px;
     margin: 0 20px;
 }
 
 .movie-share-style {
-    width: 600px;
-    height: 250px;
+    width: 650px;
+    height: 300px;
 }
 
 .movie-introduce-special-style {
@@ -134,7 +159,28 @@ onMounted(async () => {
     flex-direction: column;
 }
 
-.actor-introduce-style {}
+.person-introduce-style {
+    display: flex;
+    justify-content: flex-start;
+}
 
-.director-introduce-style {}
+// .common-introduce-style {
+//     width: 400px;
+// }
+
+.common-row-style {
+    display: flex;
+    justify-content: flex-start;
+    margin-right: 30px;
+}
+
+.common-single-style {
+    margin-right: 30px;
+}
+
+// .director-introduce-style {
+//     display: flex;
+//     justify-content: flex-start;
+//     margin-right: 100px;
+// }
 </style>

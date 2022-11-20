@@ -41,11 +41,18 @@ export type writerData = {
     person: string
 }[]
 
+export type commonType = {
+    createdAt: number,
+    updatedAt: number,
+    id: string,
+    data: writerData
+}[]
+
 export type detailMovieMessage = {
     data: movieDataType,
-    writer: writerData,
-    actor: writerData,
-    director: writerData,
+    writer: commonType,
+    actor: commonType,
+    director: commonType,
     createdAt: number,
     updatedAt: number,
     id: string,
