@@ -132,6 +132,25 @@ const menuList = [
                 meta: 'canvas',
                 children: null // 这个地方是[]好还是null好？
             },
+            /**
+             * todo:目前3d接入，vue3暂不支持，需要进行后续的观察，暂时取消
+             */
+            // {
+            //     key: '5-4',
+            //     title: '3D环形',
+            //     // <area-chart-outlined />
+            //     icon: 'CodeSandboxOutlined',
+            //     meta: '3dWhole',
+            //     children: null // 这个地方是[]好还是null好？
+            // },
+            {
+                key: '5-5',
+                title: 'animation',
+                // <heart-outlined />
+                icon: 'HeartOutlined',
+                meta: 'animation',
+                children: null // 这个地方是[]好还是null好？
+            }
         ],
     },
 

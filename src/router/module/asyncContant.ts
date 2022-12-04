@@ -105,6 +105,24 @@ const asyncContantArray = [
                 },
                 component: () => import('@/views/canvas/canvas.vue'),
             },
+            {
+                path: "3dWhole",
+                name: "3dWhole",
+                alias: '5-4',
+                meta: {
+                    title: "3D环形",
+                },
+                component: () => import('@/views/three/wholeHouse.vue'),
+            },
+            {
+                path: "animation",
+                name: "animation",
+                alias: '5-5',
+                meta: {
+                    title: "animation",
+                },
+                component: () => import('@/views/animation/index.vue'),
+            },
         ]
     },
     {

@@ -2,21 +2,25 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import liveingRoom from '@/assets/image/livingRoom.jpg'
+import kitchen from '@/assets/image/kitchen.jpg'
+import tip from '@/assets/image/tip.png'
 import gsap from "gsap";
-let scene: any = null
-let camera: any = null
-let controls: any = null
-let renderer: any = null
-let axisHelper: any = null
-let sphere: any = null
-let timer: any = null
+let scene: any = ref(null)
+let camera: any = ref(null)
+let controls: any = ref(null)
+let renderer: any = ref(null)
+let axisHelper: any = ref(null)
+let sphere: any = ref(null)
+let timer: any = ref(null)
 let threeDBox: any = ref(null)
 let time = {
     value: 0
 }
 let dataList = [
     {
-        image: require("@/assets/image/livingRoom.jpg"),
+        // image: require("@/assets/image/livingRoom.jpg"),
+        image: liveingRoom,
         tipsList: [
             {
                 position: { x: -200, y: -4, z: -147 },
@@ -76,7 +80,8 @@ let dataList = [
         ],
     },
     {
-        image: require("@/assets/image/kitchen.jpg"),
+        // image: require("@/assets/image/kitchen.jpg"),
+        image: kitchen,
         tipsList: [
             {
                 position: { x: -199, y: -24, z: 145 },
@@ -102,41 +107,42 @@ let titlePosition = {
 }
 let tooltopContent: any = {}
 const initScene = () => {
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x101010);
+    scene.value = new THREE.Scene();
+    scene.value.background = new THREE.Color(0x101010);
 }
 const initCamera = (element: any) => {
-    camera = new THREE.PerspectiveCamera(
+    camera.value = new THREE.PerspectiveCamera(
         45,
         element.clientWidth / element.clientHeight,
         0.1,
         1000
     );
-    camera.position.set(50, 0, 40);
+    camera.value.position.set(50, 0, 40);
 }
 const initControls = (element: any) => {
-    controls = new OrbitControls(camera, element);
-    controls.minDistance = 1;
-    controls.maxDistance = 100;
-    controls.enablePan = false;
+    controls.value = new OrbitControls(camera.value, element);
+    controls.value.minDistance = 1;
+    controls.value.maxDistance = 100;
+    controls.value.enablePan = false;
 }
 const initRenderer = (element: any) => {
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize(element.offsetWidth, element.offsetHeight);
-    element.appendChild(renderer.domElement);
+    renderer.value = new THREE.WebGLRenderer();
+    renderer.value.setSize(element.offsetWidth, element.offsetHeight);
+    element.appendChild(renderer.value.domElement);
 }
 const initContent = (index = 0) => {
     let sphereGeometry = new THREE.SphereGeometry(16, 50, 50);
     sphereGeometry.scale(16, 16, -16);
     let texture = new THREE.TextureLoader().load(dataList[index].image);
     let sphereMaterial = new THREE.MeshBasicMaterial({ map: texture });
-    sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    scene.add(sphere);
+    sphere.value = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    scene.value.add(sphere.value);
     addTipsSprite()
 }
 const addTipsSprite = (index = 0) => {
     let tipTexture = new THREE.TextureLoader().load(
-        require("@/assets/image/tip.png")
+        // require("@/assets/image/tip.png")
+        tip
     );
     let material = new THREE.SpriteMaterial({ map: tipTexture });
     tipsSpriteList = [];
@@ -146,11 +152,11 @@ const addTipsSprite = (index = 0) => {
         sprite.position.set(item.position.x, item.position.y, item.position.z);
         sprite.content = item.content;
         tipsSpriteList.push(sprite);
-        scene.add(sprite);
+        scene.value.add(sprite);
     });
 }
 const changeContentAndtips = (index: number) => {
-    scene.children = scene.children.filter(
+    scene.value.children = scene.value.children.filter(
         (item: any) => String(item.type) !== "Sprite"
     );
     tipsSpriteList = [];
@@ -160,24 +166,24 @@ const changeContentAndtips = (index: number) => {
         transparent: true,
         opacity: 0,
     });
-    sphere.material = sphereMaterial;
+    sphere.value.material = sphereMaterial;
     gsap.to(sphereMaterial, { transparent: true, opacity: 1, duration: 2 });
-    camera.updateProjectionMatrix();
+    camera.value.updateProjectionMatrix();
     addTipsSprite(index);
 }
 const render = () => {
-    controls.update();
-    renderer.render(scene, camera);
-    renderer.sortObjects = false;
-    timer = requestAnimationFrame(render);
+    controls.value.update();
+    renderer.value.render(scene.value, camera.value);
+    renderer.value.sortObjects = false;
+    timer.value = requestAnimationFrame(render);
     time.value += 0.015;
 }
 
 const onResize = () => {
     let element = threeDBox.value;
-    camera.aspect = element.clientWidth / element.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(element.clientWidth, element.clientHeight);
+    camera.value.aspect = element.clientWidth / element.clientHeight;
+    camera.value.updateProjectionMatrix();
+    renderer.value.setSize(element.clientWidth, element.clientHeight);
 }
 const onMouseClick = (e: any) => {
     e.preventDefault();
@@ -186,7 +192,7 @@ const onMouseClick = (e: any) => {
     let mouse = new THREE.Vector2();
     mouse.x = (e.clientX / element.clientWidth) * 2 - 1;
     mouse.y = -(e.clientY / element.clientHeight) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
+    raycaster.setFromCamera(mouse, camera.value);
     let intersects = raycaster.intersectObjects(tipsSpriteList, true);
     if (intersects.length > 0 && intersects[0].object.content.showTitle) {
         changeContentAndtips(intersects[0].object.content.image);
@@ -202,7 +208,7 @@ const onMousemove = (e: any) => {
     let mouse = new THREE.Vector2();
     mouse.x = (e.clientX / element.clientWidth) * 2 - 1;
     mouse.y = -(e.clientY / element.clientHeight) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
+    raycaster.setFromCamera(mouse, camera.value);
     let intersects = raycaster.intersectObjects(tipsSpriteList, true);
     if (intersects.length > 0) {
         let elementWidth = element.clientWidth / 2;
@@ -212,7 +218,7 @@ const onMousemove = (e: any) => {
             intersects[0].object.position.y,
             intersects[0].object.position.z
         );
-        let position = worldVector.project(camera);
+        let position = worldVector.project(camera.value);
         tooltopContent = intersects[0].object.content;
         if (intersects[0].object.content.showTip) {
             let left = Math.round(
@@ -267,7 +273,7 @@ onMounted(() => {
     render();
     window.addEventListener("resize", onResize, false);
     window.addEventListener("click", onMouseClick, false);
-    renderer.domElement.addEventListener(
+    renderer.value.domElement.addEventListener(
         "mousemove",
         onMousemove,
         false
@@ -280,7 +286,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-    cancelAnimationFrame(timer);
+    cancelAnimationFrame(timer.value);
 })
 </script>
 
@@ -300,5 +306,73 @@ onUnmounted(() => {
 </template>
 
 <style lang="less">
-
+.home {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .view-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .title-text {
+    position: absolute;
+    width: 66px;
+    color: #382129;
+  }
+  .tooltip-box {
+    position: absolute;
+    padding: 0px 0px 40px 0px;
+    line-height: 30px;
+    border-radius: 4px;
+    color: #ffffff;
+    z-index: 100;
+    cursor: pointer;
+    .container {
+      position: relative;
+      width: 240px;
+      max-height: 200px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.6);
+      // &::before {
+      //   content: "";
+      //   position: absolute;
+      //   bottom: -16px;
+      //   left: 20%;
+      //   border-top: 16px solid rgba(0, 0, 0, 0.8);
+      //   border-left: 10px solid transparent;
+      //   border-right: 10px solid transparent;
+      // }
+      .title {
+        width: 100%;
+        padding: 6px 0;
+      }
+      .explain {
+        width: 100%;
+        max-height: 100px;
+        font-size: 14px;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+        }
+        &::-webkit-scrollbar-track {
+          background: #353535;
+          border-radius: 2px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #cdcdcd;
+          border-radius: 2px;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+          background: #9c9c9c;
+        }
+        &::-webkit-scrollbar-corner {
+          background: #f6f6f6;
+        }
+      }
+    }
+  }
+}
 </style>
