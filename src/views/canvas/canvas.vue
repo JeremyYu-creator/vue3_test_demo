@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import _ from 'lodash'
 const arr = [1, 2, 3, 4, 5]
 const init = () => {
@@ -99,6 +99,18 @@ const init = () => {
 const getNumber = () => {
     console.log(_.sum(arr))
 }
+const currentTime = ref(10)
+const timeCount = () => { 
+    if (currentTime.value > 0) {
+        setTimeout(() => { 
+            currentTime.value--
+            timeCount()
+        },1000)
+    } else { 
+        return 
+    }
+   
+}
 // function test<T>(arg: T): T {
 //     return arg
 // }
@@ -112,11 +124,13 @@ const getNumber = () => {
 onMounted(() => {
     init()
     getNumber()
+    timeCount()
 })
 
 </script>
 <template>
     <canvas id="canvas" width="300" height="300"></canvas>
+    <div>{{ currentTime }}</div>
 </template>
 <style lang="less">
 

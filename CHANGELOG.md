@@ -1,4 +1,4 @@
-# 0.0.0 (2022-12-04)
+# 0.0.0 (2022-12-27)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -18,6 +18,7 @@
  - | 隐藏打包后线上的console | [6bf4476](https://github.com/JeremyYu-creator/vue3_test_demo/commit/6bf4476)
  - | 增加404及登录后重导向 | [be97123](https://github.com/JeremyYu-creator/vue3_test_demo/commit/be97123)
  - | 增加表格数据渲染 | [1492558](https://github.com/JeremyYu-creator/vue3_test_demo/commit/1492558)
+ 增加动画功能 | 动画及3D引入 | [3c6dea6](https://github.com/JeremyYu-creator/vue3_test_demo/commit/3c6dea6)
  - | 增加提交规范 | [cdccd48](https://github.com/JeremyYu-creator/vue3_test_demo/commit/cdccd48)
  - | 增加头部组件及缓存当前菜单功能 | [748dac6](https://github.com/JeremyYu-creator/vue3_test_demo/commit/748dac6)
  - | 增加nprogress页面加载 | [d334ef6](https://github.com/JeremyYu-creator/vue3_test_demo/commit/d334ef6)

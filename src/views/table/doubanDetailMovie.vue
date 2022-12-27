@@ -113,7 +113,7 @@ onMounted(async () => {
 </template>
 
 
-<style lang="less">
+<style lang="less" scoped>
 .movie-detail-style {
     display: flex;
     flex-direction: column;

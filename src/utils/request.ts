@@ -1,6 +1,8 @@
 import { httpResponse } from "@/typing/request";
 import axios, { AxiosRequestConfig } from "axios";
+// import AbortController from 'axios'
 
+// const controller = new AbortController()
 const instance = axios.create({
   timeout: 3000 * 60, // 请求超时时间
 });
