@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-import { ref, onMounted, nextTick, } from 'vue'
+import { ref, onMounted, onBeforeUnmount} from 'vue'
 import mockVideolist from '@/mock/videoList'
 import { message } from 'ant-design-vue';
+import VideoUtils from '@/components/video/videoUtils.vue'
 let videoList = ref([] as any)
+/**
+ * fixme && todo:考虑更多的选择，需要自定义封装controls，目前video原有的功能太少
+ */
 videoList.value = mockVideolist.map((item) => {
     return {
         post: item.firstFrame.i2160,
@@ -38,34 +42,25 @@ const clearVideo = () => {
     check.value.currentTime = 0
     check.value.play()
 }
-// const endVideo = () => {
-//     check.value.onended = () => {
-//         console.log('播放完成')
-//         nextTick(() => {
-//             autoPlayNextVideo()
-//         })
-//     }
-// }
-// 切换video的src和poste +自动播放
+// 切换video的src和poster +自动播放
 const changeUrl = () => {
     videoUrl.value = videoList.value[currentNum.value]
     check.value.src = videoUrl.value.url
     check.value.poster = videoUrl.value.poster
     check.value.load()
-    // const timer = setTimeout(() => {
-    //     check.value.play()
-    // }, 100)
 }
+/**
+ * 初始video的方法注册
+ * **/
 const videoWaysSet = () => {
-    console.log('dom元素',check.value)
     check.value.addEventListener('play', () => {
         console.log('开始播放了')
     })
     check.value.addEventListener('pause', () => {
-        console.log('暂停了')
+        // console.log('暂停了')
     })
     check.value.onended = () => {
-        console.log('播放完成了')
+        // console.log('播放完成了')
         currentNum.value + 1 > videoList.value.length - 1 ? message.info('没有数据了哦') : autoPlayNextVideo()
     }
 }
@@ -73,38 +68,41 @@ onMounted(async () => {
     /**
      * by 旭bro：使用v-for会导致创造出多个dom结点，后续更改会使用多次nextTick进行更新，因此可以考虑只创建一个dom，后续只更改src即可
      */
-    videoUrl.value = videoList.value[0]
-    check.value = document.getElementById('videoDom')
-    videoWaysSet()
+    try {
+            videoUrl.value = videoList.value[0]
+            check.value = document.getElementById('videoDom')
+            console.log('点击了就执行')
+            await videoWaysSet()
+        } catch (err: any) {
+            message.error(`${err}`)
+        }
 })
-
-
+const videoUtils: any = ref(null)
+const changeStatus = (value: string) => {
+    switch (value) {
+        case 'play':
+            continueVideo()
+        case 'pause':
+            pauseVideo()
+        case 'refresh':
+            clearVideo()
+    }   
+    console.log('执行了',value)
+}
+onBeforeUnmount(() =>{
+    // todo:销毁实例        
+})
 </script>
 
 <template>
     <a-button @click="pauseVideo">点击暂停</a-button>
     <a-button @click="continueVideo">点击播放</a-button>
     <a-button @click="clearVideo">重新播放</a-button>
-    <!-- <div v-for="(item, index) in videoList" :key="item.post" class="video-block">
-        <div v-if="currentNum === index" class="video-style">
-            <div class="border-left" @click="prevVideo">
-                <span>Left</span>
-            </div>
-            <video  type="video/.mp4" controls :poster="item.poster"
-                    :src="item.url"
-                    width="800"  height="450"
-                    autoplay ref="videoRef" id="videoDom">
-            </video>
-            <div class="border-right" @click="nextVideo">
-                <span>Right</span>
-            </div>
-        </div>
-    </div> -->
     <div class="video-block">
 		<div class="border-left" @click="prevVideo">
 		    <span>Left</span>
 		</div>
-		<video  type="video/.mp4" controls :poster="videoUrl.poster"
+		<video  type="video/.mp4" controls :poster="videoUrl.poster" muted
 		        :src="videoUrl.url"
 		        width="800"  height="450"
 		        autoplay ref="videoRef" id="videoDom">
@@ -113,6 +111,10 @@ onMounted(async () => {
 		    <span>Right</span>
 		</div>
 	</div>
+    <div class="video-control">
+        <!--@click="changeStatus"-->
+        <VideoUtils ref="videoUtils" @operate="changeStatus"/>
+    </div>
 </template>
 
 <style lang="less">
@@ -202,6 +204,12 @@ onMounted(async () => {
         left: 0px;
         top: 0px;
     }
+}
+
+.video-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 </style>

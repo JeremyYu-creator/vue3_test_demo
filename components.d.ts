@@ -59,6 +59,7 @@ declare module '@vue/runtime-core' {
     Son: typeof import('./src/components/first/son.vue')['default']
     SubMenu: typeof import('./src/components/aside/subMenu.vue')['default']
     SvgIcon: typeof import('./src/components/svgComponent/svgIcon.vue')['default']
+    VideoUtils: typeof import('./src/components/video/videoUtils.vue')['default']
     WeatherContent: typeof import('./src/components/weather/weatherContent.vue')['default']
   }
 }

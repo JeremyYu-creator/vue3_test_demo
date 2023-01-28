@@ -139,6 +139,10 @@ const checkDetail = (index: number) => {
     display: flex;
 }
 
+.ant-image-img{
+    width: 270px;
+}
+
 .cover-style {
     width: 270px;
     height: 380px;
@@ -227,6 +231,9 @@ const checkDetail = (index: number) => {
     width: 270px;
     height: 405px;
     object-fit: cover;
+    .ant-image-img{
+        width: 270px;
+    }
 }
 
 // .ant-carousel :deep(.slick-dots) {
