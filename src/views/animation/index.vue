@@ -9,7 +9,7 @@ let videoList = ref([] as any)
  */
 videoList.value = mockVideolist.map((item) => {
     return {
-        post: item.firstFrame.i2160,
+        poster: item.firstFrame.i2160,
         url: item.video.v2160,
     }
 })
@@ -79,15 +79,29 @@ onMounted(async () => {
 })
 const videoUtils: any = ref(null)
 const changeStatus = (value: string) => {
-    switch (value) {
-        case 'play':
-            continueVideo()
-        case 'pause':
-            pauseVideo()
-        case 'refresh':
-            clearVideo()
-    }   
-    console.log('执行了',value)
+    /**
+     * switch方法无法使用，可能是自身没使用明白的原因
+     */
+    // switch (value) {
+    //     case 'play':
+    //         continueVideo()
+    //     case 'pause':
+    //         pauseVideo()
+    //     case 'refresh':
+    //         clearVideo()
+    // }
+    // console.log('执行了',value)
+    if (value === 'pre') {
+        prevVideo()
+    } else if (value === 'next') {
+        nextVideo()
+    } else if (value === 'pause') {
+        pauseVideo()
+    } else if (value === 'play') {
+        continueVideo()
+    } else if (value === 'refresh') {
+        clearVideo()
+    }
 }
 onBeforeUnmount(() =>{
     // todo:销毁实例        
@@ -95,21 +109,12 @@ onBeforeUnmount(() =>{
 </script>
 
 <template>
-    <a-button @click="pauseVideo">点击暂停</a-button>
-    <a-button @click="continueVideo">点击播放</a-button>
-    <a-button @click="clearVideo">重新播放</a-button>
     <div class="video-block">
-		<div class="border-left" @click="prevVideo">
-		    <span>Left</span>
-		</div>
 		<video  type="video/.mp4" controls :poster="videoUrl.poster" muted
 		        :src="videoUrl.url"
 		        width="800"  height="450"
 		        autoplay ref="videoRef" id="videoDom">
 		</video>
-		<div class="border-right" @click="nextVideo">
-		    <span>Right</span>
-		</div>
 	</div>
     <div class="video-control">
         <!--@click="changeStatus"-->
