@@ -1,4 +1,4 @@
-# 0.0.0 (2023-02-01)
+# 0.0.0 (2023-02-06)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -33,6 +33,7 @@
  菜单列表 | 修改菜单列表点击问题 | [e1623fb](https://github.com/JeremyYu-creator/vue3_test_demo/commit/e1623fb)
  豆瓣电影 | 修改豆瓣电影样式问题及video组件 | [47d0166](https://github.com/JeremyYu-creator/vue3_test_demo/commit/47d0166)
  视频播放 | 修改视频不能连续播放问题 | [28c4f56](https://github.com/JeremyYu-creator/vue3_test_demo/commit/28c4f56)
+ 视频播放 | 修改正确组件调用 | [b05479d](https://github.com/JeremyYu-creator/vue3_test_demo/commit/b05479d)
  - | ceshi | [4e83964](https://github.com/JeremyYu-creator/vue3_test_demo/commit/4e83964)
 
 

@@ -79,28 +79,17 @@ onMounted(async () => {
 })
 const videoUtils: any = ref(null)
 const changeStatus = (value: string) => {
-    /**
-     * switch方法无法使用，可能是自身没使用明白的原因
-     */
-    // switch (value) {
-    //     case 'play':
-    //         continueVideo()
-    //     case 'pause':
-    //         pauseVideo()
-    //     case 'refresh':
-    //         clearVideo()
-    // }
-    // console.log('执行了',value)
-    if (value === 'pre') {
-        prevVideo()
-    } else if (value === 'next') {
-        nextVideo()
-    } else if (value === 'pause') {
-        pauseVideo()
-    } else if (value === 'play') {
-        continueVideo()
-    } else if (value === 'refresh') {
-        clearVideo()
+    switch (value) {
+        case 'play':
+            return continueVideo()
+        case 'pause':
+            return pauseVideo()
+        case 'refresh':
+            return clearVideo()
+        case 'pre':
+            return prevVideo()
+        case 'next':
+            return nextVideo()
     }
 }
 onBeforeUnmount(() =>{
