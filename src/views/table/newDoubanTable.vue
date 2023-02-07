@@ -83,12 +83,36 @@ onMounted(async () => {
                     class="douban-single-select-style">
                 </a-select>
             </div>
-            <div class="movie-block-style">
+            <!-- <div class="movie-block-style">
                 <a-card v-for="item in movieListData" class="movie-single-style" :key="item.id" hoverable>
                     <div v-for="iitem in item.data" :key="iitem.id" @click="onClick(item.doubanId)">
                         <div class="movie-pic-style">
                             <div class="movie-detail-style">
                                 <section class="movie-row-style"><b>电影名：</b>{{ iitem.name }}</section>
+                                <section class="movie-row-style">上映国家：{{ iitem.country }}</section>
+                                <section class="movie-row-style">上映时间：{{ item.dateReleased }}</section>
+                                <section class="movie-row-style">类型：{{ iitem.genre }}</section>
+                                <section class="movie-row-style">语言：{{ iitem.language }}</section>
+                            </div>
+                            <a-image :src="iitem.poster" class="poster-style"></a-image>
+                        </div>
+                        <section class="movie-row-style">电影id：{{ iitem.id }}</section>
+                        <section class="movie-row-style">影片描述：{{ iitem.description }}</section>
+                    </div>
+                </a-card>
+            </div> -->
+            <div class="movie-block-new-style">
+                <a-card v-for="item in movieListData" class="movie-single-new-style" :key="item.id" hoverable>
+                    <div v-for="iitem in item.data" :key="iitem.id" @click="onClick(item.doubanId)">
+                        <div class="movie-pic-style">
+                            <div class="movie-detail-style">
+                                <a-tooltip>
+                                    <template #title>{{ iitem.name }}</template>
+                                    <div class="tooltip-style">
+                                        <b>电影名：</b>{{ iitem.name }}
+                                    </div>
+                                </a-tooltip>
+                                <!-- <section class="movie-row-style"><b>电影名：</b>{{ iitem.name }}</section> -->
                                 <section class="movie-row-style">上映国家：{{ iitem.country }}</section>
                                 <section class="movie-row-style">上映时间：{{ item.dateReleased }}</section>
                                 <section class="movie-row-style">类型：{{ iitem.genre }}</section>
@@ -135,9 +159,20 @@ onMounted(async () => {
     margin: 20px 10px;
 }
 
+.movie-block-new-style {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 20px;
+}
+
+.movie-single-new-style{
+    margin: 10px;
+}
+
 .poster-style {
     width: 100px;
-    height: 140px;
+    height: 130px;
     border-radius: 8px;
 }
 
@@ -148,5 +183,12 @@ onMounted(async () => {
 .movie-pic-style {
     display: flex;
     justify-content: space-between;
+}
+
+.tooltip-style {
+    width: 200px;
+    overflow: hidden;        /*内容会被修剪，并且其余内容是不可见的*/
+    text-overflow:ellipsis;  /*显示省略符号来代表被修剪的文本。*/
+    white-space: nowrap;     /*文本不换行*/
 }
 </style>

@@ -48,6 +48,8 @@ declare module '@vue/runtime-core' {
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
     ATag: typeof import('ant-design-vue/es')['Tag']
+    ATooltip: typeof import('ant-design-vue/es')['Tooltip']
+    Error: typeof import('./src/components/error/error.vue')['default']
     Footer: typeof import('./src/components/footer/footer.vue')['default']
     Grandson: typeof import('./src/components/first/grandson.vue')['default']
     Header: typeof import('./src/components/header/header.vue')['default']
