@@ -2,30 +2,40 @@
 import { onMounted, ref, } from 'vue';
 import { getDoubanNewData } from '@/api/douban'
 import { topRequestParams, wmdbResponse } from '@/typing/newMovieData'
-import type { SelectProps } from 'ant-design-vue';
+import { CompareOptions } from '@/utils/compareNum'
+// import type { SelectProps } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
+import { selectOptions }  from '@/typing/options'
+import { message } from 'ant-design-vue';
 const router = useRouter()
 const movieListData = ref([] as wmdbResponse)
 // a-select使用官方的ts写法
-const doubanSelectOptions = ref<SelectProps['options']>([
+
+const doubanSelectOptions = ref([
     {
         value: '10',
         label: '10',
+        count: 10, 
     },
     {
         value: '20',
         label: '20',
+        count: 20,
     },
     {
         value: '50',
         label: '50',
+        count: 50,
     },
     {
         value: '100',
         label: '100',
+        count: 100,
     },
-])
+] as selectOptions[])
+
 const selectType = ref('10')
+const isNormal = ref(true)
 const getDoubanList = async () => {
     spinning.value = true
     try {
@@ -40,21 +50,56 @@ const getDoubanList = async () => {
         movieListData.value = res
         spinning.value = false
         pageTitle.value = `豆瓣高分榜TOP${selectType.value}`
-        console.log(movieListData.value)
+        // console.log(movieListData.value)
     } catch (err) {
         spinning.value = false
         console.log(err)
     }
 
 }
-const handleChange = () => {
-    console.log('触发了change事件', selectType.value)
-    getDoubanList()
+const handleChange = async() => {
+    try {
+        await getDoubanList()
+        isNormal.value = true
+    } catch (err: any) {
+        isNormal.value = false
+        message.error('请求数据出错')
+    }
 }
+const searchTimer = ref(null as any)
+const handleSearch = (val: string) => {
+    if (searchTimer.value) {
+        clearTimeout(searchTimer.value)
+    }
+    /** 
+     * 进行条件的限制及处理，如果不是正常的数据无法进行数据的传值
+     * */ 
+    if (val && !isNaN(Number(val)) && val.indexOf('.') < 0 && Number(val) < 251) {
+        let arr = doubanSelectOptions.value?.map((item: selectOptions) => {
+            return item.value 
+        })
+        if (!arr?.includes(val)) {
+            searchTimer.value = setTimeout(() => {
+                doubanSelectOptions.value.push(
+                    {
+                        value: val,
+                        label: val,
+                        count: Number(val),
+                    }
+                )
+                CompareOptions(doubanSelectOptions.value)
+            },700) 
+        }
+    } else {
+        searchTimer.value = setTimeout(() => {
+            message.warning('当前只支持小于250的整数查询，请输入正确查询数字！')
+        },500)
+    }
+};
 const spinning = ref(true)
 const pageTitle = ref('')
 const onClick = (id: string) => {
-    console.log('onClick', id)
+    // console.log('onClick', id)
     router.push(
         {
             name: 'detailMovie',
@@ -67,7 +112,9 @@ const onClick = (id: string) => {
 onMounted(async () => {
     try {
         await getDoubanList()
+        isNormal.value = true
     } catch (err) {
+        isNormal.value = false
         console.log(err)
     }
 })
@@ -75,12 +122,12 @@ onMounted(async () => {
 <template>
     <a-spin :spinning="spinning" class="loading-style">
         <!--卡片形式的内容-->
-        <div class="main-block">
+        <div class="main-block" v-if="isNormal">
             <h2>{{ pageTitle }}</h2>
             <div class="douban-block-select-style">
                 <span>选择条数：</span>
                 <a-select :options="doubanSelectOptions" v-model:value="selectType" @change="handleChange"
-                    class="douban-single-select-style">
+                    class="douban-single-select-style" show-search @search="handleSearch">
                 </a-select>
             </div>
             <!-- <div class="movie-block-style">
@@ -103,9 +150,9 @@ onMounted(async () => {
             </div> -->
             <div class="movie-block-new-style">
                 <a-card v-for="item in movieListData" class="movie-single-new-style" :key="item.id" hoverable>
-                    <div v-for="iitem in item.data" :key="iitem.id" @click="onClick(item.doubanId)">
+                    <div v-for="iitem in item.data" :key="iitem.id">
                         <div class="movie-pic-style">
-                            <div class="movie-detail-style">
+                            <div class="movie-detail-info-style" @click="onClick(item.doubanId)">
                                 <a-tooltip>
                                     <template #title>{{ iitem.name }}</template>
                                     <div class="tooltip-style">
@@ -126,6 +173,7 @@ onMounted(async () => {
                 </a-card>
             </div>
         </div>
+        <Error v-if="!isNormal"/>
     </a-spin>
     <a-back-top />
 </template>
@@ -146,7 +194,6 @@ onMounted(async () => {
 .movie-block-style {
     height: 100%;
     display: flex;
-    // justify-content: space-around;
     justify-content: flex-start;
     flex-wrap: wrap;
     overflow: auto;
@@ -174,6 +221,7 @@ onMounted(async () => {
     width: 100px;
     height: 130px;
     border-radius: 8px;
+    object-fit: cover;
 }
 
 .movie-row-style {
@@ -183,6 +231,16 @@ onMounted(async () => {
 .movie-pic-style {
     display: flex;
     justify-content: space-between;
+    .ant-image {
+        .ant-image-img {
+            width: 100px;
+            height: 130px;
+        }
+        .ant-image-mask {
+            width: 100px;
+            height: 130px;
+        }
+    }
 }
 
 .tooltip-style {
@@ -190,5 +248,10 @@ onMounted(async () => {
     overflow: hidden;        /*内容会被修剪，并且其余内容是不可见的*/
     text-overflow:ellipsis;  /*显示省略符号来代表被修剪的文本。*/
     white-space: nowrap;     /*文本不换行*/
+}
+
+.movie-detail-info-style {
+    display: flex;
+    flex-direction: column;
 }
 </style>

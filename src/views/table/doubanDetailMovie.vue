@@ -14,7 +14,7 @@ const movieDataArr = ref([] as movieDataType)
 const actorDataArr = ref([] as commonType)
 const directorDataArr = ref([] as commonType)
 const writerDataArr = ref([] as commonType)
-const isNormal = ref(false);
+const isNormal = ref(true);
 const errorMessage = ref('')
 const getDetailMovieMessage = async (id: string) => {
     spanningLogo.value = true
@@ -54,13 +54,19 @@ onMounted(async () => {
     await getParams()
     getDetailMovieMessage(doubanId.value)
 })
+const rollBack = () => {
+    router.back()
+}
 </script>
 
 <template>
     <div>
         <a-spin :spinning="spanningLogo">
             <a-card class="movie-detail-style" v-if="isNormal">
-                <h3>电影详情</h3>
+                <div class="first-row-style">
+                    <h3>电影详情</h3>
+                    <a-button @click="rollBack" type="primary" size="middle" shape="round">返回上一级</a-button>
+                </div>
                 <div class="movie-introduce-style" v-for="item, index in movieDataArr" :key="item.id">
                     <a-image :src="item.poster" class="movie-poster-style"></a-image>
                     <div class="movie-introduce-text-style">
@@ -141,6 +147,11 @@ onMounted(async () => {
     }
 }
 
+.first-row-style {
+    display: flex;
+    justify-content: space-between;
+}
+
 .movie-introduce-text-style {
     display: flex;
     flex-direction: column;
@@ -167,9 +178,6 @@ onMounted(async () => {
     font-size: 15px;
     font-family: PingFangSC-Regular;
 }
-
-
-
 
 .movie-share-style {
     width: 650px;
