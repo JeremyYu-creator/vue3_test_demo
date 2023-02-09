@@ -1,4 +1,4 @@
-# 0.0.0 (2023-02-07)
+# 0.0.0 (2023-02-09)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -8,6 +8,7 @@
  豆瓣电影 | 新增豆瓣电影页面 | [8bc5f9e](https://github.com/JeremyYu-creator/vue3_test_demo/commit/8bc5f9e)
  豆瓣电影 | 新增豆瓣电影api | [1af4552](https://github.com/JeremyYu-creator/vue3_test_demo/commit/1af4552)
  豆瓣电影 | 修改豆瓣电影布局及样式&新增错误组件 | [3a768c7](https://github.com/JeremyYu-creator/vue3_test_demo/commit/3a768c7)
+ 豆瓣电影 | 优化搜索条数的搜索框及类型方法 | [a07dfba](https://github.com/JeremyYu-creator/vue3_test_demo/commit/a07dfba)
  视频播放 | 新增视频播放内容 | [4e277ea](https://github.com/JeremyYu-creator/vue3_test_demo/commit/4e277ea)
  - | 添加表格内的图片及样式修改 | [2fe8146](https://github.com/JeremyYu-creator/vue3_test_demo/commit/2fe8146)
  新豆瓣电影 | 新增影片详情功能,待接入演员/导演数据 | [580ef68](https://github.com/JeremyYu-creator/vue3_test_demo/commit/580ef68)
