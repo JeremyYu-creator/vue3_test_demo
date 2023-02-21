@@ -150,7 +150,16 @@ const menuList = [
                 icon: 'HeartOutlined',
                 meta: 'animation',
                 children: null // 这个地方是[]好还是null好？
-            }
+            },
+            {
+                key: '5-6',
+                title: 'test',
+                // <heart-outlined />
+                // <video-camera-outlined />
+                icon: 'VideoCameraOutlined',
+                meta: 'test',
+                children: null // 这个地方是[]好还是null好？
+            },
         ],
     },
 

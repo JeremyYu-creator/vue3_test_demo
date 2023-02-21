@@ -14,7 +14,7 @@ const wayBack = () => {
 </script>
 <template>
     <div class="pic-style">
-        <svg-icon :name="404" :style="NotFoundStyle"></svg-icon>
+        <svg-icon :name="'404'" :style="NotFoundStyle"></svg-icon>
         <div>
             <a-button type="primary" shape="round" class="row-btn-style" @click="wayBack">
                 <twitter-outlined />back home

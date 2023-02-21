@@ -69,10 +69,18 @@ onMounted(() => {
 })
 const getData = () => {
   menu.setOpenKeys(openKeys.value)
-  menu.setRouterPath(router.currentRoute.value.path)
+  /**
+   * 有个坑，router.currentRoute.value.path在使用的时候要考虑异步的问题：想获取当前路由，但是在a路由跳转b路由的时候，a路由的地址会被先记录下来，因为还没有来得及跳转完成被记录；
+   * 所以为了解决此问题，使用pinia记录的时候需要延迟1s
+   */
+  setTimeout(() => {
+    menu.setRouterPath(router.currentRoute.value.path)
+  },1000)
+  // console.log('asdadasdasdasdadasdasdasd',router,openKeys.value)
 }
-const setData = () => {
-  menu.setSelectKeys(selectedKeys.value)
+const setData = (data: any) => {
+  // console.log('12313123', data, router.currentRoute.value.fullPath)
+  menu.setSelectKeys(selectedKeys.value) 
 }
 const cancelSelect = () => {
   console.log('asdadasdasdasdadasdasdasd')

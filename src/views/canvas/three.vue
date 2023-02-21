@@ -33,7 +33,7 @@ const initScene = () => {
      */
     //点光源
     let point = new THREE.PointLight(0xffffff);
-    point.position.set(400, 200, 300); //点光源位置
+    point.position.set(200, 100, 200); //点光源位置
     scene.add(point); //点光源添加到场景中
     //环境光
     let ambient = new THREE.AmbientLight(0x444444);
@@ -50,13 +50,18 @@ const initScene = () => {
     let s = 200; //三维场景显示范围控制系数，系数越大，显示的范围越大
     //创建相机对象
     camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
-    camera.position.set(200, 300, 200); //设置相机位置
+    camera.position.set(100, 200, 200); //设置相机位置
     camera.lookAt(scene.position); //设置相机方向(指向的场景对象)
     /**
      * 创建渲染器对象
      */
+    // 此处为背景属性设置
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize(width, height);//设置渲染区域尺寸
+    // 注意：这里是宽、高的属性设置，注意好传参的顺序，此处设置成动态的
+    let softWidth = width * 0.5
+    let softHeight = height * 0.5
+    // renderer.setSize(800, 300);//设置渲染区域尺寸
+    renderer.setSize(softWidth, softHeight);//设置渲染区域尺寸
     renderer.setClearColor(0xb9d3ff, 1); //设置背景颜色
     container.appendChild(renderer.domElement); //body元素中插入canvas对象
     //执行渲染操作   指定场景、相机作为参数

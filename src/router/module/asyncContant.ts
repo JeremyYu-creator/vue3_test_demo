@@ -8,14 +8,6 @@ const asyncContantArray = [
         component: () => import('@/views/extra.vue'),
     },
     {
-        path: "/test",
-        name: "test",
-        meta: {
-            title: "测试组件引用",
-        },
-        component: () => import('@/views/test.vue'),
-    },
-    {
         path: "/",
         name: "index",
         meta: {
@@ -122,6 +114,15 @@ const asyncContantArray = [
                     title: "animation",
                 },
                 component: () => import('@/views/animation/index.vue'),
+            },
+            {
+                path: "/test",
+                name: "test",
+                alias: '5-5',
+                meta: {
+                    title: "测试组件引用",
+                },
+                component: () => import('@/views/test.vue'),
             },
         ]
     },

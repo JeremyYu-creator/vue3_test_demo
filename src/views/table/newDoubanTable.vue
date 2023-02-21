@@ -7,6 +7,7 @@ import { CompareOptions } from '@/utils/compareNum'
 import { useRouter } from 'vue-router';
 import { selectOptions }  from '@/typing/options'
 import { message } from 'ant-design-vue';
+import Loading from '@/components/loading/loading.vue'
 const router = useRouter()
 const movieListData = ref([] as wmdbResponse)
 // a-select使用官方的ts写法
@@ -120,7 +121,8 @@ onMounted(async () => {
 })
 </script>
 <template>
-    <a-spin :spinning="spinning" class="loading-style">
+    <Loading v-if="spinning"/>
+    <!-- <a-spin class="loading-style" :spinning="spinning"> -->
         <!--卡片形式的内容-->
         <div class="main-block" v-if="isNormal">
             <h2>{{ pageTitle }}</h2>
@@ -174,7 +176,7 @@ onMounted(async () => {
             </div>
         </div>
         <Error v-if="!isNormal"/>
-    </a-spin>
+    <!-- </a-spin> -->
     <a-back-top />
 </template>
 <style lang="less">
