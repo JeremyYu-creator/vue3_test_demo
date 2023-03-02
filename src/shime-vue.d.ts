@@ -4,3 +4,4 @@ declare module 'js-cookie'
 declare module 'nprogress'
 declare module 'three'
 declare module "@types/three"
+declare module 'chinese-lunar-calendar'

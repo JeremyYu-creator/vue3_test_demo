@@ -23,6 +23,18 @@ export const getIcon = [
     'work',
 ]
 
+// 日历组件背景图
+export const picList = [
+    '/src/assets/gif/windy.jpg',
+    '/src/assets/gif/bigRainy.jpg',
+    '/src/assets/gif/bigSnow.jpg',
+    '/src/assets/gif/cloudy.jpg',
+    '/src/assets/gif/rain.jpg',
+    '/src/assets/gif/smallRainy.png',
+    '/src/assets/gif/snow.jpg',
+    '/src/assets/gif/springFirst.jpg',
+]
+
 export const getBgcSet = (arr: string[]) => { // 随机生成函数
     return arr[Math.floor(Math.random() * arr.length)]
 }

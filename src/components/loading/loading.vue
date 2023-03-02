@@ -51,6 +51,9 @@ onMounted(() => {
             <div class="dot"></div>
             <div class="dot"></div>
         </div>
+        <div class="spinning-loading-style">
+            <span class="spinning-loading-text-style">加载中</span>
+        </div>
     </div>
 </template>
 <style lang="less">
@@ -76,6 +79,7 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     .loading-dot-style{
         width: @containerSize;
         height: @containerSize;
@@ -159,5 +163,15 @@ onMounted(() => {
         .loop(@i + 1)
     }
     .loop(1)
+}
+
+.spinning-loading-style {
+    // width: 300px;
+    // height: 300px;
+    // background-color: #3883f7;
+    .spinning-loading-text-style{
+        font-size: 20px;
+        color: #3883f7;
+    }
 }
 </style>
