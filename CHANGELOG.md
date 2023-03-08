@@ -1,4 +1,4 @@
-# 0.0.0 (2023-03-02)
+# 0.0.0 (2023-03-08)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -28,6 +28,7 @@
  - | 增加svg文件引入 | [f8cf465](https://github.com/JeremyYu-creator/vue3_test_demo/commit/f8cf465)
  - | 增添图表功能,3D填充待续 | [7850d35](https://github.com/JeremyYu-creator/vue3_test_demo/commit/7850d35)
  组件 | 新增Loading组件及修改部分bug | [697b15f](https://github.com/JeremyYu-creator/vue3_test_demo/commit/697b15f)
+ 组件 | 增加时间组件及修复部分问题 | [3bf9020](https://github.com/JeremyYu-creator/vue3_test_demo/commit/3bf9020)
 
 
 ### 🐛 Bug 修复

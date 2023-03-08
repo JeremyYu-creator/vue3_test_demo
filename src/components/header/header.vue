@@ -7,7 +7,7 @@
       <span class="text-style">hello! zhangsan</span>
       <a-dropdown :trigger="['click']" :placement="placements">
         <!--fix:此处网站已经挂了，得重新寻找新的-->
-        <a-avatar :size="36" src="https://joeschmoe.io/api/v1/random" class="avatar-img-style"></a-avatar>
+          <!-- <a-avatar :size="36" src="https://joeschmoe.io/api/v1/random" class="avatar-img-style"></a-avatar> -->
         <template #overlay>
           <a-menu>
             <a-menu-item v-for="item in personSetting" :key="item.value" @click="setDialog(item.value)">

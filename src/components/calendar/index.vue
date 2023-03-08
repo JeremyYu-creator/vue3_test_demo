@@ -4,6 +4,9 @@ import { dayTimeNotice, timeDeal } from '@/utils/computeCalendar'
 import { getBgcSet, picList } from '@/utils/radomBackground'
 import { getLunar } from 'chinese-lunar-calendar'
 import { Dayjs } from 'dayjs'
+import { DataType } from '@/typing/tableComponent'
+// import mitt from 'mitt'
+import mittEvent from '@/mitt/grandFather'
 import SmileOutlined from 'ant-design-vue';
 // import meihua from '@/assets/gif/meihua.gif'
 const noticeText = ref('')
@@ -11,6 +14,7 @@ const aimText = ref('')
 const cardType = ref('')
 const timer: any = ref(null)
 const bgcTimer: any = ref(null)
+const dataSource = ref([] as DataType[])
 interface StringIndexedObject {
     [key: string]: string;
 }
@@ -24,6 +28,7 @@ type LunarChineseYear = {
     zodiac: string
 }
 const pic = ref('')
+// const mittEvent = mitt()
 /**
  * fixme:enum枚举使用时，下方会出现enum的ts类型报警，后续看看
 */
@@ -106,7 +111,6 @@ const formatTime = ref('')
 const test = () => {
     formatTime.value = yearValue.value + ' ' + strValue.value
     // strValue.value, yearValue.value , 
-    console.log(formatTime.value)
     beginValue.value = true
     if (beginValue.value) {
         timer.value = setInterval(() => {
@@ -114,72 +118,84 @@ const test = () => {
             setNotice(formatTime.value, aimThing.value)
         }, 1000)
     }
+    console.log(formatTime.value,aimThing.value,cardType.value)
+    mittEvent.emit('dataOn', {
+        name: aimThing.value,
+        time: formatTime.value,
+    })
+    mittEvent.emit('test', 'testtesttest')
 }
 </script>
 
 <template>
-    <div class="set-time-style">
-        <a-input v-model:value="aimThing" placeholder="请输入内容" class="aim-text-style" />
-        <a-date-picker @change="onChange" />
-        <a-time-picker v-model:value="strValue" value-format="HH:mm:ss" />
-        <a-button type="primary" @click="test">确定</a-button>
-    </div>
-
-    <div class="notice-mixin-style">
-        <!--:style="{ '--myImgPath': 'url(' + src + ')' }"-->
-        <!--todo：需要进行数据的存储，理论上是从服务端获取的-->
-        <div class="notice-card-style" :style="{ backgroundImage: 'url(' + pic + ')' }">
-            <div class="notice-title-style">{{ welcomeStr }}</div>
-            <div class="notice-title-style">{{ noticeText }}</div>
-            <div class="notice-text-style">{{ aimText }}</div>
+    <div class="canlender-style">
+        <div class="set-time-style">
+            <a-input v-model:value="aimThing" placeholder="请输入内容" class="aim-text-style" />
+            <a-date-picker @change="onChange" />
+            <a-time-picker v-model:value="strValue" value-format="HH:mm:ss" />
+            <a-button type="primary" @click="test">确定</a-button>
         </div>
+
+        <div class="notice-mixin-style">
+            <!--:style="{ '--myImgPath': 'url(' + src + ')' }"-->
+            <!--todo：需要进行数据的存储，理论上是从服务端获取的-->
+            <div class="notice-card-style" :style="{ backgroundImage: 'url(' + pic + ')' }">
+                <div class="notice-title-style">{{ welcomeStr }}</div>
+                <div class="notice-title-style">{{ noticeText }}</div>
+                <div class="notice-text-style">{{ aimText }}</div>
+            </div>
+        </div>
+        <div class="test-font-style">预览文字Abcd</div>
     </div>
-    <div class="test-font-style">预览文字Abcd</div>
 </template>
 <style lang="less">
-.notice-mixin-style {
+.canlender-style {
     display: flex;
+    flex-direction: column;
+    .notice-mixin-style {
+        display: flex;
+        .notice-card-style {
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-top: 30px;
+            width: 500px;
+            height: 250px;
+            // border: 0.5px solid rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            // display: grid;
+            // grid-template-columns: ;
 
-    .notice-card-style {
-        background-repeat: no-repeat;
-        background-size: cover;
-        margin-top: 30px;
-        width: 500px;
-        height: 250px;
-        // border: 0.5px solid rgba(0, 0, 0, 0.5);
-        border-radius: 4px;
-        // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        // display: grid;
-        // grid-template-columns: ;
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            }
 
-        &:hover {
-            cursor: pointer;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            .notice-block-style {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            // cdn引用后续字体，这里如果有什么需要改变的，要注意引用源的时效性
+            .notice-title-style {
+                font-size: 16px;
+            }
+
+            .notice-text-style {
+                font-size: 14px;
+            }
         }
 
-        .notice-block-style {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        .img-gif-style {
+            margin-left: 20px;
+            width: 500px;
+            height: 300px;
         }
-
-        // cdn引用后续字体，这里如果有什么需要改变的，要注意引用源的时效性
-        .notice-title-style {
-            font-size: 16px;
-        }
-
-        .notice-text-style {
-            font-size: 14px;
-        }
-    }
-
-    .img-gif-style {
-        margin-left: 20px;
-        width: 500px;
-        height: 300px;
     }
 }
+
 
 .test-font-style {
 
