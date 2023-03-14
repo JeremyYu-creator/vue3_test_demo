@@ -13,6 +13,7 @@ import piniaPersist from "pinia-plugin-persist";
 const pinia = createPinia(); // 声明pinia在main.ts里调用，并添加了可持续化
 pinia.use(piniaPersist);
 import * as antIcons from '@ant-design/icons-vue'
+import './assets/fontFamily/font.less'
 
 const app = createApp(App)
 // 注册组件

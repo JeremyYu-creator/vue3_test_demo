@@ -49,6 +49,7 @@ const setNotice = (time: string, thing: string) => {
     const { leftYear, leftMonth, leftWeek, leftDay, leftHour, leftMinute, leftSecond, type, event } = timeDeal(time, thing)
     // console.log(leftYear, leftMonth, leftWeek, leftDay, leftHour, leftMinute, leftSecond, type, event)
     cardType.value = type
+    // 可被优化
     if (type === 'daojishi' && (leftYear !== 0 || leftMonth !== 0 || leftDay !== 0 || leftHour !== 0 || leftMinute !== 0 || leftSecond !== 0 || leftWeek !== 0)) {
         aimText.value = `距离${event}还有${leftDay === 0 ? '' : leftDay + '天'}${leftHour}小时${leftMinute}分${leftSecond}秒`
     } else {
@@ -71,6 +72,7 @@ const getChineseLunarDay = () => {
     let year = new Date().getFullYear()
     let month = new Date().getMonth() + 1
     let date = new Date().getDate()
+    // 需要判断是否存在该返回值
     const res = getLunar(year, month, date) as LunarChineseYear
     Object.keys(res).forEach((item: string) => {
         Object.keys(chineseLunarDay).forEach((iitem: string) => {
@@ -160,6 +162,7 @@ const test = () => {
             margin-top: 30px;
             width: 500px;
             height: 250px;
+            font-family: "al-shuheiti";
             // border: 0.5px solid rgba(0, 0, 0, 0.5);
             border-radius: 4px;
             // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -180,11 +183,11 @@ const test = () => {
 
             // cdn引用后续字体，这里如果有什么需要改变的，要注意引用源的时效性
             .notice-title-style {
-                font-size: 16px;
+                font-size: 20px;
             }
 
             .notice-text-style {
-                font-size: 14px;
+                font-size: 16px;
             }
         }
 
@@ -198,24 +201,9 @@ const test = () => {
 
 
 .test-font-style {
-
-    /* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
-    // @font-face {
-    //     font-family: "阿里妈妈东方大楷 Regular";
-    //     font-weight: 400;
-    //     src: url("https://at.alicdn.com/wf/webfont/tpiF9z4ETNNN/5RApll_ptpfdRFOQF8kyq.woff2") format("woff2"),
-    //         url("https://at.alicdn.com/wf/webfont/tpiF9z4ETNNN/TnZy5G_iDVvqc-hh2r-Zd.woff") format("woff");
-    //     font-display: swap;
-    // }
-    @font-face {
-        font-family: "iconfont logo";
-        src: url('https://at.alicdn.com/t/font_985780_km7mi63cihi.eot?t=1545807318834');
-        src: url('https://at.alicdn.com/t/font_985780_km7mi63cihi.eot?t=1545807318834#iefix') format('embedded-opentype'),
-            url('https://at.alicdn.com/t/font_985780_km7mi63cihi.woff?t=1545807318834') format('woff'),
-            url('https://at.alicdn.com/t/font_985780_km7mi63cihi.ttf?t=1545807318834') format('truetype'),
-            url('https://at.alicdn.com/t/font_985780_km7mi63cihi.svg?t=1545807318834#iconfont') format('svg');
-    }
-
+    font-size: 20px;
+    // font-family: "ali-east-regular";
+    font-family: "al-shuheiti";
 }
 
 
