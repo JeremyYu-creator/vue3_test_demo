@@ -57,6 +57,12 @@ export default defineConfig({
       //   ws: true, // 是否启用websockets
       //   rewrite: (path) => path.replace(/^\/api/, ""),
       // },
+      '/mynode': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
       '/v2': {
         target: 'http://api.douban.com',
         changeOrigin: true,

@@ -338,7 +338,7 @@ onMounted(async () => {
 )
 onUnmounted(() => {
   console.log('被销毁了')
-  map.value.destroy()
+  map.value && map.value.destroy()
 })
 </script>
 

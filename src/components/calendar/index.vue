@@ -4,17 +4,18 @@ import { dayTimeNotice, timeDeal } from '@/utils/computeCalendar'
 import { getBgcSet, picList } from '@/utils/radomBackground'
 import { getLunar } from 'chinese-lunar-calendar'
 import { Dayjs } from 'dayjs'
-import { DataType } from '@/typing/tableComponent'
-// import mitt from 'mitt'
+// import { DataType } from '@/typing/tableComponent'
+import {  getNoteBookData, insertNoteBookData, } from '@/api/test'
 import mittEvent from '@/mitt/grandFather'
-import SmileOutlined from 'ant-design-vue';
+// import { errorCaptured } from '@/utils/error'
+import { message } from 'ant-design-vue'
 // import meihua from '@/assets/gif/meihua.gif'
 const noticeText = ref('')
 const aimText = ref('')
 const cardType = ref('')
 const timer: any = ref(null)
 const bgcTimer: any = ref(null)
-const dataSource = ref([] as DataType[])
+// const dataSource = ref([] as DataType[])
 interface StringIndexedObject {
     [key: string]: string;
 }
@@ -50,11 +51,22 @@ const setNotice = (time: string, thing: string) => {
     // console.log(leftYear, leftMonth, leftWeek, leftDay, leftHour, leftMinute, leftSecond, type, event)
     cardType.value = type
     // 可被优化
-    if (type === 'daojishi' && (leftYear !== 0 || leftMonth !== 0 || leftDay !== 0 || leftHour !== 0 || leftMinute !== 0 || leftSecond !== 0 || leftWeek !== 0)) {
+    let arr = [leftYear, leftHour, leftMinute, leftMonth, leftSecond, leftWeek, leftDay,]
+    // let arr = [0,0,0,0,0,0,1,1,1,]
+    const isNotZero = (item: number) => {
+        return item !==0 
+    }
+    // console.log('---数据比较---', arr.some(isNotZero))
+    if (type === 'daojishi' && arr.some(isNotZero)) {
         aimText.value = `距离${event}还有${leftDay === 0 ? '' : leftDay + '天'}${leftHour}小时${leftMinute}分${leftSecond}秒`
     } else {
         aimText.value = '时间到啦'
     }
+    // if (type === 'daojishi' && (leftYear !== 0 || leftMonth !== 0 || leftDay !== 0 || leftHour !== 0 || leftMinute !== 0 || leftSecond !== 0 || leftWeek !== 0)) {
+    //     aimText.value = `距离${event}还有${leftDay === 0 ? '' : leftDay + '天'}${leftHour}小时${leftMinute}分${leftSecond}秒`
+    // } else {
+    //     aimText.value = '时间到啦'
+    // }
 }
 // 获得农历接口的详细数据
 const chineseLunarDay = toRefs<LunarChineseYear>({
@@ -73,23 +85,32 @@ const getChineseLunarDay = () => {
     let month = new Date().getMonth() + 1
     let date = new Date().getDate()
     // 需要判断是否存在该返回值
-    const res = getLunar(year, month, date) as LunarChineseYear
-    Object.keys(res).forEach((item: string) => {
-        Object.keys(chineseLunarDay).forEach((iitem: string) => {
-            if (item === iitem) {
-                chineseLunarDay[iitem] = res[item as keyof LunarChineseYear]
-            }
+    /**
+     * 这里是第三方的库，不需要使用直接进行数据的网络请求，但是需要判断是否请求成功
+     */
+    try {
+        const res = getLunar(year, month, date) as LunarChineseYear
+        Object.keys(res).forEach((item: string) => {
+            Object.keys(chineseLunarDay).forEach((iitem: string) => {
+                if (item === iitem) {
+                    chineseLunarDay[iitem] = res[item as keyof LunarChineseYear]
+                }
+            })
         })
-    })
-    welcomeStr.value = `今天是农历${chineseLunarDay.lunarYear}${chineseLunarDay.dateStr}`
-    console.log(chineseLunarDay)
+        welcomeStr.value = `今天是农历${chineseLunarDay.lunarYear}${chineseLunarDay.dateStr}`
+        console.log(chineseLunarDay)
+    } catch (err: any) {
+        welcomeStr.value = '出错喽，请重试'
+    }
+    
 }
 // 获取提示语
-const getData = () => {
+const getNoticeWord = () => {
     noticeText.value = dayTimeNotice()
 }
 const strValue = ref('')
 const yearValue = ref('')
+// 监听上方时间戳发生改变的回调函数
 const onChange = (date: Dayjs | string, dateString: string) => {
     // dateString是已经封装好的日期
     console.log(date, dateString)
@@ -97,12 +118,35 @@ const onChange = (date: Dayjs | string, dateString: string) => {
 }
 const aimThing = ref('')
 const beginValue = ref(false)
+
+const tableData: any = ref([])
+// const sendPostData = async() => {
+//     try {
+//         const res = await testPost({ name: 'text', type: '20', date: '2023-03-28' })
+//         console.log(res, 'sendPostData')
+//     } catch (err: any) {
+//         console.log(err)
+//     }
+// }
+const getInitData = async() => {
+    try {
+        const res = await getNoteBookData({})
+        tableData.value = res.data
+        // tableData.value = []
+        mittEvent.emit('dataOn',
+            tableData.value
+        )
+        console.log('----获取到的notebook数据---',res)
+    } catch (err: any) {
+        console.log('err', err)
+        tableData.value = []
+        message.error(`${err}`)
+    }
+}
 onMounted(() => {
+    getInitData()
     getCardBackgroundImg()
     getChineseLunarDay()
-    // bgcTimer.value = setInterval(() => {
-    //     getCardBackgroundImg()
-    // }, 60000)
 })
 onUnmounted(() => {
     // 计时器在本组件消失后需要进行清空
@@ -110,22 +154,41 @@ onUnmounted(() => {
     clearInterval(bgcTimer.value)
 })
 const formatTime = ref('')
-const test = () => {
-    formatTime.value = yearValue.value + ' ' + strValue.value
-    // strValue.value, yearValue.value , 
-    beginValue.value = true
-    if (beginValue.value) {
-        timer.value = setInterval(() => {
-            getData()
-            setNotice(formatTime.value, aimThing.value)
-        }, 1000)
+const sendPostData = async () => {
+    try {
+        formatTime.value = yearValue.value + ' ' + strValue.value
+        beginValue.value = true
+        if (beginValue.value) {
+            timer.value = setInterval(() => {
+                getNoticeWord()
+                setNotice(formatTime.value, aimThing.value)
+            }, 1000)
+        }
+        // 进行数据存储
+        await insertNoteBookData(
+            {
+                name: aimThing.value,
+                type: '20', // 后续转换成动态判断
+                date: formatTime.value,
+                key: aimThing.value + formatTime.value
+            })
+        // console.log(formatTime.value, aimThing.value, cardType.value)
+        const res = await getNoteBookData({})
+        tableData.value = res.data
+        // console.log('----存完的列表-----', tableData.value)
+        // 发送请求完的数据，进行组件间的数据通信
+        mittEvent.emit('dataOn',
+            tableData.value
+        )
+    } catch (err: any) {
+        message.error(`出错啦~${err}`)
+        tableData.value = []
+        mittEvent.emit('dataOn',
+            tableData.value
+        )
     }
-    console.log(formatTime.value,aimThing.value,cardType.value)
-    mittEvent.emit('dataOn', {
-        name: aimThing.value,
-        time: formatTime.value,
-    })
-    mittEvent.emit('test', 'testtesttest')
+    
+    // mittEvent.emit('test', 'testtesttest')
 }
 </script>
 
@@ -135,7 +198,7 @@ const test = () => {
             <a-input v-model:value="aimThing" placeholder="请输入内容" class="aim-text-style" />
             <a-date-picker @change="onChange" />
             <a-time-picker v-model:value="strValue" value-format="HH:mm:ss" />
-            <a-button type="primary" @click="test">确定</a-button>
+            <a-button type="primary" @click="sendPostData" class="test-font-style">确定</a-button>
         </div>
 
         <div class="notice-mixin-style">
@@ -147,7 +210,9 @@ const test = () => {
                 <div class="notice-text-style">{{ aimText }}</div>
             </div>
         </div>
-        <div class="test-font-style">预览文字Abcd</div>
+        <!-- <div class="test-font-style">
+            <a-button type="primary" @click="sendPostData">点击存储数据请求</a-button>
+        </div> -->
     </div>
 </template>
 <style lang="less">
@@ -201,8 +266,6 @@ const test = () => {
 
 
 .test-font-style {
-    font-size: 20px;
-    // font-family: "ali-east-regular";
     font-family: "al-shuheiti";
 }
 

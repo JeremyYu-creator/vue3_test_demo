@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-button type="primary" @click="testRequest">按钮展示</a-button>
+    <!--测试总页面-->
     <!-- <Loading v-if="loadingValue"/> -->
         <div class="row-style">
           <Calander/>
@@ -15,8 +15,9 @@ import Calander from '@/components/calendar/index.vue'
 import TableComponent from '@/components/table/index.vue'
 import { DataType} from '@/typing/tableComponent'
 import { ref, onMounted } from 'vue';
-const loadingValue = ref(false)
-const dataSource = ref([] as DataType[])
+// const loadingValue = ref(false)
+// const dataSource = ref([] as DataType[])
+// 定义的列名
 const tableColumn = [
   {
     title: '事件名称',
@@ -26,8 +27,8 @@ const tableColumn = [
   },
   {
     title: '时间',
-    dataIndex: 'time',
-    objectKey: 'time',  
+    dataIndex: 'date',
+    objectKey: 'date',  
     // width: 100,         
   },
   {
@@ -36,16 +37,15 @@ const tableColumn = [
     objectKey: 'type',  
     // width: 100,         
   },
+  {
+    title: '操作',
+    dataIndex: 'operation',
+    objectKey: 'operation', 
+  }
 ]
-onMounted(() => {
+onMounted(async() => {
 
 })
-const testRequest = () => {
-  loadingValue.value = true
-  setTimeout(() => {
-    loadingValue.value = false
-  }, 8000)
-}
 
 </script>
 <style lang="less">
