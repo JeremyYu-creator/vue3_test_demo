@@ -69,6 +69,8 @@ declare module '@vue/runtime-core' {
     SubMenu: typeof import('./src/components/aside/subMenu.vue')['default']
     SvgIcon: typeof import('./src/components/svgComponent/svgIcon.vue')['default']
     Table: typeof import('./src/components/table/index.vue')['default']
+    TestHeader: typeof import('./src/components/TestVue3Components/TestHeader.vue')['default']
+    TestVue3AnotherHeader: typeof import('./src/components/TestVue3Components/TestVue3AnotherHeader.vue')['default']
     VideoUtils: typeof import('./src/components/video/videoUtils.vue')['default']
     WeatherContent: typeof import('./src/components/weather/weatherContent.vue')['default']
   }

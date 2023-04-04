@@ -1,12 +1,21 @@
 import { defineConfig } from 'vite'
+import type { UserConfig as VitestUserConfigInterface } from 'vitest/config'
+// import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
 import { resolve } from 'path'
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
-import { svgBuilder } from './src/utils/svgBuilder';
+// import svgBuilder from '@/src/utils/svgBuilder';
+import svgBuilder from './src/utils/svgBuilder';
 
+const vitestConfig: VitestUserConfigInterface = {
+  test: {
+    globals: true,
+    environment: 'happy-dom'
+  }
+}
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -19,6 +28,7 @@ export default defineConfig({
     }),
     svgBuilder('./src/assets/svg/')
   ],
+  test: vitestConfig.test,
   build: {
     minify: 'terser',
     terserOptions: {
@@ -91,5 +101,5 @@ export default defineConfig({
       // https://api.wmdb.tv/api/v1/top?type=Imdb&skip=0&limit=50&lang=Cn  top50
       // https://api.wmdb.tv/movie/api?id=35240235  根据id查询电影详情
     }
-  }
+  },
 })

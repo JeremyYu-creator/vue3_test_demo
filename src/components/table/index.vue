@@ -63,7 +63,7 @@ const save = async (key: string) => {
             key: key
         })
         delete editableData[key];
-        console.log('res返回值', res)
+        // console.log('res返回值', res)
         getInitData()
     } catch (err: any) {
         console.log('---更新数据的错误--',err)
@@ -74,7 +74,7 @@ const deleteData = async(key: string) => {
     console.log('--delete的key----', key)
     try {
         const res = await deleteNoteBookData({ key: key })
-        console.log('---delete成功---', res)
+        // console.log('---delete成功---', res)
         getInitData()
     } catch (err: any) {
         console.log('delete的err', err)
@@ -86,6 +86,9 @@ const cancel = (key: string) => {
 onUnmounted(() => {
     mittEvent.off('dataOn')
 })
+const testStyle = {
+    'fontSize': '40px'
+}
 </script>
 
 <template>
@@ -124,6 +127,9 @@ onUnmounted(() => {
                 </template>
             </template>
         </a-table>
+        <div>
+            <span :style="testStyle">asdsasaad</span>
+        </div>
     </div>
 </template>
 <style lang="less">

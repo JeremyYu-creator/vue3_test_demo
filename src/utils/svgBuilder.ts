@@ -51,7 +51,7 @@ function findSvgFile(dir: any): any {
     return svgRes
 }
 
-export const svgBuilder = (path: any, perfix = 'icon') => {
+const svgBuilder = (path: any, perfix = 'icon') => {
     if (path === '') return
     idPerfix = perfix
     const res = findSvgFile(path)
@@ -72,3 +72,5 @@ export const svgBuilder = (path: any, perfix = 'icon') => {
         }
     }
 }
+
+export default svgBuilder

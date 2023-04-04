@@ -124,6 +124,15 @@ const asyncContantArray = [
                 },
                 component: () => import('@/views/test.vue'),
             },
+            {
+                path: "/createvue",
+                name: "create",
+                alias: '6-1',
+                meta: {
+                    title: "测试vue3",
+                },
+                component: () => import('@/views/testVue3/index.vue'),
+            },
         ]
     },
     {

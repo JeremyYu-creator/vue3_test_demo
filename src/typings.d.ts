@@ -12,5 +12,10 @@ declare interface Window {
     AMap: any,
     initMap: any
 }
+declare module 'vue' {
+    interface ComponentCustomProperties {
+      $translate: (key: string) => string
+    }
+  }
 
 export default ComponentCustomProperties

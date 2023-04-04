@@ -162,6 +162,23 @@ const menuList = [
             },
         ],
     },
+    {
+        key: '6',
+        title: '测试组件',
+        // <global-outlined />
+        icon: 'GlobalOutlined',
+        meta: '',
+        children: [
+            {
+                key: '6-1',
+                title: '测试vue3组件',
+                // <thunderbolt-outlined />
+                icon: 'ThunderboltOutlined',
+                meta: 'create',
+                children: null // 这个地方是[]好还是null好？
+            }
+        ],
+    },
 
 ]
 export default menuList
