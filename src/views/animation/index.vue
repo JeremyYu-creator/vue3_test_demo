@@ -42,6 +42,10 @@ const clearVideo = () => {
     check.value.currentTime = 0
     check.value.play()
 }
+const setPlaybackRate = (rate: number) => {
+    check.value.playbackRate = rate
+}
+
 // 切换video的src和poster +自动播放
 const changeUrl = () => {
     videoUrl.value = videoList.value[currentNum.value]
@@ -90,6 +94,8 @@ const changeStatus = (value: string) => {
             return prevVideo()
         case 'next':
             return nextVideo()
+        case 'playRate':
+            return setPlaybackRate(0.5)
     }
 }
 onBeforeUnmount(() =>{

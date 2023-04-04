@@ -5,6 +5,7 @@
 --|--|--
  3D | 引入全屏3d及修改高德地图apiKey | [bb26ee6](https://github.com/JeremyYu-creator/vue3_test_demo/commit/bb26ee6)
  - | 打包成功且线上可成功请求 | [c58b36a](https://github.com/JeremyYu-creator/vue3_test_demo/commit/c58b36a)
+ 单元测试 | 增加动态组件渲染及单元测试 | [771b8f1](https://github.com/JeremyYu-creator/vue3_test_demo/commit/771b8f1)
  豆瓣电影 | 新增豆瓣电影页面 | [8bc5f9e](https://github.com/JeremyYu-creator/vue3_test_demo/commit/8bc5f9e)
  豆瓣电影 | 新增豆瓣电影api | [1af4552](https://github.com/JeremyYu-creator/vue3_test_demo/commit/1af4552)
  豆瓣电影 | 修改豆瓣电影布局及样式&新增错误组件 | [3a768c7](https://github.com/JeremyYu-creator/vue3_test_demo/commit/3a768c7)

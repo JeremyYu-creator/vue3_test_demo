@@ -40,10 +40,11 @@ let defaultType = [
         type: 'next',
         // <step-forward-outlined />
     },
-    // {
-    //     name: '',
-    //     icon: '',
-    // },
+    {
+        name: '减慢倍率',
+        icon: 'StepForwardOutlined',
+        type: 'playRate'
+    },
     // {
     //     name: '',
     //     icon: '',
