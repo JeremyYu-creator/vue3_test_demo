@@ -20,9 +20,35 @@ const vitestConfig: VitestUserConfigInterface = {
 export default defineConfig({
   plugins: [
     vue(),
-    Components({
-      resolvers: [AntDesignVueResolver()],
-    }),
+    // Components({
+    //   resolvers: [AntDesignVueResolver()],
+    // }),
+    // fix：会出现点击路由就重新加载依赖问题，因此查找了下解决方法，出现的主要原因是因为less的加载太慢了
+    {
+      ...Components ({
+          resolvers: [AntDesignVueResolver({ importStyle: 'less' })]
+      }),
+      apply: 'build'
+    },
+    // Components ({
+    //     resolvers: [AntDesignVueResolver({ importStyle: 'less' })]
+    // }),
+  // 开发环境动态加入ui库框架引入
+  {
+      name: 'dev-auto-import-antdv',
+      transform(code, id) {
+          if (/src\/main.js$/.test(id)) {
+              let result = code.split('\n')
+              // 解决首次加载isCustomElement的问题
+              result.splice(result.length - 2, 0, `import Antd from 'ant-design-vue';import 'ant-design-vue/dist/antd.less';app.use(Antd);`)
+              return {
+                  code: result.join('\n'),
+                  map: null
+              }
+          }
+      },
+      apply: 'serve'
+  },
     resolveExternalsPlugin({
       AMap: 'AMap'
     }),

@@ -25,7 +25,7 @@ const sendRealMessage = () => {
 const passage = ref('neveda')
 const value = computed({
     get() {
-        console.log('获取到的value值',props.modelValue)
+        // console.log('获取到的value值',props.modelValue)
         return props.modelValue
     },
     set(val: any) {
@@ -41,7 +41,7 @@ onDeactivated(() => {
     console.log('keep-alive的二次卸载')
 })
 const color = "red"
-console.log('已获取到的value值', attrs)
+// console.log('已获取到的value值', attrs)
 </script>
 <template v-slot="{message}"> 
     <div >
