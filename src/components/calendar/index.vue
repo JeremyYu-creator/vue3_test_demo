@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted, toRefs } from 'vue'
+import { ref, onMounted, onUnmounted, toRefs, reactive } from 'vue'
 import { dayTimeNotice, timeDeal } from '@/utils/computeCalendar'
 import { getBgcSet, picList } from '@/utils/radomBackground'
 import { getLunar } from 'chinese-lunar-calendar'
@@ -68,8 +68,7 @@ const setNotice = (time: string, thing: string) => {
     //     aimText.value = '时间到啦'
     // }
 }
-// 获得农历接口的详细数据
-const chineseLunarDay = toRefs<LunarChineseYear>({
+const typeLunar = reactive({
     dateStr: '',
     isLeap: false,
     lunarDate: 0,
@@ -78,6 +77,8 @@ const chineseLunarDay = toRefs<LunarChineseYear>({
     solarTerm: null,
     zodiac: ''
 })
+// 获得农历接口的详细数据
+const chineseLunarDay = toRefs<LunarChineseYear>(typeLunar)
 const welcomeStr = ref('')
 // type KeyLunarChineseYear = keyof LunarChineseYear
 const getChineseLunarDay = () => {

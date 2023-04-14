@@ -1,13 +1,6 @@
 <template>
   <div>
-    <!--    home-->
-    <!--    {{message}}-->
-    <!--    <button @click="provideWay">点击传值</button>-->
-    <!--    <div>-->
-    <!--      <Son :message="message"/>-->
-    <!--      &lt;!&ndash;:message="message"&ndash;&gt;-->
-    <!--    </div>-->
-    <Aside />
+    <Aside/>
   </div>
 </template>
 

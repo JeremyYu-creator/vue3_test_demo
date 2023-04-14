@@ -7,11 +7,7 @@
     </a-layout-header>
     <!--todo: 面包屑待做，通过面包屑进行页面的跳转-->
     <a-layout-content style="padding: 0 50px">
-      <a-breadcrumb style="margin: 16px 0">
-        <a-breadcrumb-item>Home</a-breadcrumb-item>
-        <a-breadcrumb-item>List</a-breadcrumb-item>
-        <a-breadcrumb-item>App</a-breadcrumb-item>
-      </a-breadcrumb>
+      <Breadcrumb/>
       <a-layout style="padding: 24px 0; background: #fff">
         <a-layout-sider width="200" style="background: #fff">
           <!--通过递归子组件方式进行渲染
@@ -48,6 +44,7 @@
 </template>
 <script lang="ts" setup>
 import Header from '@/components/header/header.vue'
+import Breadcrumb from '@/components/breadcrumb/index.vue'
 import Footer from '@/components/footer/footer.vue'
 import SubMenu from '@/components/aside/subMenu.vue'
 import menuList from '@/mock/menuList'

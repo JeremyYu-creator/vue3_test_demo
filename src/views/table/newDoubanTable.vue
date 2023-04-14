@@ -2,12 +2,13 @@
 import { onMounted, ref, } from 'vue';
 import { getDoubanNewData } from '@/api/douban'
 import { topRequestParams, wmdbResponse } from '@/typing/newMovieData'
-import { CompareOptions } from '@/utils/compareNum'
 // import type { SelectProps } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
 import { selectOptions }  from '@/typing/options'
 import { message } from 'ant-design-vue';
 import Loading from '@/components/loading/loading.vue'
+import { CompareOptions } from '@/utils/compareNum'
+import Error from '@/components/error/error.vue';
 const router = useRouter()
 const movieListData = ref([] as wmdbResponse)
 // a-select使用官方的ts写法

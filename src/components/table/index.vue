@@ -86,9 +86,9 @@ const cancel = (key: string) => {
 onUnmounted(() => {
     mittEvent.off('dataOn')
 })
-const testStyle = {
-    'fontSize': '40px'
-}
+// const testStyle = {
+//     'fontSize': '40px'
+// }
 </script>
 
 <template>
@@ -127,9 +127,9 @@ const testStyle = {
                 </template>
             </template>
         </a-table>
-        <div>
+        <!-- <div>
             <span :style="testStyle">asdsasaad</span>
-        </div>
+        </div> -->
     </div>
 </template>
 <style lang="less">

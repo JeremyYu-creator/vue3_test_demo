@@ -1,20 +1,25 @@
+import HomeVue from '@/views/Home.vue'
+import extraVue from '@/views/extra.vue'
 const asyncContantArray = [
-    {
-        path: "/extra",
-        name: "extra",
-        meta: {
-            title: "额外展示",
-        },
-        component: () => import('@/views/extra.vue'),
-    },
+    // {
+    //     path: "/extra",
+    //     name: "extra",
+    //     meta: {
+    //         title: "额外展示",
+    //     },
+    //     component: () => import('@/views/extra.vue'),
+    // },
     {
         path: "/",
         name: "index",
         meta: {
             title: "首页",
         },
-        component: () => import('@/views/Home.vue'),
-        // component:Home
+        // components: () => import('@/views/Home.vue'),
+        components: {
+            default: HomeVue,
+            extra: extraVue,
+        },
         children: [
             {
                 path: "map",

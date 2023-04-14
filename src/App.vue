@@ -5,7 +5,8 @@
 
 <template>
   <div>
-    <router-view />
+    <router-view></router-view>
+    <!-- <router-view name="extra"></router-view> -->
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-# 0.0.0 (2023-04-10)
+# 0.0.0 (2023-04-14)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -39,6 +39,7 @@
 范围|描述|commitId
 --|--|--
  菜单列表 | 修改菜单列表点击问题 | [e1623fb](https://github.com/JeremyYu-creator/vue3_test_demo/commit/e1623fb)
+ 菜单路由 | 修复加载less资源慢导致页面加载不出来问题 | [b2639fb](https://github.com/JeremyYu-creator/vue3_test_demo/commit/b2639fb)
  代码引入 | 修改引入报红问题 | [46e9b89](https://github.com/JeremyYu-creator/vue3_test_demo/commit/46e9b89)
  豆瓣电影 | 修改豆瓣电影样式问题及video组件 | [47d0166](https://github.com/JeremyYu-creator/vue3_test_demo/commit/47d0166)
  豆瓣电影 | 修改图片适配问题 | [6e131ef](https://github.com/JeremyYu-creator/vue3_test_demo/commit/6e131ef)
