@@ -46,6 +46,7 @@
  视频播放 | 修改视频播放方法 | [ae95f8a](https://github.com/JeremyYu-creator/vue3_test_demo/commit/ae95f8a)
  视频播放 | 修改视频不能连续播放问题 | [28c4f56](https://github.com/JeremyYu-creator/vue3_test_demo/commit/28c4f56)
  视频播放 | 修改正确组件调用 | [b05479d](https://github.com/JeremyYu-creator/vue3_test_demo/commit/b05479d)
+ 组件引用 | 修改部分组件引用错误问题 | [62782b6](https://github.com/JeremyYu-creator/vue3_test_demo/commit/62782b6)
  - | ceshi | [4e83964](https://github.com/JeremyYu-creator/vue3_test_demo/commit/4e83964)
 
 
