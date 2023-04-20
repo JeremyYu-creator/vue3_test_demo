@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed , onActivated, onDeactivated, onMounted} from 'vue';
+import { computed, onActivated, onDeactivated, onMounted } from 'vue';
+import { useHookByMyself } from '@/utils/hook';
 const props = defineProps({
     textMessage: {
         type: String,
@@ -13,6 +14,7 @@ const props = defineProps({
 onMounted(() => {
     console.log('初次加载')
 })
+const {increaseNum, decreaseNum, num } = useHookByMyself()
 const emit = defineEmits(['sendMessage', 'updateValue'])
 // const sendMessage = () => {
 //     emit('sendMessage',1)
@@ -43,10 +45,11 @@ onDeactivated(() => {
         <div>
         tab1
         </div>
-        <div :style="{'background-color': 'red', width: '100px', height: '200px' }">
-
-        </div>
+        <!-- <div :style="{'background-color': 'red', width: '100px', height: '200px' }"></div> -->
         <!-- <a-input v-model="value"/> -->
+        <a-button @click="increaseNum">点击加一</a-button>
+        <a-button @click="decreaseNum">点击减一</a-button>
+        <div>{{ num }}</div>
         <slot></slot>
     </div>
 </template>

@@ -1,4 +1,4 @@
-# 0.0.0 (2023-04-14)
+# 1.0.0 (2023-04-20)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -33,6 +33,7 @@
  字体 | 引入阿里自定义字体 | [62da999](https://github.com/JeremyYu-creator/vue3_test_demo/commit/62da999)
  组件 | 新增Loading组件及修改部分bug | [697b15f](https://github.com/JeremyYu-creator/vue3_test_demo/commit/697b15f)
  组件 | 增加时间组件及修复部分问题 | [3bf9020](https://github.com/JeremyYu-creator/vue3_test_demo/commit/3bf9020)
+ - | init | [ee27eb2](https://github.com/JeremyYu-creator/vue3_test_demo/commit/ee27eb2)
  init | init | [6edcf3c](https://github.com/JeremyYu-creator/vue3_test_demo/commit/6edcf3c)
 
 

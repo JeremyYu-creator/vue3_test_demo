@@ -121,6 +121,7 @@ const aimThing = ref('')
 const beginValue = ref(false)
 
 const tableData: any = ref([])
+const total = ref(0)
 // const sendPostData = async() => {
 //     try {
 //         const res = await testPost({ name: 'text', type: '20', date: '2023-03-28' })
@@ -131,18 +132,28 @@ const tableData: any = ref([])
 // }
 const getInitData = async() => {
     try {
-        const res = await getNoteBookData({})
-        tableData.value = res.data
+        const res = await getNoteBookData({
+            pageNo: 1,
+            pageSize: 10, 
+        })
+        tableData.value = res.data.pageData
+        total.value = res.data.total
         // tableData.value = []
-        mittEvent.emit('dataOn',
-            tableData.value
-        )
+        commonEmit()
         console.log('----获取到的notebook数据---',res)
     } catch (err: any) {
         console.log('err', err)
         tableData.value = []
         message.error(`${err}`)
     }
+}
+const commonEmit = () => {
+    mittEvent.emit('dataOn',
+        {
+            pageData: tableData.value,
+            total: total.value
+        }
+    )
 }
 onMounted(() => {
     getInitData()
@@ -174,13 +185,18 @@ const sendPostData = async () => {
                 key: aimThing.value + formatTime.value
             })
         // console.log(formatTime.value, aimThing.value, cardType.value)
-        const res = await getNoteBookData({})
-        tableData.value = res.data
+        const res = await getNoteBookData({
+            pageNo: 1,
+            pageSize: 10, 
+        })
+        tableData.value = res.data.pageData
+        total.value = res.data.total
         // console.log('----存完的列表-----', tableData.value)
         // 发送请求完的数据，进行组件间的数据通信
-        mittEvent.emit('dataOn',
-            tableData.value
-        )
+        commonEmit()
+        // mittEvent.emit('dataOn',
+        //     tableData.value
+        // )
     } catch (err: any) {
         message.error(`出错啦~${err}`)
         tableData.value = []

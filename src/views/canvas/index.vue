@@ -37,21 +37,23 @@ const tabList = [
 
 
 <template>
-    <a-tabs v-model:activeKey="activeKey">
-        <a-tab-pane :key="item.value" v-for="item in tabList">
-            <template #tab>
-                <span>
-                    <component :is="$antIcons[item.icon]" />
-                    {{ item.name }}
-                </span>
-            </template>
-            <Chart v-if="item.value === '1'" />
-            <Line v-else-if="item.value === '2'" />
-            <Pie v-else-if="item.value === '3'" />
-            <Polar v-else-if="item.value === '4'" />
-            <Area v-else-if="item.value === '5'" />
-        </a-tab-pane>
-    </a-tabs>
+    <keep-alive include="Chart">
+        <a-tabs v-model:activeKey="activeKey">
+            <a-tab-pane :key="item.value" v-for="item in tabList">
+                <template #tab>
+                    <span>
+                        <component :is="$antIcons[item.icon]" />
+                        {{ item.name }}
+                    </span>
+                </template>
+                <Chart v-if="item.value === '1'" />
+                <Line v-else-if="item.value === '2'" />
+                <Pie v-else-if="item.value === '3'" />
+                <Polar v-else-if="item.value === '4'" />
+                <Area v-else-if="item.value === '5'" />
+            </a-tab-pane>
+        </a-tabs>
+    </keep-alive>
 </template>
 
 <style lang="less">

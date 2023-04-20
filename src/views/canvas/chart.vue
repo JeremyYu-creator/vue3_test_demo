@@ -1,5 +1,5 @@
-<script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+<script lang="ts" setup name="chart">
+import { ref, onMounted, onActivated, onDeactivated } from 'vue'
 import { Chart, registerInteraction } from '@antv/g2'
 import { mapData } from '@/mock/chartData'
 const chart: any = ref(null) // 全局只创建一个实例，然后通过对实例进行图形的绘画或者清除
@@ -27,6 +27,9 @@ const init = () => {
     chart.value.interaction('element-link');
     chart.value.render();
 }
+onActivated(() => {
+    console.log('keep-alive路由使用')
+})
 onMounted(() => {
     init()
     // setTimeout(() => {
@@ -38,6 +41,7 @@ onMounted(() => {
 <template>
     <div>
         <div id="container"></div>
+        <!-- <el-input v-model=""></el-input> -->
     </div>
 </template>
 <style lang="less">
