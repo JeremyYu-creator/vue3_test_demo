@@ -1,9 +1,10 @@
-# 1.0.0 (2023-04-20)
+# 1.0.0 (2023-04-21)
 
 ### 🌟 新功能
 范围|描述|commitId
 --|--|--
  3D | 引入全屏3d及修改高德地图apiKey | [bb26ee6](https://github.com/JeremyYu-creator/vue3_test_demo/commit/bb26ee6)
+ 表格 | 新增后台筛选分页功能 | [5fd24cf](https://github.com/JeremyYu-creator/vue3_test_demo/commit/5fd24cf)
  - | 打包成功且线上可成功请求 | [c58b36a](https://github.com/JeremyYu-creator/vue3_test_demo/commit/c58b36a)
  单元测试 | 增加动态组件渲染及单元测试 | [771b8f1](https://github.com/JeremyYu-creator/vue3_test_demo/commit/771b8f1)
  豆瓣电影 | 新增豆瓣电影页面 | [8bc5f9e](https://github.com/JeremyYu-creator/vue3_test_demo/commit/8bc5f9e)

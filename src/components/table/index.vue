@@ -5,8 +5,10 @@ import { AnyObject} from '@/typing/tableComponent'
 // 通过这种方式进行props的自定义定义类型
 import type { PropType } from "vue"
 import { getNoteBookData, deleteNoteBookData, updateNoteBookData } from '@/api/test';
+import { NoteBookCommonParams, NoteBookMittType } from '@/typing/noteBook'
 import mittEvent from '@/mitt/grandFather'
 import { cloneDeep } from 'lodash'
+import { message } from 'ant-design-vue';
 
 interface DataItem  {
     name: string,
@@ -24,11 +26,12 @@ const props = defineProps(
 const totalNum = ref(0)
 // const oldVal: any = ref([])
 const currentTableColumn = ref([] as AnyObject[])
-const dataBase: any = ref([])
-const dealMitt = (value: any) => {
+const dataBase = ref([] as NoteBookCommonParams[])
+const dealMitt = (value: NoteBookMittType) => {
     dataBase.value = value.pageData
     totalNum.value = value.total
-    console.log('发放事件获取到的数据', value, totalNum.value)
+    pagination.value.current = value.current
+    // console.log('发放事件获取到的数据', value, totalNum.value)
     // oldVal.value = value
 }
 const current = ref(1)
@@ -40,54 +43,58 @@ const getInitData = async() => {
             pageNo: current.value,
             pageSize: pageSize.value, 
         })
-        console.log('----获取到的notebook数据---', res)
+        // console.log('----获取到的notebook数据---', res)
         dataBase.value = res.data.pageData
         totalNum.value = res.data.total
         pagination.value.total = totalNum.value
     } catch (err: any) {
+        dataBase.value = []
+        pagination.value.total = 0
         console.log('err',err)
     }
 }
 onMounted(() => {
-    mittEvent.on('dataOn', (value) => {
+    mittEvent.on('dataOn', (value: any) => {
         dealMitt(value)
         thingsTable.value = '记事录'
     })
-    // console.log('mitt',mittEvent)
     currentTableColumn.value = props.tableColumn
-    // console.log(currentTableColumn.value, 'asdasdasdasdasdd')
 })
 const editableData: UnwrapRef<Record<string, DataItem>> = reactive({});
 
 const edit = (key: string) => {
-    editableData[key] = cloneDeep(dataBase.value.filter((item: any) => key === item.key)[0]);
+    editableData[key] = cloneDeep(dataBase.value.filter((item: NoteBookCommonParams) => key === item.key)[0]);
 };
 const save = async (key: string) => {
     try {
-        Object.assign(dataBase.value.filter((item: any) => key === item.key)[0], editableData[key]);
-        console.log('--编辑的数据----',editableData[key], key)
+        Object.assign(dataBase.value.filter((item: NoteBookCommonParams) => key === item.key)[0], editableData[key]);
+        // console.log('--编辑的数据----',editableData[key], key)
         const res = await updateNoteBookData({
             data: editableData[key],
             key: key
         })
-        delete editableData[key];
-        // console.log('res返回值', res)
-        current.value = 1
-        pagination.value.current = 1
-        getInitData()
+        if (res.data === 'success') {
+            delete editableData[key];
+            current.value = 1
+            pagination.value.current = 1
+            message.success('保存成功')
+            getInitData()
+        }
     } catch (err: any) {
         console.log('---更新数据的错误--',err)
     }
    
 };
 const deleteData = async(key: string) => {
-    console.log('--delete的key----', key)
+    // console.log('--delete的key----', key)
     try {
         const res = await deleteNoteBookData({ key: key })
-        // console.log('---delete成功---', res)
-        current.value = 1
-        pagination.value.current = 1
-        getInitData()
+        if (res.data === 'success') {
+            current.value = 1
+            pagination.value.current = 1
+            message.success('删除成功')
+            getInitData()
+        }
     } catch (err: any) {
         console.log('delete的err', err)
     }
@@ -103,7 +110,6 @@ let pagination = ref({
     current: 1,
     showSizeChanger: true,
     showTotal: (total: number) => {
-        // console.log('-内嵌函数-',totalNum.value)
         return `共${total}条`
     },
     // total: totalNum.value
@@ -115,12 +121,9 @@ const handleTableChange = (e: any) => {
     }, }
     current.value = e.current
     pageSize.value = e.pageSize
-    console.log(e, '修改表单', current.value, pageSize.value)
+    // console.log(e, '修改表单', current.value, pageSize.value)
     getInitData()
 }
-// const testStyle = {
-//     'fontSize': '40px'
-// }
 </script>
 
 <template>

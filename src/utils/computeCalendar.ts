@@ -58,7 +58,7 @@ const timeDeal = (time: string, event: string) => {
     let leftMinute = parseInt(minC) % 60
     let leftSecond = parseInt(secC)
         // result = `距离${event}还有${leftDay === 0 ? '' : leftDay + '天'}${leftHour}小时${leftMinute}分${leftSecond}秒`
-    result = {
+    return result = {
         leftYear,
         leftMonth,
         leftWeek,
@@ -69,8 +69,6 @@ const timeDeal = (time: string, event: string) => {
         type,
         event
     }
-    return result
-
 }
 
 export { dayTimeNotice, timeDeal }

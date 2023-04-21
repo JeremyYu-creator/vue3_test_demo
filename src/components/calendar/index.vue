@@ -9,42 +9,25 @@ import {  getNoteBookData, insertNoteBookData, } from '@/api/test'
 import mittEvent from '@/mitt/grandFather'
 // import { errorCaptured } from '@/utils/error'
 import { message } from 'ant-design-vue'
-// import meihua from '@/assets/gif/meihua.gif'
+import { NoteBookCommonParams, StringIndexedObject, LunarChineseYear } from '@/typing/noteBook'
 const noticeText = ref('')
 const aimText = ref('')
 const cardType = ref('')
 const timer: any = ref(null)
 const bgcTimer: any = ref(null)
 // const dataSource = ref([] as DataType[])
-interface StringIndexedObject {
-    [key: string]: string;
-}
-type LunarChineseYear = {
-    dateStr: string,
-    isLeap: boolean,
-    lunarDate: number,
-    lunarMonth: number,
-    lunarYear: string,
-    solarTerm: Object | null,
-    zodiac: string
-}
+
+
 const pic = ref('')
-// const mittEvent = mitt()
-/**
- * fixme:enum枚举使用时，下方会出现enum的ts类型报警，后续看看
-*/
-// enum cardMap {
-//     daojishi = '倒计时',
-//     jinianri = '纪念日',
-// }
 const getCardBackgroundImg = () => {
     pic.value = getBgcSet(picList)
-    console.log(pic.value)
+    // console.log(pic.value)
 }
 const cardMap: StringIndexedObject = {
     'daojishi': '倒计时',
     'jinianri': '纪念日',
 }
+const thingType = ref('')
 // 设置提示卡片详细内容
 const setNotice = (time: string, thing: string) => {
     const { leftYear, leftMonth, leftWeek, leftDay, leftHour, leftMinute, leftSecond, type, event } = timeDeal(time, thing)
@@ -56,7 +39,8 @@ const setNotice = (time: string, thing: string) => {
     const isNotZero = (item: number) => {
         return item !==0 
     }
-    // console.log('---数据比较---', arr.some(isNotZero))
+    thingType.value = cardMap[type]
+    console.log('--things的type--', thingType.value, type)
     if (type === 'daojishi' && arr.some(isNotZero)) {
         aimText.value = `距离${event}还有${leftDay === 0 ? '' : leftDay + '天'}${leftHour}小时${leftMinute}分${leftSecond}秒`
     } else {
@@ -99,7 +83,7 @@ const getChineseLunarDay = () => {
             })
         })
         welcomeStr.value = `今天是农历${chineseLunarDay.lunarYear}${chineseLunarDay.dateStr}`
-        console.log(chineseLunarDay)
+        // console.log(chineseLunarDay)
     } catch (err: any) {
         welcomeStr.value = '出错喽，请重试'
     }
@@ -120,27 +104,19 @@ const onChange = (date: Dayjs | string, dateString: string) => {
 const aimThing = ref('')
 const beginValue = ref(false)
 
-const tableData: any = ref([])
+const tableData = ref([] as NoteBookCommonParams[])
 const total = ref(0)
-// const sendPostData = async() => {
-//     try {
-//         const res = await testPost({ name: 'text', type: '20', date: '2023-03-28' })
-//         console.log(res, 'sendPostData')
-//     } catch (err: any) {
-//         console.log(err)
-//     }
-// }
 const getInitData = async() => {
     try {
+        // default params
         const res = await getNoteBookData({
             pageNo: 1,
             pageSize: 10, 
         })
         tableData.value = res.data.pageData
         total.value = res.data.total
-        // tableData.value = []
         commonEmit()
-        console.log('----获取到的notebook数据---',res)
+        // console.log('----获取到的notebook数据---',res)
     } catch (err: any) {
         console.log('err', err)
         tableData.value = []
@@ -151,7 +127,17 @@ const commonEmit = () => {
     mittEvent.emit('dataOn',
         {
             pageData: tableData.value,
-            total: total.value
+            total: total.value,
+            current: 1
+        }
+    )
+}
+const errorEmit = () => {
+    mittEvent.emit('dataOn',
+        {
+            pageData: [],
+            total: 0,
+            current: 1,
         }
     )
 }
@@ -177,35 +163,26 @@ const sendPostData = async () => {
             }, 1000)
         }
         // 进行数据存储
+        setNotice(formatTime.value, aimThing.value)
         await insertNoteBookData(
             {
                 name: aimThing.value,
-                type: '20', // 后续转换成动态判断
+                type: thingType.value, // 后续转换成动态判断
                 date: formatTime.value,
-                key: aimThing.value + formatTime.value
+                // key: aimThing.value + formatTime.value
+                key: Math.random().toString(36).slice(2), // 设置生成唯一key值
             })
-        // console.log(formatTime.value, aimThing.value, cardType.value)
         const res = await getNoteBookData({
             pageNo: 1,
             pageSize: 10, 
         })
         tableData.value = res.data.pageData
         total.value = res.data.total
-        // console.log('----存完的列表-----', tableData.value)
-        // 发送请求完的数据，进行组件间的数据通信
         commonEmit()
-        // mittEvent.emit('dataOn',
-        //     tableData.value
-        // )
     } catch (err: any) {
         message.error(`出错啦~${err}`)
-        tableData.value = []
-        mittEvent.emit('dataOn',
-            tableData.value
-        )
+        errorEmit()
     }
-    
-    // mittEvent.emit('test', 'testtesttest')
 }
 </script>
 

@@ -1,24 +1,5 @@
 import { get, post } from "@/utils/request";
-// import { APIParams, APIResult } from '@/typing/tableRequest'
-// import { movieData } from '@/typing/movie'
-
-// export const getTableData = (params: { apikey: string }) => {
-//     // return get<APIResult>(
-//     //     '/api',
-//     //     {params},
-//     // )
-//     return get<movieData>(
-//         '/v2/movie/new_movies',
-//         //'/wmdb/movie/new_movies',
-//         { params }
-//     )
-// }
-// export const getTableMockData = (params: APIParams) => {
-//     return get<APIResult>(
-//         '/api',
-//         { params },
-//     )
-// }
+import { NoteBookRequestParams, OperateNoteBookType } from '@/typing/noteBook'
 export const testRequest = (params: {pageNo: number, pageSize: number,start: number, end: number, sort: boolean}) => {
     return get<any>(
         '/mynode/home',
@@ -27,14 +8,14 @@ export const testRequest = (params: {pageNo: number, pageSize: number,start: num
     )
 }
 export const getNoteBookData = (params: {}) => {
-    return get<any>(
+    return get<NoteBookRequestParams>(
         '/mynode/noteBook',
         { params },
         200
     )
 }
 export const insertNoteBookData = (data: any) => {
-    return post<any>(
+    return post<OperateNoteBookType>(
         '/mynode/change',
         data,
         data,
@@ -42,7 +23,7 @@ export const insertNoteBookData = (data: any) => {
     )
 }
 export const deleteNoteBookData = (data: any) => {
-    return post<any>(
+    return post<OperateNoteBookType>(
         '/mynode/delete',
         data,
         data,
@@ -50,7 +31,7 @@ export const deleteNoteBookData = (data: any) => {
     )
 }
 export const updateNoteBookData = (data: any) => {
-    return post<any>(
+    return post<OperateNoteBookType>(
         '/mynode/update',
         data,
         data,
