@@ -82,6 +82,7 @@ export default defineConfig({
     }
   },
   server: {
+    host: '0.0.0.0',
     port: 8888,
     open: false, //自动打开 
     // base: "./ ", //生产环境路径

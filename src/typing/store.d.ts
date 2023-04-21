@@ -13,7 +13,15 @@ export interface TokenRequest {
 export interface MenuState {
     openKeys: string[],
     selectedKeys: string[],
-    path: string
+    path: string,
+    breadcrumbArr: BreadcrumbType[],
 }
 
-export default { GlobalState, TokenRequest, MenuState }
+export interface BreadcrumbType {
+    name: string,
+    path: string,
+    key: string,
+    child: boolean
+}
+
+export default { GlobalState, TokenRequest, MenuState, BreadcrumbType }

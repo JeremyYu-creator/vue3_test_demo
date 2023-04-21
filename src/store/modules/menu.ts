@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { MenuState, } from "@/typing/store";
+import { MenuState, BreadcrumbType} from "@/typing/store";
 
 export const MenuSetting = defineStore({
     id: 'MenuSetting',
@@ -7,7 +7,8 @@ export const MenuSetting = defineStore({
         {
             openKeys: [''],
             selectedKeys: [''],
-            path: ''
+            path: '',
+            breadcrumbArr: [],
         }
     ),
     actions: {
@@ -19,7 +20,11 @@ export const MenuSetting = defineStore({
         },
         setRouterPath(path: string) {
             this.path = path
-        }
+        },
+        // 用来做面包屑用的一个方法
+        setBreadCrumb(breadcrumb: BreadcrumbType[]) {
+            this.breadcrumbArr = breadcrumb
+        },
     },
     persist: { // 实际上是通过storage方式进行存储, 注意默认是sessionStorage
         enabled: true,

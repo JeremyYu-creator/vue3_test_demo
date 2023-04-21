@@ -9,6 +9,12 @@ const NotFoundStyle = {
     'height': '60vh',
 }
 const wayBack = () => {
+    menu.setBreadCrumb([{
+        name: '首页',
+        path: '/',
+        child: true,
+        key: '1'
+    }])
     router.push(menu.path)
 }
 </script>

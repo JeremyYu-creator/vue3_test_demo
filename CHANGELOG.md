@@ -53,6 +53,12 @@
  - | ceshi | [4e83964](https://github.com/JeremyYu-creator/vue3_test_demo/commit/4e83964)
 
 
+### 🚀 性能优化
+范围|描述|commitId
+--|--|--
+ 记事本 | 优化记事本交互及代码 | [495494a](https://github.com/JeremyYu-creator/vue3_test_demo/commit/495494a)
+
+
 范围|描述|commitId
 --|--|--
  - | feat:增加新浪新闻等相关内容 | [a74f391](https://github.com/JeremyYu-creator/vue3_test_demo/commit/a74f391)
