@@ -1,6 +1,11 @@
 interface StringIndexedObject {
     [key: string]: string;
 }
+interface DataItem  {
+    name: string,
+    date: string,
+    type: string,
+}
 
 type LunarChineseYear = {
     dateStr: string,
@@ -38,4 +43,4 @@ interface OperateNoteBookType {
 }
 
 
-export { NoteBookCommonParams, NoteBookRequestParams, StringIndexedObject, LunarChineseYear, NoteBookMittType, OperateNoteBookType}
+export { NoteBookCommonParams, NoteBookRequestParams, StringIndexedObject, LunarChineseYear, NoteBookMittType, OperateNoteBookType, DataItem}

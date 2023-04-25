@@ -40,7 +40,7 @@ const setNotice = (time: string, thing: string) => {
         return item !==0 
     }
     thingType.value = cardMap[type]
-    console.log('--things的type--', thingType.value, type)
+    // console.log('--things的type--', thingType.value, type)
     if (type === 'daojishi' && arr.some(isNotZero)) {
         aimText.value = `距离${event}还有${leftDay === 0 ? '' : leftDay + '天'}${leftHour}小时${leftMinute}分${leftSecond}秒`
     } else {
@@ -98,7 +98,7 @@ const yearValue = ref('')
 // 监听上方时间戳发生改变的回调函数
 const onChange = (date: Dayjs | string, dateString: string) => {
     // dateString是已经封装好的日期
-    console.log(date, dateString)
+    // console.log(date, dateString)
     yearValue.value = dateString
 }
 const aimThing = ref('')
@@ -156,29 +156,39 @@ const sendPostData = async () => {
     try {
         formatTime.value = yearValue.value + ' ' + strValue.value
         beginValue.value = true
-        if (beginValue.value) {
-            timer.value = setInterval(() => {
-                getNoticeWord()
-                setNotice(formatTime.value, aimThing.value)
-            }, 1000)
+        let checkArr: any = ref([yearValue.value, strValue.value, aimThing.value])
+        // 是空
+        const isNullString = (item: string) => {
+            return item !== ''
         }
-        // 进行数据存储
-        setNotice(formatTime.value, aimThing.value)
-        await insertNoteBookData(
-            {
-                name: aimThing.value,
-                type: thingType.value, // 后续转换成动态判断
-                date: formatTime.value,
-                // key: aimThing.value + formatTime.value
-                key: Math.random().toString(36).slice(2), // 设置生成唯一key值
+        console.log(checkArr.value.every(isNullString), yearValue.value, strValue.value, aimThing.value)
+        if (!checkArr.value.every(isNullString)) {
+            message.warn('请填满必填信息')
+        } else {
+            if (beginValue.value) {
+                timer.value = setInterval(() => {
+                    getNoticeWord()
+                    setNotice(formatTime.value, aimThing.value)
+                }, 1000)
+            }
+            // 进行数据存储
+            setNotice(formatTime.value, aimThing.value)
+            await insertNoteBookData(
+                {
+                    name: aimThing.value,
+                    type: thingType.value, // 后续转换成动态判断
+                    date: formatTime.value,
+                    // key: aimThing.value + formatTime.value
+                    key: Math.random().toString(36).slice(2), // 设置生成唯一key值,该算法可能会有问题
+                })
+            const res = await getNoteBookData({
+                pageNo: 1,
+                pageSize: 10, 
             })
-        const res = await getNoteBookData({
-            pageNo: 1,
-            pageSize: 10, 
-        })
-        tableData.value = res.data.pageData
-        total.value = res.data.total
-        commonEmit()
+            tableData.value = res.data.pageData
+            total.value = res.data.total
+            commonEmit()
+        }
     } catch (err: any) {
         message.error(`出错啦~${err}`)
         errorEmit()

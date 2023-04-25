@@ -1,20 +1,15 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, reactive } from 'vue';
+import { onMounted, onUnmounted, ref, reactive, computed, unref } from 'vue';
 import type { UnwrapRef } from 'vue'
 import { AnyObject} from '@/typing/tableComponent'
 // 通过这种方式进行props的自定义定义类型
 import type { PropType } from "vue"
 import { getNoteBookData, deleteNoteBookData, updateNoteBookData } from '@/api/test';
-import { NoteBookCommonParams, NoteBookMittType } from '@/typing/noteBook'
+import { NoteBookCommonParams, NoteBookMittType, OperateNoteBookType, DataItem } from '@/typing/noteBook'
 import mittEvent from '@/mitt/grandFather'
 import { cloneDeep } from 'lodash'
-import { message } from 'ant-design-vue';
+import { message, Table } from 'ant-design-vue';
 
-interface DataItem  {
-    name: string,
-    date: string,
-    type: string,
-}
 const props = defineProps(
     {
         tableColumn: {
@@ -23,6 +18,7 @@ const props = defineProps(
         }
     }
 )
+type Key = string | number
 const totalNum = ref(0)
 // const oldVal: any = ref([])
 const currentTableColumn = ref([] as AnyObject[])
@@ -61,7 +57,20 @@ onMounted(() => {
     currentTableColumn.value = props.tableColumn
 })
 const editableData: UnwrapRef<Record<string, DataItem>> = reactive({});
-
+const noticeMessage = (type: string, res: OperateNoteBookType) => {
+    // key: string
+    if (res.data === 'success') {
+        // if (type === 'edit') {
+        //     delete editableData[key];
+        // }
+        current.value = 1
+        pagination.value.current = 1
+        message.success('操作成功')
+        getInitData()
+    } else if(res.data === 'failture'){
+        message.error('保存失败，请重试')
+    }
+}
 const edit = (key: string) => {
     editableData[key] = cloneDeep(dataBase.value.filter((item: NoteBookCommonParams) => key === item.key)[0]);
 };
@@ -73,13 +82,8 @@ const save = async (key: string) => {
             data: editableData[key],
             key: key
         })
-        if (res.data === 'success') {
-            delete editableData[key];
-            current.value = 1
-            pagination.value.current = 1
-            message.success('保存成功')
-            getInitData()
-        }
+        // noticeMessage('edit', res, key)
+        noticeMessage('edit', res)
     } catch (err: any) {
         console.log('---更新数据的错误--',err)
     }
@@ -88,13 +92,20 @@ const save = async (key: string) => {
 const deleteData = async(key: string) => {
     // console.log('--delete的key----', key)
     try {
-        const res = await deleteNoteBookData({ key: key })
-        if (res.data === 'success') {
-            current.value = 1
-            pagination.value.current = 1
-            message.success('删除成功')
-            getInitData()
-        }
+        const res = await deleteNoteBookData([{ key: key }])
+        // noticeMessage('delete', res, key)
+        noticeMessage('delete', res)
+    } catch (err: any) {
+        console.log('delete的err', err)
+    }
+}
+interface Keys {
+    key: string,
+}[]
+const deleteManyData = async(keys: Keys) => {
+    try {
+        const res = await deleteNoteBookData(keys)
+        noticeMessage('delete', res)
     } catch (err: any) {
         console.log('delete的err', err)
     }
@@ -124,6 +135,51 @@ const handleTableChange = (e: any) => {
     // console.log(e, '修改表单', current.value, pageSize.value)
     getInitData()
 }
+type SelectType = {
+    selectedRowKeys: Key[];
+    selectedRows: NoteBookCommonParams[],
+    loading: boolean;
+}
+const state = reactive<SelectType>(
+    {
+        selectedRowKeys: [],
+        selectedRows: [],
+        loading: false,
+    }
+)
+// const hasSelected = computed(() => state.selectedRowKeys.length > 0);
+const onSelectChange = (selectedRowKeys: Key[], selectedRows: NoteBookCommonParams[]) => {
+    console.log('selectedRowKeys changed: ', selectedRowKeys, selectedRows);
+    state.selectedRowKeys = selectedRowKeys;
+    state.selectedRows = selectedRows
+}
+// 完全融合进来了，所以只需绑定此对象即可
+const rowSelection = computed(() => {
+    return {
+        selectedRowKeys: unref(state.selectedRowKeys),
+        onChange: onSelectChange,
+        hideDefaultSelections: true,
+        selections: [
+            Table.SELECTION_ALL,
+            Table.SELECTION_INVERT,
+            Table.SELECTION_NONE,
+            {
+                key: 'deleteMany',
+                text: '删除当前选择',
+                onSelect: (changableRowKeys: any) => {
+                    let arr: any = []
+                    state.selectedRows.forEach((item: NoteBookCommonParams) => {
+                        arr.push({
+                            key: item.key
+                        })
+                    })
+                    console.log('当前已选择的key列表', arr)
+                    deleteManyData(arr)
+                },
+            },
+        ],
+    }
+})
 </script>
 
 <template>
@@ -131,7 +187,8 @@ const handleTableChange = (e: any) => {
         <h4>{{ thingsTable }}</h4>
         <a-table 
             :dataSource="dataBase" :columns="currentTableColumn" bordered :pagination="pagination"
-            @change="handleTableChange">
+            @change="handleTableChange" :row-selection="rowSelection"
+            >
             <template #bodyCell="{ column, text, record }">
                 <template v-if="['name', 'date', 'type'].includes(column.dataIndex)">
                     <div>

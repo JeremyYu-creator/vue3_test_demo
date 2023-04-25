@@ -1,4 +1,4 @@
-# 1.0.0 (2023-04-21)
+# 1.0.0 (2023-04-25)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -13,6 +13,7 @@
  豆瓣电影 | 优化搜索条数的搜索框及类型方法 | [a07dfba](https://github.com/JeremyYu-creator/vue3_test_demo/commit/a07dfba)
  记事本 | 新增记事本功能 | [21d5c96](https://github.com/JeremyYu-creator/vue3_test_demo/commit/21d5c96)
  记事本 | 新mongo服务存储,增加增删改查功能 | [41a3cba](https://github.com/JeremyYu-creator/vue3_test_demo/commit/41a3cba)
+ 面包屑 | 面包屑初版完成 | [31b9dd7](https://github.com/JeremyYu-creator/vue3_test_demo/commit/31b9dd7)
  视频播放 | 新增视频播放内容 | [4e277ea](https://github.com/JeremyYu-creator/vue3_test_demo/commit/4e277ea)
  - | 添加表格内的图片及样式修改 | [2fe8146](https://github.com/JeremyYu-creator/vue3_test_demo/commit/2fe8146)
  新豆瓣电影 | 新增影片详情功能,待接入演员/导演数据 | [580ef68](https://github.com/JeremyYu-creator/vue3_test_demo/commit/580ef68)

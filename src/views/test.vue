@@ -13,10 +13,13 @@
 // import Loading from '@/components/loading/loading.vue'
 import Calander from '@/components/calendar/index.vue'
 import TableComponent from '@/components/table/index.vue'
-import { DataType} from '@/typing/tableComponent'
+import { DataType } from '@/typing/tableComponent'
+import { DataItem } from '@/typing/noteBook'
 import { ref, onMounted } from 'vue';
 // const loadingValue = ref(false)
 // const dataSource = ref([] as DataType[])
+const sortedInfo = ref();
+const sorted = sortedInfo.value || {};
 // 定义的列名
 const tableColumn = [
   {
@@ -28,7 +31,9 @@ const tableColumn = [
   {
     title: '时间',
     dataIndex: 'date',
-    objectKey: 'date',  
+    objectKey: 'date', 
+    defaultSortOrder: 'descend',
+    sorter: (a: DataItem, b: DataItem) => { return a.date > b.date? 1 : -1 },
     // width: 100,         
   },
   {
