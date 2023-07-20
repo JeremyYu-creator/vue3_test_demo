@@ -43,12 +43,18 @@ let defaultType = [
     {
         name: '减慢倍率',
         icon: 'StepForwardOutlined',
-        type: 'playRate'
+        type: 'playDecreaseRate'
     },
-    // {
-    //     name: '',
-    //     icon: '',
-    // },
+    {
+        name: '加快倍率',
+        icon: 'StepForwardOutlined',
+        type: 'playIncreaseRate'
+    },
+    {
+        name: '恢复正常倍率',
+        icon: 'StepForwardOutlined',
+        type: 'playNormalRate'
+    },
 ]
 let drawArr = ref([] as videoUtilsType)
 const currentType = ref('play')

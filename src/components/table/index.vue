@@ -57,12 +57,12 @@ onMounted(() => {
     currentTableColumn.value = props.tableColumn
 })
 const editableData: UnwrapRef<Record<string, DataItem>> = reactive({});
-const noticeMessage = (type: string, res: OperateNoteBookType) => {
+const noticeMessage = (type: string, res: OperateNoteBookType, key: string) => {
     // key: string
     if (res.data === 'success') {
-        // if (type === 'edit') {
-        //     delete editableData[key];
-        // }
+        if (type === 'edit') {
+            delete editableData[key];
+        }
         current.value = 1
         pagination.value.current = 1
         message.success('操作成功')
@@ -83,7 +83,7 @@ const save = async (key: string) => {
             key: key
         })
         // noticeMessage('edit', res, key)
-        noticeMessage('edit', res)
+        noticeMessage('edit', res, key)
     } catch (err: any) {
         console.log('---更新数据的错误--',err)
     }
@@ -94,7 +94,7 @@ const deleteData = async(key: string) => {
     try {
         const res = await deleteNoteBookData([{ key: key }])
         // noticeMessage('delete', res, key)
-        noticeMessage('delete', res)
+        noticeMessage('delete', res, key)
     } catch (err: any) {
         console.log('delete的err', err)
     }
@@ -105,7 +105,7 @@ interface Keys {
 const deleteManyData = async(keys: Keys) => {
     try {
         const res = await deleteNoteBookData(keys)
-        noticeMessage('delete', res)
+        noticeMessage('delete', res, '')
     } catch (err: any) {
         console.log('delete的err', err)
     }

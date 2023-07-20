@@ -84,7 +84,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 8888,
-    open: false, //自动打开 
+    open: true, //自动打开 
     // base: "./ ", //生产环境路径
     proxy: { //配置接口的请求地址
       // '/api': {
@@ -125,6 +125,12 @@ export default defineConfig({
         ws: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
+      '/mock': {
+        target: 'https://api.example.com',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      }
       // https://api.wmdb.tv/api/v1/top?type=Imdb&skip=0&limit=50&lang=Cn  top50
       // https://api.wmdb.tv/movie/api?id=35240235  根据id查询电影详情
     }

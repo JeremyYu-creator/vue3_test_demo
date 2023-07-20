@@ -138,6 +138,15 @@ const asyncContantArray = [
                 },
                 component: () => import('@/views/testVue3/index.vue'),
             },
+            {
+                path: "/waterfall",
+                name: "waterfall",
+                alias: '6-2',
+                meta: {
+                    title: "瀑布流初探",
+                },
+                component: () => import('@/views/waterfall/index.vue'),
+            },
         ]
     },
     {

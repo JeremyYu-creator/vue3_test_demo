@@ -176,7 +176,15 @@ const menuList = [
                 icon: 'ThunderboltOutlined',
                 meta: 'create',
                 children: null // 这个地方是[]好还是null好？
-            }
+            },
+            {
+                key: '6-2',
+                title: '前端瀑布流初探',
+                // <table-outlined />
+                icon: 'TableOutlined',
+                meta: 'waterfall',
+                children: null // 这个地方是[]好还是null好？
+            },
         ],
     },
 

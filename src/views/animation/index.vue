@@ -42,8 +42,29 @@ const clearVideo = () => {
     check.value.currentTime = 0
     check.value.play()
 }
-const setPlaybackRate = (rate: number) => {
-    check.value.playbackRate = rate
+const setPlaybackRate = (type: string = 'normal') => {
+    enum showToast {
+        'increase' = '再高了', 
+        'decrease' = '再低了'
+    }
+    // 当前需要判断枚举值进行倍率控制
+    if (type === 'increase') {
+        if (check.value.playbackRate >= 2) { 
+            message.error(`当前播放倍率不能${showToast[type]}`)
+        } else {
+            check.value.playbackRate = check.value.playbackRate + 0.25
+            message.info(`当前播放倍率是${check.value.playbackRate}`)
+        }
+    } else if(type === 'decrease'){
+        if (check.value.playbackRate <= 0) { 
+            message.error(`当前播放倍率不能${showToast[type]}`)
+        } else {
+            check.value.playbackRate = check.value.playbackRate - 0.25
+            message.info(`当前播放倍率是${check.value.playbackRate}`)
+        }
+    } else {
+        check.value.playbackRate = 1
+    }
 }
 
 // 切换video的src和poster +自动播放
@@ -75,7 +96,7 @@ onMounted(async () => {
     try {
             videoUrl.value = videoList.value[0]
             check.value = document.getElementById('videoDom')
-            console.log('点击了就执行')
+            // console.log('点击了就执行')
             await videoWaysSet()
         } catch (err: any) {
             message.error(`${err}`)
@@ -94,8 +115,12 @@ const changeStatus = (value: string) => {
             return prevVideo()
         case 'next':
             return nextVideo()
-        case 'playRate':
-            return setPlaybackRate(0.5)
+        case 'playDecreaseRate':
+            return setPlaybackRate('decrease')
+        case 'playIncreaseRate':
+            return setPlaybackRate('increase')
+        case 'playNormalRate': 
+            return setPlaybackRate()
     }
 }
 onBeforeUnmount(() =>{
