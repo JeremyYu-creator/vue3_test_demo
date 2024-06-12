@@ -15,7 +15,7 @@ const props = defineProps({
         default: '',
     }
 })
-const {increaseNum, decreaseNum, num } = useHookByMyself()
+const {increaseNum, decreaseNum, num } = await useHookByMyself()
 const numFather = inject('father-number')
 const attrs = useAttrs()
 const emit = defineEmits(['sendMessage', 'update:modelValue'])

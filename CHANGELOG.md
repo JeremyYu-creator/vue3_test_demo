@@ -1,4 +1,4 @@
-# 1.0.0 (2023-07-20)
+# 1.0.0 (2024-06-12)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -21,6 +21,7 @@
  - | 新闻开发完成&&精简代码 | [a3ef31c](https://github.com/JeremyYu-creator/vue3_test_demo/commit/a3ef31c)
  - | 新增登录页面及three.js的相关初步引入 | [28e54ca](https://github.com/JeremyYu-creator/vue3_test_demo/commit/28e54ca)
  - | 新增豆瓣电影功能,完善ts类型设置 | [ad0d275](https://github.com/JeremyYu-creator/vue3_test_demo/commit/ad0d275)
+ 新组件 | 瀑布流初探及新增播放器功能 | [d974f38](https://github.com/JeremyYu-creator/vue3_test_demo/commit/d974f38)
  - | 修改代码格式风格 | [45b9f87](https://github.com/JeremyYu-creator/vue3_test_demo/commit/45b9f87)
  - | 修改界面适配+readme | [3fa5bf8](https://github.com/JeremyYu-creator/vue3_test_demo/commit/3fa5bf8)
  - | 修改windows格式 | [fcf9784](https://github.com/JeremyYu-creator/vue3_test_demo/commit/fcf9784)

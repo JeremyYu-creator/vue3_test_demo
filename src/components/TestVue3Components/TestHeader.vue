@@ -14,7 +14,7 @@ const props = defineProps({
 onMounted(() => {
     console.log('初次加载')
 })
-const {increaseNum, decreaseNum, num } = useHookByMyself()
+const {increaseNum, decreaseNum, num } = await useHookByMyself()
 const emit = defineEmits(['sendMessage', 'updateValue'])
 // const sendMessage = () => {
 //     emit('sendMessage',1)

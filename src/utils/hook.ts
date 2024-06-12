@@ -1,6 +1,11 @@
 import { ref } from 'vue'
-const useHookByMyself = () => {
-    const num = ref(1)
+let num = ref(10)
+const test = async() => {
+   Promise.resolve(num.value++)
+}
+const useHookByMyself = async() => {
+    // const num = ref(1)
+    await test()
     const increaseNum = () => {
         num.value++
     }

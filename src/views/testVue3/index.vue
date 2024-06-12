@@ -42,31 +42,33 @@ functionTest()
 <template>
     <div>{{ $translate('greetings.hello') }}</div>
     <div>
-        <a-tabs v-model:activeKey="activeKey">
-            <a-tab-pane :key="item.name" :tab="item.name" v-for="item in tabHeaderArr">
-                <!-- <div>{{ item.name }}</div> -->
-                <!--v-model="passageValue"  组件间的需要是单个的-->
-                <keep-alive include="TestHeader,TestVue3AnotherHeader" :max="2">
-                    <Transition name="fade" mode="out-in">
-                        <!-- <TestHeader/> -->
-                        <component :is="item.value" :text-message="textMessage" @send-message="clickmessage" v-model="passageValue">
-                            <span>插槽测试{{ item.name }}</span>
-                            <template #anotherHeader>
-                                <span>特殊的anotherHeader插槽的grandSon插槽
-                                </span>
-                            </template>
-                            <slot name="otherHeader">
-                                <span>特殊的anotherHeader插槽的grandHeader插槽</span>
-                            </slot>
-                            <template #[slotName] message="hello world">
-                                <span>footer</span>
-                            </template>
-                        </component>
-                    </Transition>
-                </keep-alive>
-                <!-- <TestVue3AnotherHeader v-model="passageValue"/> -->
-            </a-tab-pane>
-        </a-tabs>
+        <Suspense>
+            <a-tabs v-model:activeKey="activeKey">
+                <a-tab-pane :key="item.name" :tab="item.name" v-for="item in tabHeaderArr">
+                    <!-- <div>{{ item.name }}</div> -->
+                    <!--v-model="passageValue"  组件间的需要是单个的-->
+                    <keep-alive include="TestHeader,TestVue3AnotherHeader" :max="2">
+                        <Transition name="fade" mode="out-in">
+                            <!-- <TestHeader/> -->
+                            <component :is="item.value" :text-message="textMessage" @send-message="clickmessage" v-model="passageValue">
+                                <span>插槽测试{{ item.name }}</span>
+                                <template #anotherHeader>
+                                    <span>特殊的anotherHeader插槽的grandSon插槽
+                                    </span>
+                                </template>
+                                <slot name="otherHeader">
+                                    <span>特殊的anotherHeader插槽的grandHeader插槽</span>
+                                </slot>
+                                <template #[slotName] message="hello world">
+                                    <span>footer</span>
+                                </template>
+                            </component>
+                        </Transition>
+                    </keep-alive>
+                    <!-- <TestVue3AnotherHeader v-model="passageValue"/> -->
+                </a-tab-pane>
+            </a-tabs>
+        </Suspense>
     </div>
     <!--<Transition name="fade" mode="out-in">
     <component :is="activeComponent"></component>

@@ -10,7 +10,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "suppressImplicitAnyIndexErrors":true,
     "types": ["vitest/globals"],
     "lib": [
       "ESNext",
